@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+
+coordination/config.js
+coordination-passwords.csv
+generated-passwords*
+password-slips*
+
+.DS_Store

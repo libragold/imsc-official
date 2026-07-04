@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IMSC 2026 Coordination</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./config.js"></script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="shell" id="shell">
+    <header class="topbar">
+      <div>
+        <h1>IMSC 2026 Coordination</h1>
+      </div>
+      <div class="user-menu" id="userMenu" hidden>
+        <button class="avatar-button" id="avatarButton" type="button" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="menu-popover" id="avatarMenu" hidden>
+          <button class="menu-item" id="changeAvatarButton" type="button">Change avatar</button>
+          <button class="menu-item" id="signOutButton" type="button">Sign out</button>
+        </div>
+      </div>
+    </header>
+
+    <section id="configWarning" class="notice danger" hidden>
+      Missing or incomplete <code>coordination/config.js</code>. Copy <code>coordination/config.example.js</code>, fill in your real Supabase URL and publishable key, and keep the real file out of Git.
+    </section>
+
+    <section id="loginView" class="panel auth-panel" hidden>
+      <form id="loginForm" class="stack">
+        <label>
+          <span>Coordinator</span>
+          <select id="coordinatorSelect" required></select>
+        </label>
+        <label>
+          <span>Password</span>
+          <input id="passwordInput" type="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit">Log in</button>
+      </form>
+    </section>
+
+    <section id="appView" class="board" hidden>
+      <section class="column">
+        <div class="column-header">
+          <div>
+            <h2>Claimed</h2>
+            <p>Papers waiting for initial score</p>
+          </div>
+          <span id="claimedCount" class="pill"></span>
+        </div>
+        <div class="pile-filters">
+          <label>
+            <span>Team</span>
+            <select id="claimedTeamFilter"></select>
+          </label>
+          <label>
+            <span>Problem</span>
+            <select id="claimedProblemFilter"></select>
+          </label>
+        </div>
+        <div id="claimedList" class="card-list"></div>
+        <button id="openClaimDialogButton" type="button">Claim a paper</button>
+      </section>
+
+      <section class="column">
+        <div class="column-header">
+          <div>
+            <h2>Graded</h2>
+            <p>Initial score entered, ready to coordinate</p>
+          </div>
+          <span id="gradedCount" class="pill"></span>
+        </div>
+        <div class="pile-filters">
+          <label>
+            <span>Team</span>
+            <select id="gradedTeamFilter"></select>
+          </label>
+          <label>
+            <span>Problem</span>
+            <select id="gradedProblemFilter"></select>
+          </label>
+        </div>
+        <div id="gradedList" class="card-list"></div>
+      </section>
+
+      <section class="column">
+        <div class="column-header">
+          <div>
+            <h2>Coordinated</h2>
+            <p>Agreed score signed by a team leader</p>
+          </div>
+          <span id="coordinatedCount" class="pill"></span>
+        </div>
+        <div class="pile-filters">
+          <label>
+            <span>Team</span>
+            <select id="coordinatedTeamFilter"></select>
+          </label>
+          <label>
+            <span>Problem</span>
+            <select id="coordinatedProblemFilter"></select>
+          </label>
+        </div>
+        <div id="coordinatedList" class="card-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="claimDialog" class="dialog wide-dialog">
+    <form method="dialog" class="dialog-shell">
+      <div class="dialog-header">
+        <div>
+          <h2>Claim a Paper</h2>
+          <p>Select an available paper to work on.</p>
+        </div>
+        <button class="icon-button" value="cancel" type="submit" aria-label="Close"></button>
+      </div>
+      <div class="filters">
+        <label>
+          <span>Team</span>
+          <select id="claimTeamFilter"></select>
+        </label>
+        <label>
+          <span>Problem</span>
+          <select id="claimProblemFilter">
+            <option value="1">P1</option>
+            <option value="2">P2</option>
+            <option value="3">P3</option>
+            <option value="4">P4</option>
+            <option value="5">P5</option>
+            <option value="6">P6</option>
+          </select>
+        </label>
+        <label>
+          <span>Status</span>
+          <select id="claimStatusFilter">
+            <option value="unclaimed">Unclaimed</option>
+            <option value="">All</option>
+          </select>
+        </label>
+      </div>
+      <div id="claimPaperList" class="paper-picker"></div>
+    </form>
+  </dialog>
+
+  <dialog id="initialScoreDialog" class="dialog narrow-dialog">
+    <form id="initialScoreForm" class="dialog-shell">
+      <div class="dialog-header">
+        <div>
+          <h2>Submit initial score</h2>
+          <p id="initialScorePaper"></p>
+        </div>
+        <button class="icon-button close-dialog" type="button" aria-label="Close"></button>
+      </div>
+      <label>
+        <span>Score</span>
+        <select name="score" required>
+          <option value=""></option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </label>
+      <p id="initialScoreMessage" class="message"></p>
+      <div class="confirm-actions">
+        <button class="ghost close-dialog" type="button">Cancel</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="agreedScoreDialog" class="dialog narrow-dialog">
+    <form id="agreedScoreForm" class="dialog-shell">
+      <div class="dialog-header">
+        <div>
+          <h2>Coordinate score</h2>
+          <p id="agreedScorePaper"></p>
+        </div>
+        <button class="icon-button close-dialog" type="button" aria-label="Close"></button>
+      </div>
+      <label>
+        <span>Score</span>
+        <select name="score" required>
+          <option value=""></option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </label>
+      <label>
+        <span>Team leader signature</span>
+        <input name="signature" type="text" autocomplete="off" required>
+      </label>
+      <p id="agreedScoreMessage" class="message"></p>
+      <div class="confirm-actions">
+        <button class="ghost close-dialog" type="button">Cancel</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="avatarDialog" class="dialog">
+    <form id="avatarForm" class="dialog-shell">
+      <div class="dialog-header">
+        <div>
+          <h2>Avatar</h2>
+          <p>Micah avatar seed</p>
+        </div>
+        <button class="icon-button close-dialog" type="button" aria-label="Close"></button>
+      </div>
+      <div class="avatar-preview-row">
+        <img id="avatarPreview" class="avatar-preview" alt="">
+        <button class="ghost" id="randomAvatarSeedButton" type="button">Random seed</button>
+      </div>
+      <label>
+        <span>Seed</span>
+        <input name="avatarSeed" id="avatarSeedInput" type="text" inputmode="latin" pattern="[a-z0-9]{1,32}" maxlength="32" required>
+      </label>
+      <a href="https://www.dicebear.com/playground/?style=micah" target="_blank" rel="noreferrer">Open DiceBear Micah playground</a>
+      <p id="avatarMessage" class="message"></p>
+      <button type="submit">Save avatar</button>
+    </form>
+  </dialog>
+
+  <dialog id="releaseConfirmDialog" class="dialog narrow-dialog">
+    <form id="releaseConfirmForm" class="dialog-shell">
+      <div class="dialog-header">
+        <div>
+          <h2 id="releaseConfirmTitle">Release claim?</h2>
+          <p id="releaseConfirmPaper">Are you sure?</p>
+        </div>
+        <button class="icon-button close-dialog" type="button" aria-label="Close"></button>
+      </div>
+      <p class="message" id="releaseConfirmMessage">This paper will become available for another coordinator to claim.</p>
+      <div class="confirm-actions">
+        <button class="ghost close-dialog" type="button">Cancel</button>
+        <button class="danger-button" id="releaseConfirmSubmit" type="submit">Release</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
