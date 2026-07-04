@@ -1,0 +1,1520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IMSC 2026 Schedule</title>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="4841af47-7ff4-40fd-9556-4e59482d4bcd"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fafafa;
+      --panel: #ffffff;
+      --ink: #181c1f;
+      --muted: #687076;
+      --line: #e4e6e8;
+      --line-strong: #cfd4d8;
+      --accent: #1f5f8b;
+      --accent-soft: #eaf2fb;
+      --red: #a34343;
+      --red-soft: #fbebeb;
+      --gold: #966217;
+      --gold-soft: #f8f0df;
+      --green: #476b3c;
+      --green-soft: #edf4e9;
+      --shadow: 0 12px 28px rgba(24, 28, 31, 0.06);
+      --radius: 8px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    button, select, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr;
+    }
+
+    main {
+      width: min(960px, 100%);
+      margin: 0 auto;
+      padding: 0 clamp(12px, 2.2vw, 24px) clamp(12px, 2.2vw, 24px);
+    }
+
+    select {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      padding: 0 10px;
+    }
+
+    .summary-strip {
+      display: block;
+      gap: 12px;
+      align-items: center;
+      background: rgba(250, 250, 250, 0.94);
+      border-bottom: 1px solid var(--line);
+      padding: 9px 0;
+      margin-bottom: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .summary-title {
+      margin: 0;
+      font-size: clamp(1rem, 1.8vw, 1.28rem);
+      line-height: 1.2;
+      font-weight: 760;
+    }
+
+    .schedule-title-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
+      align-items: center;
+      gap: 8px;
+    }
+
+    .schedule-heading {
+      white-space: nowrap;
+    }
+
+    .schedule-view-select {
+      width: 100%;
+      justify-self: end;
+      min-width: 0;
+    }
+
+    .content {
+      min-height: 500px;
+      min-width: 0;
+    }
+
+    .day-section {
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .day-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      background: #f5f6f7;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .day-header h2 {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 760;
+    }
+
+    .day-header span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 750;
+    }
+
+    .event-list {
+      display: grid;
+      gap: 8px;
+      padding: 10px;
+    }
+
+    .event-card {
+      --event-color: var(--accent);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 10px;
+      background: #fff;
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-card[data-audience="everyone"] { --event-color: #4b5563; border-left-color: var(--event-color); }
+    .event-card[data-audience="instructors-students"] { --event-color: #7c3aed; border-left-color: var(--event-color); }
+    .event-card[data-audience="instructors-leaders"] { --event-color: #b45309; border-left-color: var(--event-color); }
+    .event-card[data-audience="leaders-students"] { --event-color: #0f766e; border-left-color: var(--event-color); }
+    .event-card[data-audience="instructors"] { --event-color: #dc2626; border-left-color: var(--event-color); }
+    .event-card[data-audience="students"] { --event-color: #2563eb; border-left-color: var(--event-color); }
+
+    .event-card[data-status="past"] {
+      border-color: #e8eaec;
+      border-left-color: #c9ced3;
+      background: #f8f9fa;
+      box-shadow: none;
+    }
+
+    .event-card[data-status="past"] .time,
+    .event-card[data-status="past"] .event-title,
+    .event-card[data-status="past"] .event-meta,
+    .event-card[data-status="past"] .group-tile,
+    .event-card[data-status="past"] .group-tile strong,
+    .event-card[data-status="past"] .group-tile span {
+      color: #81888e;
+    }
+
+    .event-card[data-status="past"] .tag {
+      color: #777f86;
+      background: #eef0f1;
+    }
+
+    .event-card[data-status="current"] {
+      border-color: var(--line);
+      border-left-color: var(--event-color);
+      box-shadow: 0 12px 24px rgba(24, 28, 31, 0.08);
+    }
+
+    .event-progress {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: var(--progress);
+      height: 1px;
+      background: color-mix(in srgb, var(--event-color) 38%, transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .event-topline {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 9px;
+    }
+
+    .time {
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+      color: var(--ink);
+      white-space: nowrap;
+      line-height: 1.25;
+    }
+
+    .event-title {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--accent);
+      background: var(--accent-soft);
+      white-space: nowrap;
+    }
+
+    .tag.everyone { color: #374151; background: #eef0f3; }
+    .tag.instructors-students { color: #6d28d9; background: #f0e9ff; }
+    .tag.instructors-leaders { color: #92400e; background: #fef3c7; }
+    .tag.leaders-students { color: #0f766e; background: #ccfbf1; }
+    .tag.instructors { color: #b91c1c; background: #fee2e2; }
+    .tag.students { color: #1d4ed8; background: #dbeafe; }
+
+    .event-meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+      white-space: pre-line;
+    }
+
+    .mini-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 7px;
+      margin-top: 2px;
+    }
+
+    .group-tile {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 7px;
+      background: #fcfcfc;
+      min-width: 0;
+    }
+
+    .group-tile strong {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.79rem;
+      line-height: inherit;
+      font-weight: 750;
+    }
+
+    .group-tile span {
+      color: var(--muted);
+      font-size: 0.79rem;
+      overflow-wrap: anywhere;
+    }
+
+    .empty {
+      padding: 30px 18px;
+      text-align: center;
+      color: var(--muted);
+      background: #fff;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+    }
+
+    .timeline-toggle {
+      display: flex;
+      justify-content: flex-start;
+      margin: 0 0 12px;
+    }
+
+    .timeline-toggle button {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      padding: 0 12px;
+      font-size: 0.86rem;
+      font-weight: 750;
+    }
+
+    .timeline-toggle button:hover {
+      border-color: var(--line-strong);
+      background: #f5f6f7;
+    }
+
+    .completion-card {
+      padding: 24px 18px;
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .completion-card h2 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .completion-card p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 640px) {
+      html,
+      body {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      main {
+        width: 100%;
+        max-width: 100vw;
+        padding: 0 10px 10px;
+      }
+
+      .summary-strip {
+        gap: 8px;
+        padding: 8px 0;
+        max-width: 100%;
+      }
+
+      .schedule-title-row {
+        grid-template-columns: max-content minmax(0, 1fr);
+        gap: 7px;
+      }
+
+      .schedule-view-select {
+        grid-column: 2;
+      }
+
+      .event-topline {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0 8px;
+      }
+
+      .time {
+        grid-column: 1;
+        grid-row: 1;
+        font-size: 0.86rem;
+      }
+
+      .event-topline > div:nth-child(2) {
+        grid-column: 1 / 3;
+        grid-row: 2;
+      }
+
+      .event-title {
+        font-size: 0.92rem;
+      }
+
+      .tag {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+        width: max-content;
+        max-width: 42vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .group-tile {
+        display: block;
+      }
+    }
+
+    @media (max-width: 420px) {
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <main>
+      <section class="summary-strip" aria-live="polite">
+        <div>
+          <div class="summary-title schedule-title-row" aria-label="Schedule controls">
+            <span class="schedule-heading">IMSC 2026 Schedule</span>
+            <select class="schedule-view-select" id="scheduleViewSelect" aria-label="Schedule view"></select>
+          </div>
+        </div>
+      </section>
+
+      <section class="content" id="content" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "imsc2026.calendar.state.v1";
+    const GROUPS = {
+      G1: { teams: "Iran, Poland, Vietnam", homeroom: "Nikola Petrovic", location: "311" },
+      G2: { teams: "Bosnia & Herzegovina, Mongolia, International Union I", homeroom: "Vlad Matei", location: "303" },
+      G3: { teams: "Hong Kong China, Italy", homeroom: "Bojan Basic", location: "306" },
+      G4: { teams: "Serbia, Uzbekistan", homeroom: "Dinu Serbanescu", location: "211" },
+      G5: { teams: "Peru, Thailand", homeroom: "Cezar Lupu", location: "316" },
+      G6: { teams: "Lithuania, Mexico", homeroom: "Stijn Cambie", location: "318" },
+      G7: { teams: "Brazil, Malaysia", homeroom: "Wei Luo", location: "319" },
+      G8: { teams: "Kyrgyzstan, South Africa", homeroom: "Dusan Djukic", location: "201" },
+      G9: { teams: "Czechia, Ireland", homeroom: "Qiang Shen", location: "312" },
+      G10: { teams: "Estonia, Indonesia", homeroom: "Andrei Jorza", location: "203" },
+      G11: { teams: "North Macedonia, Turkmenistan, China Hubei Wuhan", homeroom: "Dorian Croitoru", location: "309" },
+      G12: { teams: "Bangladesh, Croatia", homeroom: "Alex Song / Sari Ghanem", location: "206" },
+      G13: { teams: "Cuba, Tajikistan", homeroom: "Andrei Bud", location: "307" },
+      G14: { teams: "Macau China, Moldova, International Union II", homeroom: "Zilin Jiang", location: "207" },
+      G15: { teams: "Albania, Honduras, Pakistan", homeroom: "Tudor Paisanu", location: "313" },
+      G16: { teams: "Costa Rica, Iceland, Nepal", homeroom: "Ivan Chan Kai Chin", location: "213" },
+      G17: { teams: "Montenegro, Myanmar, Uruguay", homeroom: "Cipriana Anghel-Stan", location: "321" },
+      G18: { teams: "Cameroon, Rwanda", homeroom: "Iulia Cristian", location: "216" },
+      G19: { teams: "Botswana, Uganda, Ghana", homeroom: "Anca Sfia", location: "217" }
+    };
+
+    const TEAM_ORDER = [
+      "Albania",
+      "Bangladesh",
+      "Bosnia & Herzegovina",
+      "Botswana",
+      "Brazil",
+      "Cameroon",
+      "China Hubei Wuhan",
+      "Costa Rica",
+      "Croatia",
+      "Cuba",
+      "Czechia",
+      "Estonia",
+      "Ghana",
+      "Honduras",
+      "Hong Kong China",
+      "Iceland",
+      "Indonesia",
+      "International Union I",
+      "International Union II",
+      "Iran",
+      "Ireland",
+      "Italy",
+      "Kyrgyzstan",
+      "Lithuania",
+      "Macau China",
+      "Malaysia",
+      "Mexico",
+      "Moldova",
+      "Mongolia",
+      "Montenegro",
+      "Myanmar",
+      "Nepal",
+      "North Macedonia",
+      "Pakistan",
+      "Peru",
+      "Poland",
+      "Rwanda",
+      "Serbia",
+      "South Africa",
+      "Tajikistan",
+      "Thailand",
+      "Turkmenistan",
+      "Uganda",
+      "Uruguay",
+      "Uzbekistan",
+      "Vietnam"
+    ];
+
+    const LECTURE_GROUP_TEAMS = {
+      G1: ["Iran", "Poland", "Vietnam"],
+      G2: ["Bosnia & Herzegovina", "Mongolia", "International Union I"],
+      G3: ["Hong Kong China", "Italy"],
+      G4: ["Serbia", "Uzbekistan"],
+      G5: ["Peru", "Thailand"],
+      G6: ["Lithuania", "Mexico"],
+      G7: ["Brazil", "Malaysia"],
+      G8: ["Kyrgyzstan", "South Africa"],
+      G9: ["Czechia", "Ireland"],
+      G10: ["Estonia", "Indonesia"],
+      G11: ["North Macedonia", "Turkmenistan", "China Hubei Wuhan"],
+      G12: ["Bangladesh", "Croatia"],
+      G13: ["Cuba", "Tajikistan"],
+      G14: ["Macau China", "Moldova", "International Union II"],
+      G15: ["Albania", "Honduras", "Pakistan"],
+      G16: ["Costa Rica", "Iceland", "Nepal"],
+      G17: ["Montenegro", "Myanmar", "Uruguay"],
+      G18: ["Cameroon", "Rwanda"],
+      G19: ["Botswana", "Uganda", "Ghana"]
+    };
+
+    const TEAM_TO_LECTURE_GROUP = Object.fromEntries(
+      Object.entries(LECTURE_GROUP_TEAMS).flatMap(([group, teams]) => teams.map(team => [team, group]))
+    );
+
+    const PHILOSOPHY_GROUPS = [
+      { session: "H1", teams: ["Iceland", "Vietnam", "Uganda", "Cuba", "Mongolia"], instructors: ["Iulia Cristian", "Dusan Djukic"], location: "Room 316" },
+      { session: "H2", teams: ["Italy", "Moldova", "Ghana", "Uruguay", "Turkmenistan"], instructors: ["Cipriana Anghel-Stan", "Zilin Jiang"], location: "Room 321" },
+      { session: "H3", teams: ["Croatia", "Thailand", "Rwanda", "Mexico", "Kyrgyzstan"], instructors: ["Andrei Bud", "Qiang Shen"], location: "Room 313" },
+      { session: "H4", teams: ["Poland", "Pakistan", "South Africa", "Peru", "Tajikistan"], instructors: ["Vlad Matei", "Bojan Basic"], location: "Room 309" },
+      { session: "H5", teams: ["Estonia", "Malaysia", "Cameroon", "Honduras", "Iran"], instructors: ["Stijn Cambie", "Andrei Jorza"], location: "Room 211" },
+      { session: "H6", teams: ["Albania", "Bangladesh", "Botswana", "Brazil", "International Union II"], instructors: ["Dinu Serbanescu", "Wei Luo"], location: "Room 318" },
+      { session: "H7", teams: ["Czechia", "Myanmar", "North Macedonia", "Costa Rica"], instructors: ["Tudor Paisanu", "Nikola Petrovic"], location: "Room 303" },
+      { session: "H8", teams: ["Montenegro", "Nepal", "Ireland", "Hong Kong China"], instructors: ["Cezar Lupu", "Alex Song"], location: "Room 306" },
+      { session: "H9", teams: ["Lithuania", "Serbia", "Macau China", "Indonesia"], instructors: ["Anca Sfia", "Sari Ghanem"], location: "Room 319" },
+      { session: "H10", teams: ["Bosnia & Herzegovina", "China Hubei Wuhan", "International Union I", "Uzbekistan"], instructors: ["Dorian Croitoru", "Ivan Chan Kai Chin"], location: "Room 307" }
+    ];
+
+    const TEAM_TO_PHILOSOPHY_GROUP = Object.fromEntries(
+      PHILOSOPHY_GROUPS.flatMap(group => group.teams.map(team => [team, group]))
+    );
+
+    const DAY_META = [
+      ["2026-06-22", "Monday", "Jun 22"],
+      ["2026-06-23", "Tuesday", "Jun 23"],
+      ["2026-06-24", "Wednesday", "Jun 24"],
+      ["2026-06-25", "Thursday", "Jun 25"],
+      ["2026-06-26", "Friday", "Jun 26"],
+      ["2026-06-27", "Saturday", "Jun 27"],
+      ["2026-06-28", "Sunday", "Jun 28"],
+      ["2026-06-29", "Monday", "Jun 29"],
+      ["2026-06-30", "Tuesday", "Jun 30"],
+      ["2026-07-01", "Wednesday", "Jul 1"],
+      ["2026-07-02", "Thursday", "Jul 2"],
+      ["2026-07-03", "Friday", "Jul 3"],
+      ["2026-07-04", "Saturday", "Jul 4"],
+      ["2026-07-05", "Sunday", "Jul 5"],
+      ["2026-07-06", "Monday", "Jul 6"],
+      ["2026-07-07", "Tuesday", "Jul 7"],
+      ["2026-07-08", "Wednesday", "Jul 8"],
+      ["2026-07-09", "Thursday", "Jul 9"],
+      ["2026-07-10", "Friday", "Jul 10"],
+      ["2026-07-11", "Saturday", "Jul 11"]
+    ].map(([date, weekday, short]) => ({ date, weekday, short }));
+
+    const WEEK_ONE_DATES = DAY_META.slice(0, 5).map(day => day.date);
+    const WEEK_TWO_DATES = DAY_META.slice(7, 11).map(day => day.date);
+    const GROUP_ORDER = Object.keys(GROUPS);
+
+    const SESSION_DATA = [
+      {
+        session: "Session 1",
+        start: "09:00",
+        end: "10:30",
+        entries: {
+          G1: ["Algebra 1-Andrei Bud", "Combinatorics 2-Bojan Basic", "Algebra 2-Qiang Shen", "Number Theory 3-Vlad Matei", "Geometry 1-Qiang Shen"],
+          G2: ["Algebra 1-Andrei Jorza", "Combinatorics 3-Nikola Petrovic", "Number Theory 1-Tudor Paisanu", "Combinatorics 2-Bojan Basic", "Algebra 2-Andrei Jorza"],
+          G3: ["Geometry 3-Cipriana Anghel", "Algebra 1-Vlad Matei", "Combinatorics 1-Andrei Bud", "Algebra 2-Qiang Shen", "Number Theory 2-Cezar Lupu"],
+          G4: ["Algebra 1-Iulia Cristian", "Algebra 1-Andrei Jorza", "Geometry 3-Cipriana Anghel", "Number Theory 1-Tudor Paisanu", "Algebra 1-Tudor Paisanu"],
+          G5: ["Algebra 1-Vlad Matei", "Algebra 1-Iulia Cristian", "Geometry 3-Dinu Serbanescu", "Number Theory 2-Andrei Jorza", "Combinatorics 1-Dorian Croitoru"],
+          G6: ["Number Theory 2-Tudor Paisanu", "Geometry 1-Ivan Chan", "Number Theory 1-Iulia Cristian", "Combinatorics 1-Atli Fannar Franklin", "Geometry 1-Eric Ransom"],
+          G7: ["Algebra 1-Wei Luo", "Algebra 1-Qiang Shen", "Number Theory 1-Andrei Jorza", "Geometry 3-Dinu Serbanescu", "Algebra 2-Iulia Cristian"],
+          G8: ["Combinatorics 1-Alex Song", "Number Theory 2-Tudor Paisanu", "Number Theory 1-Vlad Matei", "Geometry 1-Dorian Croitoru", "Algebra 1-Vu Hong Son"],
+          G9: ["Algebra 1-Qiang Shen", "Algebra 1-Andrei Bud", "Number Theory 1-Gia Vuong Chu", "Number Theory 1-Wei Luo", "Combinatorics 1-Wei Luo"],
+          G10: ["Geometry 1-Ivan Chan", "Number Theory 1-Anca Sfia", "Algebra 1-Cezar Lupu", "Number Theory 1-Iulia Cristian", "Number Theory 1-Dainius Dzindzalieta"],
+          G11: ["Number Theory 1-Anca Sfia", "Number Theory 1-Stijn Cambie", "Algebra 1-Zilin Jiang", "Algebra 1-Cezar Lupu", "Geometry 3-Cipriana Anghel"],
+          G12: ["Geometry 1-Dinu Serbanescu", "Algebra 1-Wei Luo", "Number Theory 1-Wei Luo", "Combinatorics 1-Andrei Bud", "Combinatorics 1-Ivan Chan"],
+          G13: ["Combinatorics 1-Nikola Petrovic", "Number Theory 1-Cezar Lupu", "Algebra 1-Anca Sfia", "Combinatorics 1-Hein Thant Aung", "Geometry 1-Andrei Bud"],
+          G14: ["Number Theory 1-Cezar Lupu", "Geometry 2-Cipriana Anghel", "Combinatorics 1-Alex Song", "Algebra 1-Ivan Chan", "Algebra 1-Dusan Djukic"],
+          G15: ["Combinatorics 3-Bojan Basic", "Algebra 1-Dusan Djukic", "Geometry 2-Dorian Croitoru", "Geometry 3-Cipriana Anghel", "Number Theory 1-Zilin Jiang"],
+          G16: ["Algebra 1-Dusan Djukic", "Geometry 1-Dinu Serbanescu", "Geometry 2-Ivan Chan", "Number Theory 1-Adeel Farooq", "Combinatorics 1-Victor Dominguez"],
+          G17: ["Number Theory 2-Stijn Cambie", "Geometry 1-Alex Song", "Algebra 1-Dusan Djukic", "Combinatorics 1-Zilin Jiang", "Combinatorics 1-Nikola Petrovic"],
+          G18: ["Geometry 2-Dorian Croitoru", "Number Theory 1-Zilin Jiang", "Algebra 1-Adeel Farooq", "Geometry 1-Tamas Babelis", "Algebra 1-Oleg Kosik"],
+          G19: ["Combinatorics 1-Zilin Jiang", "Geometry 2-Dorian Croitoru", "Number Theory 2-Stijn Cambie", "Algebra 1-Anca Sfia", "Algebra 1-Valeriu Gutu"]
+        }
+      },
+      {
+        session: "Session 2",
+        start: "10:45",
+        end: "12:15",
+        entries: {
+          G1: ["Algebra 1-Andrei Jorza", "Combinatorics 2-Zilin Jiang", "Combinatorics 3-Nikola Petrovic", "Number Theory 1-Tudor Paisanu", "Number Theory 2-Cezar Lupu"],
+          G2: ["Algebra 1-Andrei Bud", "Algebra 1-Qiang Shen", "Geometry 1-Qiang Shen", "Number Theory 1-Gia Vuong Chu", "Combinatorics 2-Zilin Jiang"],
+          G3: ["Algebra 1-Iulia Cristian", "Geometry 1-Dorian Croitoru", "Number Theory 1-Tudor Paisanu", "Number Theory 3-Vlad Matei", "Combinatorics 1-Dorian Croitoru"],
+          G4: ["Combinatorics 1-Dorian Croitoru", "Number Theory 2-Tudor Paisanu", "Number Theory 1-Andrei Jorza", "Algebra 2-Qiang Shen", "Number Theory 3-Vlad Matei"],
+          G5: ["Number Theory 2-Tudor Paisanu", "Number Theory 1-Andrei Jorza", "Combinatorics-Atli Fannar Franklin", "Algebra 1-Cezar Lupu", "Geometry 1-Nikola Petrovic"],
+          G6: ["Algebra 1-Vlad Matei", "Combinatorics 2-Bojan Basic", "Algebra 1-Cezar Lupu", "Geometry 3-Dinu Serbanescu", "Algebra 2-Qiang Shen"],
+          G7: ["Combinatorics 1-Bojan Basic", "Geometry 1-Nikola Petrovic", "Number Theory 1-Iulia Cristian", "Number Theory 1-Wei Luo", "Combinatorics 1-Dusan Djukic"],
+          G8: ["Algebra 1-Wei Luo", "Algebra 1-Iulia Cristian", "Combinatorics 1-Dusan Djukic", "Number Theory 2-Andrei Jorza", "Geometry 3-Dinu Serbanescu"],
+          G9: ["Geometry 1-Ivan Chan", "Number Theory 1-Vlad Matei", "Algebra 1-Vu Hong Son", "Combinatorics 1-Andrei Bud", "Algebra 1-Tudor Paisanu"],
+          G10: ["Combinatorics 1-Dusan Djukic", "Algebra 1-Andrei Bud", "Number Theory 2-Vlad Matei", "Algebra 1-Lukas Novak", "Combinatorics 1-Wei Luo"],
+          G11: ["Combinatorics 1-Nikola Petrovic", "Algebra 1-Wei Luo", "Combinatorics 1-Andrei Bud", "Number Theory 1-Iulia Cristian", "Number Theory 2-Andrei Jorza"],
+          G12: ["Geometry 1-Alex Song", "Number Theory 1-Cezar Lupu", "Number Theory 1-Stijn Cambie", "Algebra 1-Ivan Chan", "Algebra 2-Iulia Cristian"],
+          G13: ["Geometry 1-Dinu Serbanescu", "Number Theory 1-Anca Sfia", "Geometry 2-Dorian Croitoru", "Geometry 1-Cipriana Anghel", "Algebra 1-Ivan Chan"],
+          G14: ["Number Theory 1-Anca Sfia", "Geometry 1-Dinu Serbanescu", "Number Theory 1-Wei Luo", "Combinatorics 1-Dorian Croitoru", "Combinatorics 1-Hein Thant Aung"],
+          G15: ["Number Theory 1-Cezar Lupu", "Geometry 2-Ivan Chan", "Algebra 1-Zilin Jiang", "Algebra 1-Anca Sfia", "Combinatorics 1-Hani Shaker"],
+          G16: ["Number Theory 2-Stijn Cambie", "Geometry 1-Alex Song", "Algebra 1-Anca Sfia", "Combinatorics 1-Zilin Jiang", "Geometry 1-Andrei Bud"],
+          G17: ["Number Theory 1-Zilin Jiang", "Geometry 2-Cipriana Anghel", "Geometry 2-Ivan Chan", "Number Theory 1-Adeel Farooq", "Algebra 1-Oleg Kosik"],
+          G18: ["Algebra 1-Qiang Shen", "Number Theory 2-Stijn Cambie", "Geometry 2-Cipriana Anghel", "Algebra 1-Alejandro Campos", "Combinatorics 1-Alex Song"],
+          G19: ["Geometry 2-Cipriana Anghel", "Combinatorics 1-Dusan Djukic", "Algebra 1-Alejandro Campos", "Algebra 1-Claudio Espinosa", "Geometry 1-Cipriana Anghel"]
+        }
+      }
+    ];
+
+    const WEEK_TWO_SESSION_DATA = [
+      {
+        session: "Session 1",
+        start: "09:00",
+        end: "10:30",
+        entries: {
+          G1: ["Geometry 1-Luca Sartori", "Combinatorics 2-Attli Fannar Franklin", "Geometry 1-Teodor von Burg", "Number Theory 1-Dusan Djukic"],
+          G2: ["Number Theory 2-Cezar Lupu", "Geometry 1-Eric Ransom", "Combinatorics 2-Attli Fannar Franklin", "Algebra 1-Daria Pasqqualetti"],
+          G3: ["Combinatorics 1-Stijn Cambie", "Geometry 1-Qiang Shen", "Number Theory 2-Zdenek Pezlar", "Algebra 1-Nursoltan Khvalbolot"],
+          G4: ["Combinatorics 3-Nikola Petrovic", "Number Theory 1-Stijn Cambie", "Geometry 1-Dorian Croitoru", "Algebra 1-Arvis Iveel"],
+          G5: ["Algebra 1-Kritesh Dhakal", "Number Theory 2-Cezar Lupu", "Geometry 2-Eric Ransom", "Number Theory 1-Uuye Otgonbayar"],
+          G6: ["Algebra 1-Tudor Paisanu", "Number Theory 1-Dusan Djukic", "Algebra 2-Andrei Jorza", "Combinatorics 1-Anca Sfia"],
+          G7: ["Algebra 1-Zilin Jiang", "Combinatorics 1-Anca Sfia", "Number Theory 1-Dainius Dzindzaleta", "Geometry 2-Eric Ransom"],
+          G8: ["Algebra 1-Ahmad Sarfraz", "Combinatorics 1-Tony Wang", "Geometry 1-Tianyiwa Xie", "Geometry 1-Nikola Petrovic"],
+          G9: ["Algebra 1-Miljan Knezevic", "Combinatorics 1-Ahmad Sarfraz", "Geometry 2-Dinu Serbanescu", "Number Theory 2-Vlad Matei"],
+          G10: ["Algebra 1-Massimo Gasparini", "Combinatorics 1-Hani Shaker", "Geometry 1-Alejandro Campos", "Number Theory 1-Loard Bejko"],
+          G11: ["Combinatorics 1-Borna Vukorepa", "Algebra 1-Zdenek Pezlar", "Number Theory 1-Bojan Basic", "Geometry 1-Dorian Croitoru"],
+          G12: ["Geometry 1-Sari Ghanem", "Algebra 1-Kritesh Dhakal", "Number Theory 2-Vlad Matei", "Geometry 1-Andrei Bud"],
+          G13: ["Algebra 1-Daria Pasqqualetti", "Number Theory 1-Bojan Basic", "Geometry 1-Kyaw Shin Thant", "Combinatorics 3-Bojan Basic"],
+          G14: ["Number Theory 1-Bojan Basic", "Geometry 1-Andrei Bud", "Combinatorics 1-Erind Bedalli", "Geometry 1-Hani Shaker"],
+          G15: ["Geometry 1-Cipriana Anghel", "Algebra 1-Miljan Knezevic", "Number Theory 1-Dusan Djukic", "Combinatorics 1-Ivan Chan"],
+          G16: ["Combinatorics 1-Wei Luo", "Algebra 1-Daria Pasqqualetti", "Geometry 1-Cipriana Anghel", "Number Theory 1-Dainius Dzindzaleta"],
+          G17: ["Algebra 1-Valeriu Gutu", "Algebra 1-Claudio Espinosa", "Geometry 1-Sari Ghanem", "Combinatorics 1-Oleg Kosik"],
+          G18: ["Algebra 2-Iulia Cristian", "Combinatorics 1-Nikola Petrovic", "Combinatorics 1-Francisco Gonzalez", "Geometry 2-Sari Ghanem"],
+          G19: ["Algebra 1-Oleg Kosik", "Combinatorics 1-Francisco Gonzalez", "Geometry 1-Tamas Babelis", "Number Theory 1-David Masis Flores"]
+        }
+      },
+      {
+        session: "Session 2",
+        start: "10:45",
+        end: "12:15",
+        entries: {
+          G1: ["Algebra 2-Andrei Jorza", "Algebra 1-Nursoltan Khvalbolot", "Geometry 2-Eric Ransom", "Combinatorics 1-Bojan Basic"],
+          G2: ["Algebra 2-Miljan Knezevic", "Combinatorics 1-Anca Sfia", "Geometry 1-Teodor von Burg", "Number Theory 1-Dusan Djukic"],
+          G3: ["Geometry 1-Catalin Botezat", "Combinatorics 1-Bojan Basic", "Geometry 1-Luca Sartori", "Number Theory 1-Cezar Lupu"],
+          G4: ["Number Theory 2-Cezar Lupu", "Combinatorics 2-Zilin Jiang", "Geometry 1-Nikola Petrovic", "Geometry 2-Teodor von Burg"],
+          G5: ["Combinatorics 1-Stijn Cambie", "Algebra 1-Tudor Paisanu", "Number Theory 1-Stijn Cambie", "Combinatorics 1-Anca Sfia"],
+          G6: ["Geometry 2-Teodor von Burg", "Combinatorics 1-Stijn Cambie", "Algebra 2-Miljan Knezevic", "Number Theory 1-Zdenek Pezlar"],
+          G7: ["Algebra 1-Nursoltan Khvalbolot", "Combinatorics 3-Nikola Petrovic", "Geometry 1-Catalin Botezat", "Number Theory 1-Vlad Matei"],
+          G8: ["Algebra 1-Vlad Matei", "Combinatorics 1-Ahmad Sarfraz", "Algebra 1-Andrija Zivadinivic", "Geometry 1-Qiang Shen"],
+          G9: ["Algebra 1-Ahmad Sarfraz", "Combinatorics 1-Oleg Kosik", "Number Theory 2-Zdenek Pezlar", "Geometry 1-Tumurkhan Bazar"],
+          G10: ["Algebra 1-Lukas Novak", "Geometry 2-Dinu Serbanescu", "Algebra 1-Apurbo Kumar", "Combinatorics 1-Prajit Raj Adhikari"],
+          G11: ["Algebra 2-Iulia Cristian", "Combinatorics 1-Apurbo Kumar", "Geometry 2-Dinu Serbanescu", "Number Theory 2-Dainius Dzindzaleta"],
+          G12: ["Algebra 1-Prajit Raj Adhikari", "Combinatorics 1-Victor Dominguez", "Geometry 1-Kyaw Shin Thant", "Number Theory 1-Uuye Otgonbayar"],
+          G13: ["Geometry 1-Sari Ghanem", "Combinatorics 1-Tony Wang", "Number Theory 2-Dainius Dzindzaleta", "Algebra 1-Arvis Iveel"],
+          G14: ["Geometry 2-Dinu Serbanescu", "Number Theory 2-Vlad Matei", "Geometry 2-Sari Ghanem", "Combinatorics 1-Ivan Chan"],
+          G15: ["Algebra 1-Massimo Gasparini", "Combinatorics 1-Wei Luo", "Algebra 1-Prajit Raj Adhikari", "Combinatorics 1-Stijn Cambie"],
+          G16: ["Number Theory 2-Dainius Dzindzaleta", "Geometry 1-Alejandro Campos", "Geometry 1-Tianyiwa Xie", "Algebra 1-Apurbo Kumar"],
+          G17: ["Combinatorics 3-Bojan Basic", "Algebra 1-Andrija Zivadinivic", "Number Theory 1-Loard Bejko", "Geometry 1-Hani Shaker"],
+          G18: ["Algebra 1-Arvis Iveel", "Combinatorics 1-Prajit Raj Adhikari", "Geometry 1-Tumurkhan Bazar", "Number Theory 1-David Masis Flores"],
+          G19: ["Algebra 1-Alejandro Campos", "Number Theory 1-Adeel Farooq", "Combinatorics 1-Erind Bedalli", "Geometry 2-Sari Ghanem"]
+        }
+      }
+    ];
+
+    const LARGE_EVENTS = [
+      { date: "2026-06-22", start: "14:30", end: "16:00", kind: "showcase", type: "IMO Showcase", session: "IMO Showcase 1", speakers: ["Andrei Jorza", "Andrei Bud", "Cezar Lupu"], title: "Problem 6, IMO 2001; Problem 6, IMO 2002; Problem 2, IMO 2012" },
+      { date: "2026-06-22", start: "16:00", end: "17:30", kind: "showcase", type: "IMO Showcase", session: "IMO Showcase 2", speakers: ["Bojan Basic", "Alex Song", "Wei Luo"], title: "Problem 3, IMO 2017; Problem 3, IMO 2022; Problem 6, IMO 2020" },
+      { date: "2026-06-22", start: "19:10", end: "20:00", kind: "seminar", type: "Seminar", session: "Seminar 1", speakers: ["Cezar Lupu"], title: "An elementary problem equivalent to the Riemann Hypothesis" },
+      { date: "2026-06-23", start: "19:10", end: "20:00", kind: "guest", type: "Distinguished Lecture", session: "Distinguished Lecture 1", speakers: ["Yuval Peres"], title: "Random-Turn Games", location: "Grand Ballroom" },
+      { date: "2026-06-24", start: "13:30", end: "14:30", kind: "seminar", type: "Seminar", session: "Seminar 2", speakers: ["Andrei Bud"], title: "Where do we use mathematics, or how mathematics shapes the modern world?" },
+      { date: "2026-06-24", start: "14:30", end: "15:30", kind: "seminar", type: "Seminar", session: "Seminar 3", speakers: ["Bojan Basic"], title: "The art of failing to tessellate: An introduction to Heesch's problem" },
+      { date: "2026-06-24", start: "15:45", end: "17:15", kind: "showcase", type: "IMO Showcase", session: "IMO Showcase 3", speakers: ["Stijn Cambie", "Nikola Petrovic", "Dusan Djukic"], title: "Problem 2, IMO 2020; Problem 6, IMO 2022; Problem 6, IMO 2017" },
+      { date: "2026-06-24", start: "19:10", end: "20:00", kind: "seminar", type: "Seminar", session: "Seminar 4", speakers: ["Zilin Jiang"], title: "Finding Linear Algebra in the Wrong Places" },
+      { date: "2026-06-25", start: "19:10", end: "20:00", kind: "seminar", type: "Seminar", session: "Seminar 5", speakers: ["Tudor Paisanu"], title: "A combinatorial construction of the fundamental group of a graph" },
+      { date: "2026-06-26", start: "15:45", end: "17:15", kind: "showcase", type: "IMO Showcase", session: "IMO Showcase 4", speakers: ["Anca Sfia", "Tudor Paisanu", "Qiang Shen"], title: "Problem 5, IMO 2024; Problem 6, IMO 2003; Problem 6, IMO 2004" },
+      { date: "2026-07-09", start: "19:10", end: "20:00", kind: "guest", type: "Distinguished Lecture", session: "Distinguished Lecture 3", speakers: ["Zhengwei Liu"], title: "TBD", location: "Grand Ballroom" },
+      { date: "2026-06-30", start: "16:00", end: "17:30", kind: "showcase", type: "IMO Showcase", session: "IMO Showcase 5", speakers: ["Zilin Jiang", "Ivan Chan Kai Chin", "Dorian Croitoru"], title: "Problem 3, IMO 2012; Problem 3, IMO 2023; Problem 3, IMO 2003" },
+      { date: "2026-06-30", start: "19:10", end: "20:00", kind: "seminar", type: "Seminar", session: "Seminar 7", speakers: ["Iulia Cristian"], title: "Blood coagulation, gel formation, and rain models: What do they have in common?" },
+      { date: "2026-07-01", start: "19:10", end: "20:00", kind: "seminar", type: "Seminar", session: "Seminar 8", speakers: ["Cipriana Anghel-Stan"], title: "Magic identities in hyperbolic geometry" },
+      { date: "2026-07-06", start: "19:10", end: "20:00", kind: "seminar", type: "Seminar", session: "Seminar 9", speakers: ["Andrei Jorza"], title: "Simulating randomness on a computer" },
+      { date: "2026-07-07", start: "19:10", end: "20:00", kind: "guest", type: "Distinguished Lecture", session: "Distinguished Lecture 2", speakers: ["Vladimir Markovic"], title: "TBD", location: "Grand Ballroom" },
+      { date: "2026-07-08", start: "19:10", end: "20:00", kind: "seminar", type: "Seminar", session: "Seminar 10", speakers: ["Stijn Cambie"], title: "Resolution of 2 problems by Erdos et al. from the graph theory collection" },
+      { date: "2026-06-29", start: "19:10", end: "20:00", kind: "seminar", type: "Seminar", session: "Seminar 6", speakers: ["Nikola Petrovic"], title: "Six ways to solve a problem" }
+    ];
+
+    const CAMP_EVENTS = [
+      { date: "2026-06-22", start: "13:30", end: "14:30", kind: "ceremony", type: "Ceremony", session: "Welcome Session", title: "", location: "Grand Ballroom" },
+      { date: "2026-06-23", start: "15:00", end: "17:00", kind: "ceremony", type: "Ceremony", session: "Opening Ceremony", title: "", location: "Grand Ballroom" },
+      { date: "2026-06-23", start: "20:00", end: "22:00", kind: "meeting", type: "Meeting", session: "Instructors and Team Leaders Meeting", title: "", location: "Grand Ballroom" },
+      { date: "2026-07-10", start: "16:30", end: "20:00", kind: "ceremony", type: "Ceremony", session: "Award Ceremony and Banquet", title: "", location: "Grand Ballroom" }
+    ];
+
+    const EXCURSION_EVENTS = [
+      { date: "2026-06-28", start: "09:00", end: "15:45", kind: "excursion", type: "Excursion", session: "Excursion", title: "Mutianyu Great Wall" },
+      { date: "2026-07-03", start: "09:00", end: "15:45", kind: "excursion", type: "Excursion", session: "Excursion", title: "Temple of Heaven" },
+      { date: "2026-07-06", start: "09:00", end: "15:00", kind: "excursion", type: "Excursion", session: "Excursion", title: "Yanqi Lake West Mountain Trail and BIMSA" }
+    ];
+
+    const STAFF_EVENTS = [
+      { date: "2026-07-02", start: "09:00", end: "12:00", kind: "staff", type: "Jury Meeting", session: "Jury Meeting", title: "", location: "Room 106", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-02", start: "13:30", end: "18:00", kind: "staff", type: "Jury Meeting", session: "Jury Meeting", title: "", location: "Room 106", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-02", start: "19:00", end: "23:00", kind: "staff", type: "Jury Meeting", session: "Jury Meeting", title: "", location: "Room 106", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-03", start: "09:00", end: "12:00", kind: "staff", type: "Jury Meeting", session: "Jury Meeting", title: "", location: "Room 106", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-03", start: "13:30", end: "18:00", kind: "staff", type: "Jury Meeting", session: "Jury Meeting", title: "", location: "Room 106", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-03", start: "19:00", end: "23:00", kind: "staff", type: "Jury Meeting", session: "Jury Meeting", title: "", location: "Room 106", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-04", start: "09:00", end: "12:00", kind: "staff", type: "Jury Meeting", session: "Jury Meeting", title: "", location: "Room 106", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-04", start: "13:30", end: "18:00", kind: "staff", type: "Jury Meeting", session: "Jury Meeting", title: "", location: "Room 106", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-05", start: "19:00", end: "21:00", kind: "staff", type: "Coordinators Meeting", session: "Coordinators Meeting", title: "", location: "Room 106", staffOnly: true },
+      { date: "2026-07-06", start: "09:00", end: "12:00", kind: "staff", type: "Coordination", session: "Coordination Day 1", title: "", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-06", start: "13:30", end: "18:00", kind: "staff", type: "Coordination", session: "Coordination Day 1", title: "", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-07", start: "09:00", end: "12:00", kind: "staff", type: "Coordination", session: "Coordination Day 2", title: "", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-07", start: "13:30", end: "18:00", kind: "staff", type: "Coordination", session: "Coordination Day 2", title: "", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-08", start: "09:00", end: "12:00", kind: "staff", type: "Coordination", session: "Coordination Day 3", title: "", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-08", start: "13:30", end: "18:00", kind: "staff", type: "Coordination", session: "Coordination Day 3", title: "", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-09", start: "09:00", end: "12:00", kind: "staff", type: "Coordination", session: "Coordination Day 4", title: "", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-09", start: "13:30", end: "18:00", kind: "staff", type: "Coordination", session: "Coordination Day 4", title: "", staffOnly: true, audience: "instructors-leaders" },
+      { date: "2026-07-09", start: "21:00", end: "22:30", kind: "staff", type: "Jury Meeting", session: "Final Jury Meeting", title: "", location: "Grand Ballroom", staffOnly: true, audience: "instructors-leaders" }
+    ];
+
+    const TEST_EVENTS = [
+      { date: "2026-06-25", start: "13:30", end: "18:00", kind: "test", type: "Mock Test", session: "Mock Test 1", title: "Algebra" },
+      { date: "2026-06-26", start: "13:30", end: "15:00", kind: "problem", type: "Problem Session", session: "Problem Session 1", title: "Mock Test 1 Discussion" },
+      { date: "2026-06-27", start: "09:30", end: "14:00", kind: "test", type: "Mock Test", session: "Mock Test 2", title: "Combinatorics" },
+      { date: "2026-06-27", start: "15:30", end: "17:00", kind: "problem", type: "Problem Session", session: "Problem Session 2", title: "Mock Test 2 Discussion" },
+      { date: "2026-06-29", start: "13:30", end: "18:00", kind: "test", type: "Mock Test", session: "Mock Test 3", title: "Geometry" },
+      { date: "2026-06-30", start: "13:30", end: "15:00", kind: "problem", type: "Problem Session", session: "Problem Session 3", title: "Mock Test 3 Discussion" },
+      { date: "2026-07-01", start: "13:30", end: "18:00", kind: "test", type: "Mock Test", session: "Mock Test 4", title: "Number Theory" },
+      { date: "2026-07-02", start: "13:30", end: "15:00", kind: "problem", type: "Problem Session", session: "Problem Session 4", title: "Mock Test 4 Discussion" },
+      { date: "2026-07-04", start: "09:30", end: "14:00", kind: "competition", type: "Competition", session: "IMSC 2026 Competition Day 1", title: "Entrance opens at 9:00", location: "Grand Ballroom" },
+      { date: "2026-07-05", start: "09:30", end: "14:00", kind: "competition", type: "Competition", session: "IMSC 2026 Competition Day 2", title: "Entrance opens at 9:00", location: "Grand Ballroom" }
+    ];
+
+    const LECTURE_FULL_TITLES = {
+      "Adeel Farooq|Algebra 1": "Burnside's lemma and Polya's enumeration theorem",
+      "Adeel Farooq|Number Theory 1": "Divisibility theory",
+      "Ahmad Sarfraz|Algebra 1": "Functions and functional equations",
+      "Ahmad Sarfraz|Combinatorics 1": "Partitions and Configurations",
+      "Alejandro Campos|Algebra 1": "Philosophy of inequalities",
+      "Alejandro Campos|Geometry 1": "Similarity in transformations",
+      "Alex Song|Combinatorics 1": "Combinatorial geometry",
+      "Alex Song|Geometry 1": "Geometry duality",
+      "Anca Sfia|Algebra 1": "Inequalities with series",
+      "Anca Sfia|Combinatorics 1": "Sperner's lemma",
+      "Anca Sfia|Number Theory 1": "Construction problems",
+      "Andrei Bud|Algebra 1": "Square roots and logarithms in Olympiad Problems",
+      "Andrei Bud|Combinatorics 1": "Square partition problems",
+      "Andrei Bud|Geometry 1": "Harmonic division and pole-polar transformations",
+      "Andrei Jorza|Algebra 1": "Fourier transforms",
+      "Andrei Jorza|Algebra 2": "Algebraic geometry intro",
+      "Andrei Jorza|Number Theory 1": "p-adic methods",
+      "Andrei Jorza|Number Theory 2": "Prime selection methods",
+      "Andrija Zivadinivic|Algebra 1": "Polynomials-IMO type problems",
+      "Apurbo Kumar|Algebra 1": "Polynomials",
+      "Apurbo Kumar|Combinatorics 1": "The Art of Connections: An Introduction to Graph Theory",
+      "Arvis Iveel|Algebra 1": "Functional equations on R+",
+      "Attli Fannar Franklin|Combinatorics": "Algorithmic solutions in combinatorics",
+      "Attli Fannar Franklin|Combinatorics 1": "Algorithmic solutions in combinatorics",
+      "Attli Fannar Franklin|Combinatorics 2": "The probabilistic method",
+      "Bojan Basic|Combinatorics 1": "Prison courtyard",
+      "Bojan Basic|Combinatorics 2": "Generating functions applications",
+      "Bojan Basic|Combinatorics 3": "Board combinatorics",
+      "Bojan Basic|Number Theory 1": "Number Theory via clever ideas",
+      "Borna Vukorepa|Combinatorics 1": "Combinatorial problems with unexpected answers",
+      "Catalin Botezat|Geometry 1": "Power of a point and homothety",
+      "Cezar Lupu|Algebra 1": "Romanian olympiad (algebra) gems",
+      "Cezar Lupu|Number Theory 1": "Algebraic integers and applications",
+      "Cezar Lupu|Number Theory 2": "Advanced analytic methods in number theory",
+      "Cipriana Anghel-Stan|Geometry 1": "Ceva and Menelaus theorems",
+      "Cipriana Anghel-Stan|Geometry 2": "Inversion",
+      "Cipriana Anghel-Stan|Geometry 3": "Mixtilinear circles",
+      "Claudio Espinosa|Algebra 1": "Some Problems on Mixing Variables",
+      "Dainius Dzindzaleta|Number Theory 1": "Inverses mod n.",
+      "Dainius Dzindzaleta|Number Theory 2": "Gaussian primes",
+      "Daria Pasqqualetti|Algebra 1": "Analysis in olympiad problems",
+      "David Masis Flores|Number Theory 1": "Pell equation",
+      "Dinu Serbanescu|Geometry 1": "Trigonometric geometry",
+      "Dinu Serbanescu|Geometry 2": "Configurations in geometry",
+      "Dinu Serbanescu|Geometry 3": "Incircle/circumcircle",
+      "Dorian Croitoru|Combinatorics 1": "Algebraic combinatorics",
+      "Dorian Croitoru|Geometry 1": "Projective transformations",
+      "Dorian Croitoru|Geometry 2": "Triangle geometry points",
+      "Dusan Djukic|Algebra 1": "Multivariate polynomials",
+      "Dusan Djukic|Combinatorics 1": "Graph problems",
+      "Dusan Djukic|Number Theory 1": "Polynomial arithmetic",
+      "Erind Bedalli|Combinatorics 1": "Algorithmic Approaches in Combinatorial Problems",
+      "Eric Ransom|Geometry 1": "Moving points-Method of Polynomials",
+      "Eric Ransom|Geometry 2": "Affine transformations-preservation of parallel lines, ratios and baricenters",
+      "Francisco Gonzalez|Combinatorics 1": "Finding the Pattern",
+      "Gia Vuong Chu|Number Theory 1": "Arithmetic of binomial coefficients",
+      "Hani Shaker|Combinatorics 1": "Combinatorial Geometry",
+      "Hani Shaker|Geometry 1": "Geometric Transformations",
+      "Hein Thant Aung|Combinatorics 1": "When your strategy is to roll the dice: Probabilistic technique basics",
+      "Iulia Cristian|Algebra 1": "Polynomial methods",
+      "Iulia Cristian|Algebra 2": "Approximation problems",
+      "Iulia Cristian|Number Theory 1": "Divisibility problems",
+      "Ivan Chan Kai Chin|Algebra 1": "Sequence visualization",
+      "Ivan Chan Kai Chin|Combinatorics 1": "Combinatorial thinking",
+      "Ivan Chan Kai Chin|Geometry 1": "Tangent Circles",
+      "Ivan Chan Kai Chin|Geometry 2": "Angles and Lengths",
+      "Joris Ngatchou|Algebra 1": "Functional equations",
+      "Joris Ngatchou|Geometry 1": "Radical Axis",
+      "Kritesh Dhakal|Algebra 1": "Weird Existence Problems",
+      "Kyaw Shin Thant|Geometry 1": "Some applications of the coaxiality lemma",
+      "Loard Bejko|Number Theory 1": "Functional equations in Number Theory",
+      "Luca Sartori|Geometry 1": "3-dimensional geometry",
+      "Lukas Novak|Algebra 1": "Functional equations",
+      "Massimo Gasparini|Algebra 1": "Cyclotomic polynomials",
+      "Miljan Knezevic|Algebra 1": "Serbian 2026 team selection and IMO mock tests and beyond",
+      "Miljan Knezevic|Algebra 2": "IMO problems related to analysis and algebra",
+      "Nikola Petrovic|Combinatorics 1": "Graph coloring",
+      "Nikola Petrovic|Combinatorics 2": "Graph theory",
+      "Nikola Petrovic|Combinatorics 3": "Board problems",
+      "Nikola Petrovic|Geometry 1": "Inversion geometry",
+      "Nursoltan Khvalbolot|Algebra 1": "Polynomial advanced analysis and algebra problems",
+      "Oleg Kosik|Algebra 1": "Functional equations: introduction",
+      "Oleg Kosik|Combinatorics 1": "Double counting",
+      "Prajit Raj Adhikari|Algebra 1": "Sequences, Bounds, and Fixed Points in Olympiad Algebra",
+      "Prajit Raj Adhikari|Combinatorics 1": "The extremal principle in Olympiad Mathematics",
+      "Qiang Shen|Algebra 1": "Bijective proofs",
+      "Qiang Shen|Algebra 2": "Linear algebra introduction",
+      "Qiang Shen|Geometry 1": "Geometry problems",
+      "Sari Ghanem|Geometry 1": "Triangle geometry",
+      "Sari Ghanem|Geometry 2": "Quadrilateral geometry",
+      "Stijn Cambie|Combinatorics 1": "Ramsey theory",
+      "Stijn Cambie|Number Theory 1": "Erdos problems survey",
+      "Stijn Cambie|Number Theory 2": "Vieta jumping",
+      "Tamas Babelis|Geometry 1": "Intuitive introduction to complex Bash",
+      "Teodor von Burg|Geometry 1": "Advanced complex numbers in geometry",
+      "Teodor von Burg|Geometry 2": "Implicit circle equations with complex numbers in geometry",
+      "Tianyiwa Xie|Geometry 1": "Collinearity and Concurrency",
+      "Tianyiwa Xie|Geometry 2": "Spiral Similarity",
+      "Tony Wang|Combinatorics 1": "Notation, Representation, and Visualisation",
+      "Tudor Paisanu|Algebra 1": "Inequality integrals",
+      "Tudor Paisanu|Number Theory 1": "Galois theory",
+      "Tudor Paisanu|Number Theory 2": "Integer sequences",
+      "Tumurkhan Bazar|Geometry 1": "Mongolian mathematical Olympiad geometry problems",
+      "Uuye Otgonbayar|Number Theory 1": "Mongolian 62nd mathematical olympiad number theory problems",
+      "Valeriu Gutu|Algebra 1": "Recurrent sequences",
+      "Victor Dominguez|Combinatorics 1": "Sets and self-limiting properties",
+      "Vlad Matei|Algebra 1": "Nonstandard inequalities",
+      "Vlad Matei|Number Theory 1": "Diophantine equations",
+      "Vlad Matei|Number Theory 2": "Combinatorial number theory",
+      "Vlad Matei|Number Theory 3": "Arithmetic functional equations",
+      "Vu Hong Son|Algebra 1": "Permutations and Related Problems",
+      "Wei Luo|Algebra 1": "Divisibility via roots",
+      "Wei Luo|Combinatorics 1": "Invariants in combinatorics",
+      "Wei Luo|Number Theory 1": "Modular periodicity",
+      "Zdenek Pezlar|Algebra 1": "Polynomials",
+      "Zdenek Pezlar|Number Theory 1": "Bertrand's postulate and bounding primes",
+      "Zdenek Pezlar|Number Theory 2": "Slightly technical number theory",
+      "Zilin Jiang|Algebra 1": "Functional equations",
+      "Zilin Jiang|Combinatorics 1": "Small cases, big ideas",
+      "Zilin Jiang|Combinatorics 2": "Big-picture proof strategies",
+      "Zilin Jiang|Number Theory 1": "Number theory techniques"
+    };
+
+    const state = {
+      perspective: "overall",
+      instructor: "Zilin Jiang",
+      group: "International Union II",
+      showPastEvents: false,
+      ...loadState()
+    };
+
+    const allEvents = buildEvents();
+    const instructors = Array.from(new Set([
+      ...allEvents
+        .filter(event => event.kind === "classroom")
+        .flatMap(event => event.instructors || [])
+        .filter(instructor => instructor && instructor !== "TBD")
+    ])).sort((a, b) => a.localeCompare(b));
+
+    function normalizeName(name) {
+      const cleaned = name
+        .trim()
+        .replace(/^[(]+/, "");
+      const aliases = {
+        "Ziling Jiang": "Zilin Jiang",
+        "Cipriana Anghel": "Cipriana Anghel-Stan",
+        "Ivan Chan": "Ivan Chan Kai Chin",
+        "Atli Fannar Franklin": "Attli Fannar Franklin",
+        "Dainius Dzindzalieta": "Dainius Dzindzaleta",
+        "Daria Pasqualetti": "Daria Pasqqualetti",
+        "Nursoltan Khavalbolot": "Nursoltan Khvalbolot",
+        "??": "TBD",
+        "": "TBD"
+      };
+      return aliases[cleaned] || cleaned;
+    }
+
+    function normalizeLectureCode(title) {
+      const cleaned = title
+        .trim()
+        .replace(/^Alegebra\b/i, "Algebra")
+        .replace(/\s*\?+\s*$/g, "")
+        .trim();
+      if (!cleaned || /^lecture$/i.test(cleaned) || cleaned === "??") return "TBD";
+      return cleaned;
+    }
+
+    function parseLecture(raw) {
+      const cleaned = String(raw || "").trim();
+      if (!cleaned || /^lecture$/i.test(cleaned) || cleaned === "TBD") {
+        return { title: "TBD", instructor: "TBD" };
+      }
+      const cut = cleaned.lastIndexOf("-");
+      if (cut === -1) return { title: normalizeLectureCode(cleaned), instructor: "TBD" };
+      return {
+        title: normalizeLectureCode(cleaned.slice(0, cut)),
+        instructor: normalizeName(cleaned.slice(cut + 1))
+      };
+    }
+
+    function lectureFullTitle(instructor, lectureCode) {
+      return LECTURE_FULL_TITLES[`${instructor}|${lectureCode}`] || "";
+    }
+
+    function homeroomInstructors(group, date) {
+      if (group === "G12") {
+        if (date < "2026-06-26") return ["Alex Song"];
+        if (date >= "2026-06-27") return ["Sari Ghanem"];
+      }
+      return GROUPS[group].homeroom.split(" / ");
+    }
+
+    function buildEvents() {
+      const events = [];
+      [
+        { dates: WEEK_ONE_DATES, sessions: SESSION_DATA, sessionOffset: 0 },
+        { dates: WEEK_TWO_DATES, sessions: WEEK_TWO_SESSION_DATA, sessionOffset: WEEK_ONE_DATES.length * SESSION_DATA.length }
+      ].forEach((week, weekIndex) => {
+        week.sessions.forEach((session, sessionIndex) => {
+          GROUP_ORDER.forEach(group => {
+            session.entries[group].forEach((raw, index) => {
+              const parsed = parseLecture(raw);
+              const lectureSession = `Session ${week.sessionOffset + index * week.sessions.length + sessionIndex + 1}`;
+              events.push({
+                id: `classroom-${weekIndex}-${lectureSession}-${group}`,
+                date: week.dates[index],
+                start: session.start,
+                end: session.end,
+                kind: "classroom",
+                type: "Classroom Lecture",
+                session: lectureSession,
+                title: parsed.title,
+                fullTitle: lectureFullTitle(parsed.instructor, parsed.title),
+                instructors: [parsed.instructor],
+                groups: [group],
+                teams: GROUPS[group].teams,
+                teamList: LECTURE_GROUP_TEAMS[group],
+                location: GROUPS[group].location
+              });
+            });
+          });
+        });
+      });
+
+      LARGE_EVENTS.forEach((event, index) => {
+        events.push({
+          ...event,
+          id: `large-${index}`,
+          instructors: event.speakers.map(normalizeName),
+          groups: GROUP_ORDER,
+          location: event.location || (event.kind === "seminar" || event.kind === "showcase" ? "Grand Ballroom" : "")
+        });
+      });
+
+      CAMP_EVENTS.forEach((event, index) => {
+        events.push({
+          ...event,
+          id: `camp-${index}`,
+          instructors: [],
+          groups: GROUP_ORDER
+        });
+      });
+
+      EXCURSION_EVENTS.forEach((event, index) => {
+        events.push({
+          ...event,
+          id: `excursion-${index}`,
+          instructors: [],
+          groups: GROUP_ORDER
+        });
+      });
+
+      PHILOSOPHY_GROUPS.forEach((group, index) => {
+        events.push({
+          id: `philosophy-${index}`,
+          date: "2026-07-02",
+          start: "16:00",
+          end: "17:30",
+          kind: "philosophy",
+          type: "Philosophy & Socializing",
+          session: "Philosophy & Socializing",
+          parallelLabel: group.session,
+          title: group.teams.join(", "),
+          instructors: group.instructors,
+          groups: [],
+          teams: group.teams,
+          location: group.location
+        });
+      });
+
+      STAFF_EVENTS.forEach((event, index) => {
+        events.push({
+          ...event,
+          id: `staff-${index}`,
+          instructors: [],
+          groups: GROUP_ORDER
+        });
+      });
+
+      TEST_EVENTS.forEach((event, index) => {
+        if (event.kind === "test" || event.kind === "problem") {
+          GROUP_ORDER.forEach(group => {
+            events.push({
+              ...event,
+              id: `${event.kind}-${index}-${group}`,
+              instructors: homeroomInstructors(group, event.date),
+              groups: [group],
+              teams: GROUPS[group].teams,
+              teamList: LECTURE_GROUP_TEAMS[group],
+              location: GROUPS[group].location
+            });
+          });
+          return;
+        }
+        events.push({
+          ...event,
+          id: `test-${index}`,
+          instructors: [],
+          groups: GROUP_ORDER
+        });
+      });
+
+      return events.sort(compareEvents);
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        const next = {};
+        if (["overall", "instructor", "group"].includes(saved.perspective)) next.perspective = saved.perspective;
+        if (typeof saved.instructor === "string") next.instructor = saved.instructor;
+        if (typeof saved.group === "string") next.group = migrateSelectedTeam(saved.group);
+        if (typeof saved.showPastEvents === "boolean") next.showPastEvents = saved.showPastEvents;
+        return next;
+      } catch {
+        return {};
+      }
+    }
+
+    function migrateSelectedTeam(value) {
+      const aliases = {
+        "Hong Kong-China": "Hong Kong China",
+        "Macau-China": "Macau China",
+        "China-Hubei (Wuhan)": "China Hubei Wuhan"
+      };
+      if (aliases[value]) return aliases[value];
+      if (TEAM_ORDER.includes(value)) return value;
+      if (GROUPS[value]) return LECTURE_GROUP_TEAMS[value]?.[0] || TEAM_ORDER[0];
+      return TEAM_ORDER[0];
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function minutes(time) {
+      const [hours, mins] = time.split(":").map(Number);
+      return hours * 60 + mins;
+    }
+
+    function localDateString(date = new Date()) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function eventDateTime(event, timeKey) {
+      return new Date(`${event.date}T${event[timeKey]}:00`);
+    }
+
+    function eventStatus(event, now = new Date()) {
+      if (now >= eventDateTime(event, "end")) return "past";
+      if (now >= eventDateTime(event, "start")) return "current";
+      return "future";
+    }
+
+    function eventProgress(event, now = new Date()) {
+      const start = eventDateTime(event, "start").getTime();
+      const end = eventDateTime(event, "end").getTime();
+      const elapsed = now.getTime() - start;
+      return Math.min(100, Math.max(0, (elapsed / (end - start)) * 100));
+    }
+
+    function compareEvents(a, b) {
+      return a.date.localeCompare(b.date) || minutes(a.start) - minutes(b.start) || a.title.localeCompare(b.title);
+    }
+
+    function dayFor(date) {
+      return DAY_META.find(day => day.date === date);
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    function formatTime(start, end) {
+      return `${start}-${end}`;
+    }
+
+    function selectedLectureGroup() {
+      return TEAM_TO_LECTURE_GROUP[state.group];
+    }
+
+    function groupLocation(group) {
+      return GROUPS[group]?.location ? `Room ${GROUPS[group].location}` : "";
+    }
+
+    function hasGroupLocation(event) {
+      return ["classroom", "test", "problem", "study"].includes(event.kind);
+    }
+
+    function locationForEvent(event) {
+      if (event.location) return event.location;
+      if (!hasGroupLocation(event)) return "";
+      if (event.kind === "classroom") return groupLocation(event.groups[0]);
+      if (state.perspective === "group") return groupLocation(selectedLectureGroup());
+      const groups = event.groups?.length ? event.groups : GROUP_ORDER;
+      return `Group rooms: ${groups.map(group => `${group} ${GROUPS[group].location}`).join(", ")}`;
+    }
+
+    function dateRange() {
+      return DAY_META.map(day => day.date);
+    }
+
+    function appliesToPerspective(event) {
+      if (state.perspective === "overall") return true;
+      if (state.perspective === "instructor") return eventInvolvesInstructor(event);
+      if (state.perspective === "group") {
+        if (event.kind === "classroom" || event.kind === "test" || event.kind === "problem") return event.groups.includes(selectedLectureGroup());
+        if (event.kind === "philosophy") return event.teams.includes(state.group);
+        return eventInvolvesTeam(event);
+      }
+      return false;
+    }
+
+    function eventInvolvesInstructor(event) {
+      const audience = audienceForEvent(event);
+      if (audience === "everyone" || audience === "instructors" || audience === "instructors-leaders") return true;
+      if (audience !== "instructors-students") return false;
+      if (event.kind === "classroom" || event.kind === "test" || event.kind === "problem") return event.instructors.includes(state.instructor);
+      if (event.kind === "philosophy") return event.instructors.includes(state.instructor);
+      return true;
+    }
+
+    function eventInvolvesTeam(event) {
+      const audience = audienceForEvent(event);
+      return [
+        "everyone",
+        "instructors-students",
+        "instructors-leaders",
+        "leaders-students",
+        "leaders",
+        "students"
+      ].includes(audience);
+    }
+
+    function filteredBaseEvents() {
+      const dates = new Set(dateRange());
+      return allEvents.filter(event => {
+        if (!dates.has(event.date)) return false;
+        return appliesToPerspective(event);
+      });
+    }
+
+    function displayEvents() {
+      const events = filteredBaseEvents();
+      if (state.perspective !== "overall") return events;
+
+      const combined = [];
+      const groups = new Map();
+      events.forEach(event => {
+        if (event.kind !== "classroom" && event.kind !== "test" && event.kind !== "problem" && event.kind !== "philosophy") {
+          combined.push(event);
+          return;
+        }
+        const key = `${event.date}|${event.start}|${event.end}|${event.session}`;
+        if (!groups.has(key)) {
+          groups.set(key, {
+            id: `combined-${key}`,
+            date: event.date,
+            start: event.start,
+            end: event.end,
+            kind: "combined",
+            type: event.kind === "classroom" ? "Classroom Lectures" : event.type,
+            session: event.session,
+            title: event.title,
+            instructors: [],
+            groups: [],
+            children: []
+          });
+        }
+        groups.get(key).children.push(event);
+      });
+      groups.forEach(group => {
+        group.children.sort((a, b) => (a.parallelLabel || a.groups[0]).localeCompare(b.parallelLabel || b.groups[0], undefined, { numeric: true }));
+        group.groups = group.children.flatMap(event => event.groups);
+        group.instructors = Array.from(new Set(group.children.flatMap(event => event.instructors))).sort();
+        combined.push(group);
+      });
+      return combined.sort(compareEvents);
+    }
+
+    function setupControls() {
+      const scheduleViewSelect = document.getElementById("scheduleViewSelect");
+      scheduleViewSelect.innerHTML = `
+        <optgroup label="Overall">
+          <option value="overall">Overall</option>
+        </optgroup>
+        <optgroup label="Instructor">
+          ${instructors.map(name => `<option value="instructor:${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}
+        </optgroup>
+        <optgroup label="Team">
+          ${TEAM_ORDER.map(team => `<option value="team:${escapeHtml(team)}">${escapeHtml(team)}</option>`).join("")}
+        </optgroup>
+      `;
+
+      scheduleViewSelect.addEventListener("change", () => {
+        applyScheduleSelection(scheduleViewSelect.value);
+        saveState();
+        render();
+      });
+    }
+
+    function syncControls(source = state) {
+      document.getElementById("scheduleViewSelect").value = scheduleSelectionValue(source);
+    }
+
+    function scheduleSelectionValue(source = state) {
+      if (source.perspective === "instructor") return `instructor:${source.instructor}`;
+      if (source.perspective === "group") return `team:${source.group}`;
+      return "overall";
+    }
+
+    function applyScheduleSelection(value) {
+      if (value === "overall") {
+        state.perspective = "overall";
+        return;
+      }
+      if (value.startsWith("instructor:")) {
+        state.perspective = "instructor";
+        state.instructor = value.slice("instructor:".length);
+        return;
+      }
+      if (value.startsWith("team:")) {
+        state.perspective = "group";
+        state.group = value.slice("team:".length);
+      }
+    }
+
+    function renderSchedule(events) {
+      const content = document.getElementById("content");
+      if (!events.length) {
+        content.innerHTML = `<div class="empty">No events match this selection.</div>`;
+        return;
+      }
+      const now = new Date();
+      const today = localDateString(now);
+      const firstDate = DAY_META[0].date;
+      const hasPastDayEvents = events.some(event => event.date < today);
+      const hasCurrentOrFutureEvents = events.some(event => eventStatus(event, now) !== "past");
+      const shouldShowPastToggle = today > firstDate && hasPastDayEvents;
+      const sections = [];
+      let insertedToggle = false;
+
+      if (!hasCurrentOrFutureEvents) {
+        if (shouldShowPastToggle) sections.push(renderPastToggle());
+        sections.push(renderCompletionCard());
+        if (!state.showPastEvents) {
+          content.innerHTML = sections.join("");
+          bindPastToggle();
+          return;
+        }
+      }
+
+      dateRange().forEach(date => {
+        const day = dayFor(date);
+        const dayEvents = events.filter(event => event.date === date);
+        if (!day || !dayEvents.length) return;
+        if (!state.showPastEvents && date < today) return;
+        if (!insertedToggle && shouldShowPastToggle && date >= today) {
+          sections.push(renderPastToggle());
+          insertedToggle = true;
+        }
+        sections.push(`
+          <section class="day-section">
+            <div class="day-header">
+              <h2>${day.weekday}</h2>
+              <span>${day.short}, 2026</span>
+            </div>
+            <div class="event-list">
+              ${dayEvents.map(event => renderEventCard(event, now)).join("")}
+            </div>
+          </section>
+        `);
+      });
+      if (!insertedToggle && shouldShowPastToggle && state.showPastEvents && hasCurrentOrFutureEvents) {
+        sections.unshift(renderPastToggle());
+      }
+      content.innerHTML = sections.join("") || `<div class="empty">No events match this selection.</div>`;
+      bindPastToggle();
+    }
+
+    function renderPastToggle() {
+      return `
+        <div class="timeline-toggle">
+          <button type="button" id="pastToggle">${state.showPastEvents ? "Hide past events" : "Show past events"}</button>
+        </div>
+      `;
+    }
+
+    function renderCompletionCard() {
+      return `
+        <article class="completion-card">
+          <h2>All scheduled events have wrapped up.</h2>
+          <p>Thanks for being part of IMSC 2026.</p>
+        </article>
+      `;
+    }
+
+    function bindPastToggle() {
+      const button = document.getElementById("pastToggle");
+      if (!button) return;
+      button.addEventListener("click", () => {
+        state.showPastEvents = !state.showPastEvents;
+        saveState();
+        render();
+      });
+    }
+
+    function tagClass(event) {
+      return audienceForEvent(event);
+    }
+
+    function kindForCard(event) {
+      if (event.kind === "guest") return "guest";
+      if (event.kind === "seminar") return "seminar";
+      if (event.kind === "showcase") return "large";
+      if (event.kind === "problem") return "problem";
+      if (event.kind === "competition") return "competition";
+      if (event.kind === "test") return "test";
+      if (event.kind === "excursion") return "excursion";
+      if (event.kind === "ceremony") return "ceremony";
+      if (event.kind === "meeting") return "meeting";
+      if (event.kind === "philosophy") return "philosophy";
+      if (event.kind === "staff") return "staff";
+      return event.kind;
+    }
+
+    function audienceForEvent(event) {
+      if (event.audience) return event.audience;
+      if (event.kind === "classroom" || event.kind === "combined" || event.kind === "problem" || event.kind === "philosophy" || event.kind === "test" || event.kind === "competition") {
+        return "instructors-students";
+      }
+      if (event.kind === "excursion") return "students";
+      if (event.kind === "meeting") return "instructors-leaders";
+      if (event.kind === "staff") return "instructors";
+      if (event.kind === "showcase" || event.kind === "seminar" || event.kind === "guest" || event.kind === "ceremony") {
+        return "everyone";
+      }
+      return "everyone";
+    }
+
+    function eventDisplayTitle(event) {
+      if (event.kind === "combined" && (event.children[0]?.kind === "test" || event.children[0]?.kind === "problem")) return `${event.session}: ${event.title}`;
+      if (event.kind === "combined") return event.session;
+      if (event.kind === "classroom" && state.perspective !== "overall") return `${event.session}: ${event.title}`;
+      if (event.kind === "classroom") return `${event.session} · ${event.title}`;
+      if (event.kind === "philosophy") return event.session;
+      if (event.kind === "showcase" || event.kind === "seminar" || event.kind === "guest") return event.session;
+      if (event.kind === "test") return `${event.session}: ${event.title}`;
+      if (event.kind === "excursion") return `${event.session}: ${event.title}`;
+      if (event.kind === "competition") return event.session;
+      if (event.kind === "problem") return `${event.session}: ${event.title}`;
+      if (!event.title) return event.session;
+      return `${event.session}: ${event.title}`;
+    }
+
+    function eventDetailLine(event, separator = "\n") {
+      if (event.kind === "combined") {
+        return "";
+      }
+      if (event.kind === "showcase") {
+        return event.title
+          .split(";")
+          .map((problem, index) => [event.instructors[index], problem.trim(), event.location].filter(Boolean).join(" · "))
+          .join(separator);
+      }
+      if (event.kind === "seminar" || event.kind === "guest") {
+        const title = event.title === "TBD" ? "" : event.title;
+        return [event.instructors?.[0], title].filter(Boolean).join(" · ");
+      }
+      if (event.kind === "philosophy") {
+        return [
+          event.instructors.join(", "),
+          `${event.parallelLabel} (${event.teams.join(", ")})`,
+          event.location
+        ].filter(Boolean).join(" · ");
+      }
+      if ((event.kind === "test" || event.kind === "problem") && state.perspective !== "overall") {
+        return `${event.instructors.join(" / ")} · ${event.groups[0]} (${event.teams}) · ${groupLocation(event.groups[0])}`;
+      }
+      if (event.kind === "competition") {
+        return [event.location, event.title].filter(Boolean).join(" · ");
+      }
+      if (event.kind === "excursion") return "";
+      if (event.kind === "test") {
+        return event.title;
+      }
+      if (event.kind === "classroom" && state.perspective !== "overall") {
+        return [event.instructors[0], `${event.groups[0]} (${event.teams})`, event.fullTitle, groupLocation(event.groups[0])].filter(Boolean).join(" · ");
+      }
+      return event.instructors?.length ? event.instructors.join(", ") : "";
+    }
+
+    function renderEventCard(event, now = new Date()) {
+      const detailLine = eventDetailLine(event);
+      const groupLine = event.kind === "classroom" && state.perspective === "overall" ? [event.instructors[0], `${event.groups[0]} (${event.teams})`, event.fullTitle].filter(Boolean).join(" · ") : "";
+      const locationLine = event.kind === "problem" || event.kind === "philosophy" || event.kind === "showcase" || event.kind === "competition" || ((event.kind === "classroom" || event.kind === "test") && state.perspective !== "overall") ? "" : locationForEvent(event);
+      const meta = event.children
+        ? detailLine
+        : [detailLine, groupLine, locationLine].filter(Boolean).join(" · ");
+      const status = eventStatus(event, now);
+      const progress = status === "current" ? eventProgress(event, now).toFixed(2) : "";
+      const audience = audienceForEvent(event);
+      return `
+        <article class="event-card" data-kind="${kindForCard(event)}" data-audience="${audience}" data-status="${status}">
+          ${status === "current" ? `<span class="event-progress" style="--progress:${progress}%"></span>` : ""}
+          <div class="event-topline">
+            <div class="time">${formatTime(event.start, event.end)}</div>
+            <div>
+              <h3 class="event-title">${escapeHtml(eventDisplayTitle(event))}</h3>
+              ${meta ? `<p class="event-meta">${escapeHtml(meta)}</p>` : ""}
+            </div>
+            <span class="tag ${tagClass(event)}">${escapeHtml(event.type)}</span>
+          </div>
+          ${event.children ? renderMiniGrid(event.children) : ""}
+        </article>
+      `;
+    }
+
+    function renderMiniGrid(children) {
+      return `
+        <div class="mini-grid">
+          ${children.map(event => `
+            <div class="group-tile">
+              <strong>${escapeHtml(event.parallelLabel || event.groups[0])}</strong>
+              <span>${escapeHtml(miniGridDetail(event))}</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function miniGridDetail(event) {
+      if (event.kind === "philosophy") {
+        return `${event.instructors.join(" / ")} · ${event.teams.join(", ")} · ${event.location}`;
+      }
+      const location = String(event.location).startsWith("Room ") ? event.location : `Room ${event.location}`;
+      if (event.kind === "test" || event.kind === "problem") {
+        return `${event.instructors.join(" / ")} · ${location}`;
+      }
+      return [event.instructors.join(" / "), event.title, event.fullTitle, location].filter(Boolean).join(" · ");
+    }
+
+    function render() {
+      const previousState = JSON.stringify(state);
+      if (!instructors.includes(state.instructor)) state.instructor = instructors[0];
+      if (!TEAM_ORDER.includes(state.group)) state.group = migrateSelectedTeam(state.group);
+      if (JSON.stringify(state) !== previousState) saveState();
+      syncControls();
+      const events = displayEvents();
+      renderSchedule(events);
+    }
+
+    setupControls();
+    render();
+    setInterval(() => {
+      render();
+    }, 60000);
+  </script>
+</body>
+</html>
