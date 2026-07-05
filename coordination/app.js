@@ -177,9 +177,11 @@ function isIntegerScore(value) {
 }
 
 function initLoginOptions() {
-  dom.coordinatorSelect.innerHTML = COORDINATORS
-    .map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`)
-    .join("");
+  const coordinatorOptions = COORDINATORS.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`);
+  dom.coordinatorSelect.innerHTML = [
+    `<option value="" selected disabled></option>`,
+    ...coordinatorOptions
+  ].join("");
 }
 
 function configureSupabase() {
