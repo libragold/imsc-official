@@ -216,7 +216,7 @@ function hasInitialScoreConflict(paper) {
 }
 
 function canCoordinatePaper(paper) {
-  return currentInitialScores(paper).length >= 2 && !hasInitialScoreConflict(paper);
+  return currentInitialScores(paper).length >= 2;
 }
 
 function hasOtherInitialScore(paper) {
