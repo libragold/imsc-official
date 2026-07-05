@@ -50,7 +50,7 @@ const dom = {
   claimDialog: document.querySelector("#claimDialog"),
   claimTeamFilter: document.querySelector("#claimTeamFilter"),
   claimProblemFilter: document.querySelector("#claimProblemFilter"),
-  claimStatusFilter: document.querySelector("#claimStatusFilter"),
+  claimHelpFilter: document.querySelector("#claimHelpFilter"),
   claimPaperList: document.querySelector("#claimPaperList"),
   initialScoreDialog: document.querySelector("#initialScoreDialog"),
   initialScoreForm: document.querySelector("#initialScoreForm"),
@@ -76,6 +76,7 @@ const dom = {
 
 const config = window.COORDINATION_SUPABASE_CONFIG;
 const FILTER_STORAGE_KEY = "imsc2026.coordination.filters.v1";
+const CLAIM_PAGE_SIZE = 15;
 let supabase = null;
 let currentUser = null;
 let currentCoordinator = null;
@@ -83,6 +84,9 @@ let papers = [];
 let activePaperId = null;
 let pendingConfirmAction = null;
 let filterState = loadFilterState();
+let tooltipElement = null;
+let tooltipTarget = null;
+let claimDialogPage = 1;
 
 function loadFilterState() {
   try {
@@ -135,6 +139,10 @@ function avatarUrl(seed) {
   return `https://api.dicebear.com/9.x/micah/svg?seed=${encodeURIComponent(seed)}`;
 }
 
+function avatarSeedForPerson(person) {
+  return person?.avatar_seed || firstNameSeed(person?.name || "coordinator");
+}
+
 function randomSeed() {
   const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
   const bytes = crypto.getRandomValues(new Uint8Array(8));
@@ -145,12 +153,62 @@ function formatPaper(paper) {
   return `${paper.team_name} · ${paper.student_name} · P${paper.problem_id}`;
 }
 
+function formatCompactPaper(paper) {
+  return `${paper.team_code || paper.team_name}-${paper.team_index} · P${paper.problem_id}`;
+}
+
 function formatPaperTitle(paper) {
-  return `${paper.team_name} · ${paper.student_name} · P${paper.problem_id}`;
+  return formatCompactPaper(paper);
 }
 
 function scoreLabel(value) {
   return value === null || value === undefined ? "none" : String(value);
+}
+
+function asArray(value) {
+  if (Array.isArray(value)) return value;
+  if (!value) return [];
+  if (typeof value === "object") return Object.values(value);
+  if (typeof value === "string") {
+    try {
+      const parsed = JSON.parse(value);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+  return [];
+}
+
+function currentInitialScores(paper) {
+  const scores = asArray(paper.current_initial_scores);
+  if (scores.length) return scores;
+  if (paper.my_initial_score != null && currentCoordinator) {
+    return [{
+      coordinator_id: currentCoordinator.id,
+      name: currentCoordinator.name,
+      avatar_seed: currentCoordinator.avatar_seed,
+      score: paper.my_initial_score
+    }];
+  }
+  if (paper.initial_score != null && paper.initial_score_coordinator_name) {
+    return [{
+      coordinator_id: paper.initial_score_coordinator_id,
+      name: paper.initial_score_coordinator_name,
+      avatar_seed: null,
+      score: paper.initial_score
+    }];
+  }
+  return [];
+}
+
+function hasInitialScoreConflict(paper) {
+  const scores = new Set(currentInitialScores(paper).map(entry => Number(entry.score)));
+  return scores.size > 1;
+}
+
+function canCoordinatePaper(paper) {
+  return currentInitialScores(paper).length >= 2 && !hasInitialScoreConflict(paper);
 }
 
 function setBusy(button, busy) {
@@ -163,9 +221,14 @@ function setMessage(element, text, isError = false) {
 }
 
 function claimState(paper) {
-  if (!paper.active_claim_id) return "unclaimed";
-  if (paper.active_claim_coordinator_id === currentCoordinator.id) return "mine";
-  return "other";
+  const claims = activeClaims(paper);
+  if (claims.some(claim => claim.coordinator_id === currentCoordinator.id)) return "mine";
+  if (claims.length) return "other";
+  return "unclaimed";
+}
+
+function myActiveClaim(paper) {
+  return activeClaims(paper).find(claim => claim.coordinator_id === currentCoordinator.id) || null;
 }
 
 function paperById(paperId) {
@@ -268,13 +331,14 @@ function renderAvatarButton() {
 
 function boardPiles() {
   const mine = papers.filter(paper => claimState(paper) === "mine");
-  const claimed = mine.filter(paper => paper.initial_score === null);
-  const graded = mine.filter(paper => paper.initial_score !== null && paper.agreed_score === null);
   const coordinated = mine.filter(paper => paper.agreed_score !== null);
+  const claimed = mine.filter(paper => paper.agreed_score === null && paper.my_initial_score == null);
+  const graded = mine.filter(paper => paper.my_initial_score != null && paper.agreed_score == null);
   return { claimed, graded, coordinated };
 }
 
 function renderBoard() {
+  hideBoundaryTooltip();
   const { claimed, graded, coordinated } = boardPiles();
   const filteredClaimed = applyPileFilters(claimed, "claimed");
   const filteredGraded = applyPileFilters(graded, "graded");
@@ -294,42 +358,147 @@ function renderCards(items, pile) {
 
 function renderCard(paper, pile) {
   const claim = claimState(paper);
-  const actionClass = pile === "claimed" ? "open-initial-score" : "open-agreed-score";
-  const buttonDisabled = pile !== "claimed" && claim === "other";
   const sideAction = renderCardSideAction(paper, pile, claim);
-  const hoverScore = renderHoverScore(paper, pile);
+  const avatars = renderCardAvatars(paper);
+  const conflictClass = pile === "graded" && hasInitialScoreConflict(paper) ? " score-conflict" : "";
 
   return `
-    <article class="paper-card compact-card">
-      <button class="paper-card-main ${actionClass}" type="button" data-paper-id="${paper.paper_id}" ${buttonDisabled ? "disabled" : ""}>
-        <span>${escapeHtml(paper.team_name)}</span>
-        <i>·</i>
-        <strong>${escapeHtml(paper.student_name)}</strong>
-        <i>·</i>
-        <em>P${paper.problem_id}</em>
-        ${hoverScore}
-      </button>
+    <article class="paper-card compact-card${conflictClass}">
+      <div class="paper-card-main">
+        <span>${escapeHtml(formatCompactPaper(paper))}</span>
+      </div>
+      ${avatars}
       ${sideAction}
     </article>
   `;
 }
 
-function renderHoverScore(paper, pile) {
-  if (pile === "graded") return `<b class="hover-score">${paper.initial_score}</b>`;
-  if (pile === "coordinated") return `<b class="hover-score">${paper.agreed_score}</b>`;
-  return "";
+function compactPointLabel(score) {
+  return Number(score) === 1 ? "pt" : "pts";
+}
+
+function renderAvatar(person, tooltip, className = "") {
+  const label = tooltip || person.name || "";
+  return `
+    <span class="avatar-tooltip has-tooltip ${className}" data-tooltip="${escapeHtml(label)}" aria-label="${escapeHtml(label)}" tabindex="0">
+      <img
+        class="mini-avatar"
+        src="${avatarUrl(avatarSeedForPerson(person))}"
+        alt="${escapeHtml(person.name || "")}"
+      >
+    </span>
+  `;
+}
+
+function activeClaims(paper) {
+  let claims = asArray(paper.active_claims);
+  if (!claims.length && paper.active_claim_id && currentCoordinator) {
+    claims = [{
+      claim_id: paper.active_claim_id,
+      coordinator_id: currentCoordinator.id,
+      name: currentCoordinator.name,
+      avatar_seed: currentCoordinator.avatar_seed
+    }];
+  }
+  return claims;
+}
+
+function claimAvatarTooltip(claim, paper) {
+  const lines = [claim.name];
+  const initialScore = currentInitialScores(paper).find(entry => entry.coordinator_id === claim.coordinator_id);
+  if (initialScore) lines.push(`Awarded ${initialScore.score} ${compactPointLabel(initialScore.score)}`);
+  if (paper.agreed_score_coordinator_id === claim.coordinator_id) {
+    lines.push(`Finalized at ${paper.agreed_score} ${compactPointLabel(paper.agreed_score)}`);
+  }
+  return lines.join("\n");
+}
+
+function renderCardAvatars(paper) {
+  const claims = activeClaims(paper);
+  const avatars = claims.map(claim => {
+    const className = paper.agreed_score_coordinator_id === claim.coordinator_id ? "finalized-avatar" : "";
+    return renderAvatar(claim, claimAvatarTooltip(claim, paper), className);
+  });
+  if (!avatars.length) return `<div class="avatar-stack"></div>`;
+  return `<div class="avatar-stack">${avatars.join("")}</div>`;
+}
+
+function ensureTooltipElement() {
+  if (tooltipElement) return tooltipElement;
+  tooltipElement = document.createElement("div");
+  tooltipElement.className = "viewport-tooltip";
+  tooltipElement.hidden = true;
+  document.body.append(tooltipElement);
+  return tooltipElement;
+}
+
+function showBoundaryTooltip(target) {
+  const text = target.dataset.tooltip?.trim();
+  if (!text) return;
+  tooltipTarget = target;
+  const tooltip = ensureTooltipElement();
+  tooltip.textContent = text;
+  tooltip.hidden = false;
+  positionBoundaryTooltip();
+}
+
+function hideBoundaryTooltip(target = null) {
+  if (target && target !== tooltipTarget) return;
+  if (tooltipElement) tooltipElement.hidden = true;
+  tooltipTarget = null;
+}
+
+function positionBoundaryTooltip() {
+  if (!tooltipElement || tooltipElement.hidden || !tooltipTarget) return;
+  if (!document.documentElement.contains(tooltipTarget)) {
+    hideBoundaryTooltip();
+    return;
+  }
+
+  const margin = 8;
+  const gap = 8;
+  const targetRect = tooltipTarget.getBoundingClientRect();
+  const tooltipRect = tooltipElement.getBoundingClientRect();
+  const targetCenter = targetRect.left + targetRect.width / 2;
+  let left = targetCenter - tooltipRect.width / 2;
+  left = Math.max(margin, Math.min(left, window.innerWidth - tooltipRect.width - margin));
+
+  let placement = "top";
+  let top = targetRect.top - tooltipRect.height - gap;
+  if (top < margin) {
+    placement = "bottom";
+    top = targetRect.bottom + gap;
+  }
+  top = Math.max(margin, Math.min(top, window.innerHeight - tooltipRect.height - margin));
+
+  tooltipElement.dataset.placement = placement;
+  tooltipElement.style.left = `${left}px`;
+  tooltipElement.style.top = `${top}px`;
+  const arrowLeft = Math.max(10, Math.min(targetCenter - left, tooltipRect.width - 10));
+  tooltipElement.style.setProperty("--tooltip-arrow-left", `${arrowLeft}px`);
 }
 
 function renderCardSideAction(paper, pile, claim) {
   if (claim !== "mine") return "";
   if (pile === "claimed") {
-    return `<button class="release-claim icon-button" type="button" data-claim-id="${paper.active_claim_id}" aria-label="Release ${escapeHtml(formatPaper(paper))}"></button>`;
+    const myClaim = myActiveClaim(paper);
+    return `
+      <div class="card-actions-inline">
+        <button class="primary-action open-initial-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Grade ${escapeHtml(formatPaper(paper))}">Grade</button>
+        <button class="secondary-action release-claim" type="button" data-paper-id="${paper.paper_id}" data-claim-id="${myClaim?.claim_id || paper.active_claim_id || ""}" aria-label="Remove ${escapeHtml(formatPaper(paper))}">Remove</button>
+      </div>
+    `;
   }
   if (pile === "graded") {
-    return `<button class="back-paper clear-initial-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Move ${escapeHtml(formatPaper(paper))} back to claimed">←</button>`;
+    return `
+      <div class="card-actions-inline">
+        <button class="secondary-action open-initial-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Edit initial score for ${escapeHtml(formatPaper(paper))}">Edit</button>
+        ${canCoordinatePaper(paper) ? `<button class="primary-action open-agreed-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Coordinate ${escapeHtml(formatPaper(paper))}">Coordinate</button>` : ""}
+      </div>
+    `;
   }
   if (pile === "coordinated") {
-    return `<button class="back-paper clear-agreed-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Move ${escapeHtml(formatPaper(paper))} back to graded">←</button>`;
+    return `<button class="secondary-action open-agreed-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Edit agreed score for ${escapeHtml(formatPaper(paper))}">Edit</button>`;
   }
   return "";
 }
@@ -376,32 +545,57 @@ function applyPileFilters(items, pile) {
 function renderClaimFilters() {
   const teams = [...new Set(papers.map(paper => paper.team_name))].sort((a, b) => a.localeCompare(b));
   const current = filterState.claimDialogTeam ?? dom.claimTeamFilter.value;
+  const helpers = claimHelpOptions();
+  const currentHelper = filterState.claimDialogHelp ?? dom.claimHelpFilter.value;
   dom.claimTeamFilter.innerHTML = [
     `<option value="">All</option>`,
     ...teams.map(team => `<option value="${escapeHtml(team)}">${escapeHtml(team)}</option>`)
+  ].join("");
+  dom.claimHelpFilter.innerHTML = [
+    `<option value="">All</option>`,
+    ...helpers.map(helper => `<option value="${escapeHtml(helper.id)}">${escapeHtml(helper.name)}</option>`)
   ].join("");
   dom.claimTeamFilter.value = teams.includes(current) ? current : "";
   dom.claimProblemFilter.value = ["1", "2", "3", "4", "5", "6"].includes(filterState.claimDialogProblem)
     ? filterState.claimDialogProblem
     : "1";
-  dom.claimStatusFilter.value = ["", "unclaimed"].includes(filterState.claimDialogStatus)
-    ? filterState.claimDialogStatus
-    : "unclaimed";
+  dom.claimHelpFilter.value = helpers.some(helper => helper.id === currentHelper) ? currentHelper : "";
   filterState.claimDialogTeam = dom.claimTeamFilter.value;
   filterState.claimDialogProblem = dom.claimProblemFilter.value;
-  filterState.claimDialogStatus = dom.claimStatusFilter.value;
+  filterState.claimDialogHelp = dom.claimHelpFilter.value;
   saveFilterState();
+}
+
+function claimHelpOptions() {
+  const helpers = new Map();
+  for (const paper of papers) {
+    if (!isClaimHelpCandidate(paper)) continue;
+    if (claimState(paper) === "mine") continue;
+    for (const claim of activeClaims(paper)) {
+      if (claim.coordinator_id === currentCoordinator.id) continue;
+      helpers.set(claim.coordinator_id, claim.name);
+    }
+  }
+  return [...helpers.entries()]
+    .map(([id, name]) => ({ id, name }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function isClaimHelpCandidate(paper) {
+  return paper.agreed_score === null && currentInitialScores(paper).length <= 1;
 }
 
 function filteredClaimPapers() {
   const team = dom.claimTeamFilter.value;
   const problem = dom.claimProblemFilter.value;
-  const status = dom.claimStatusFilter.value;
+  const helperId = dom.claimHelpFilter.value;
 
   return papers.filter(paper => {
+    if (!isClaimHelpCandidate(paper)) return false;
+    if (claimState(paper) === "mine") return false;
     if (team && paper.team_name !== team) return false;
     if (problem && String(paper.problem_id) !== problem) return false;
-    if (status === "unclaimed" && claimState(paper) !== "unclaimed") return false;
+    if (helperId && !activeClaims(paper).some(claim => claim.coordinator_id === helperId)) return false;
     return true;
   });
 }
@@ -413,22 +607,38 @@ function renderClaimDialog() {
     return;
   }
 
-  dom.claimPaperList.innerHTML = visible.slice(0, 120).map(paper => {
+  const pageCount = Math.ceil(visible.length / CLAIM_PAGE_SIZE);
+  claimDialogPage = Math.max(1, Math.min(claimDialogPage, pageCount));
+  const start = (claimDialogPage - 1) * CLAIM_PAGE_SIZE;
+  const pageItems = visible.slice(start, start + CLAIM_PAGE_SIZE);
+
+  const rows = pageItems.map(paper => {
     const claim = claimState(paper);
-    const disabled = claim === "other" || claim === "mine";
-    const label = claim === "mine" ? "Already claimed" : claim === "other" ? `Claimed by ${paper.active_claim_coordinator_name}` : "Claim";
+    const disabled = claim === "mine";
+    const label = claim === "mine" ? "Claimed" : "Claim";
     return `
       <article class="picker-row">
         <div>
-          <strong>${escapeHtml(formatPaper(paper))}</strong>
+          <strong>${escapeHtml(formatCompactPaper(paper))}</strong>
         </div>
+        ${renderCardAvatars(paper)}
         <button class="claim-paper" type="button" data-paper-id="${paper.paper_id}" ${disabled ? "disabled" : ""}>${escapeHtml(label)}</button>
       </article>
     `;
   }).join("");
+
+  dom.claimPaperList.innerHTML = `
+    <div class="paper-picker-grid">${rows}</div>
+    <div class="claim-pagination">
+      <button class="ghost claim-page" type="button" data-page-delta="-1" ${claimDialogPage === 1 ? "disabled" : ""}>Previous</button>
+      <span>Page ${claimDialogPage} of ${pageCount} · ${visible.length} papers</span>
+      <button class="ghost claim-page" type="button" data-page-delta="1" ${claimDialogPage === pageCount ? "disabled" : ""}>Next</button>
+    </div>
+  `;
 }
 
 function openClaimDialog() {
+  claimDialogPage = 1;
   renderClaimDialog();
   dom.claimDialog.showModal();
 }
@@ -439,6 +649,7 @@ function openInitialScoreDialog(paperId) {
   activePaperId = paperId;
   dom.initialScorePaper.textContent = formatPaperTitle(paper);
   dom.initialScoreForm.reset();
+  dom.initialScoreForm.elements.score.value = paper.my_initial_score ?? "";
   setMessage(dom.initialScoreMessage, "");
   dom.initialScoreDialog.showModal();
   dom.initialScoreForm.elements.score.focus();
@@ -448,8 +659,10 @@ function openAgreedScoreDialog(paperId) {
   const paper = paperById(paperId);
   if (!paper) return;
   activePaperId = paperId;
-  dom.agreedScorePaper.textContent = formatPaper(paper);
+  dom.agreedScorePaper.textContent = formatCompactPaper(paper);
   dom.agreedScoreForm.reset();
+  dom.agreedScoreForm.elements.score.value = paper.agreed_score ?? "";
+  dom.agreedScoreForm.elements.signature.value = paper.agreed_score_team_leader_signature || "";
   setMessage(dom.agreedScoreMessage, "");
   dom.agreedScoreDialog.showModal();
   dom.agreedScoreForm.elements.score.focus();
@@ -513,21 +726,6 @@ async function clearInitialScore(paperId, button) {
   }
 }
 
-async function clearAgreedScore(paperId, button) {
-  setBusy(button, true);
-  try {
-    const { error } = await supabase.rpc("clear_agreed_score", { p_paper_id: paperId });
-    if (error) throw error;
-    await refreshAll();
-    return true;
-  } catch (error) {
-    alert(error.message);
-    return false;
-  } finally {
-    setBusy(button, false);
-  }
-}
-
 function openConfirmAction(action) {
   pendingConfirmAction = action;
   dom.releaseConfirmTitle.textContent = action.title;
@@ -540,6 +738,12 @@ function openConfirmAction(action) {
 async function submitInitialScore(form) {
   const scoreValue = form.elements.score.value;
   const button = form.querySelector("button[type='submit']");
+  const paper = paperById(activePaperId);
+  if (scoreValue === "" && paper?.my_initial_score != null) {
+    const ok = await clearInitialScore(activePaperId, button);
+    if (ok) dom.initialScoreDialog.close();
+    return;
+  }
   if (!isIntegerScore(scoreValue)) {
     setMessage(dom.initialScoreMessage, "Enter an integer score from 0 to 7.", true);
     return;
@@ -663,10 +867,11 @@ function bindEvents() {
   [
     ["claimDialogTeam", dom.claimTeamFilter],
     ["claimDialogProblem", dom.claimProblemFilter],
-    ["claimDialogStatus", dom.claimStatusFilter]
+    ["claimDialogHelp", dom.claimHelpFilter]
   ].forEach(([key, control]) => {
     control.addEventListener("change", () => {
       setFilterState(key, control.value);
+      claimDialogPage = 1;
       renderClaimDialog();
     });
   });
@@ -696,6 +901,31 @@ function bindEvents() {
     dom.avatarPreview.src = avatarUrl(seed);
   });
 
+  document.addEventListener("mouseover", event => {
+    const target = event.target.closest(".has-tooltip[data-tooltip]");
+    if (!target || !target.dataset.tooltip || target.contains(event.relatedTarget)) return;
+    showBoundaryTooltip(target);
+  });
+
+  document.addEventListener("mouseout", event => {
+    const target = event.target.closest(".has-tooltip[data-tooltip]");
+    if (!target || target.contains(event.relatedTarget)) return;
+    hideBoundaryTooltip(target);
+  });
+
+  document.addEventListener("focusin", event => {
+    const target = event.target.closest(".has-tooltip[data-tooltip]");
+    if (target && target.dataset.tooltip) showBoundaryTooltip(target);
+  });
+
+  document.addEventListener("focusout", event => {
+    const target = event.target.closest(".has-tooltip[data-tooltip]");
+    if (target) hideBoundaryTooltip(target);
+  });
+
+  window.addEventListener("resize", positionBoundaryTooltip);
+  document.addEventListener("scroll", positionBoundaryTooltip, true);
+
   document.addEventListener("click", async event => {
     if (!dom.userMenu.hidden && !event.target.closest("#userMenu")) {
       dom.avatarMenu.hidden = true;
@@ -714,41 +944,23 @@ function bindEvents() {
       return;
     }
 
+    const claimPageButton = event.target.closest(".claim-page");
+    if (claimPageButton && !claimPageButton.disabled) {
+      claimDialogPage += Number(claimPageButton.dataset.pageDelta);
+      renderClaimDialog();
+      return;
+    }
+
     const releaseButton = event.target.closest(".release-claim");
     if (releaseButton) {
-      const paper = papers.find(item => item.active_claim_id === releaseButton.dataset.claimId);
+      const paper = paperById(releaseButton.dataset.paperId)
+        || papers.find(item => item.active_claim_id === releaseButton.dataset.claimId);
       openConfirmAction({
         title: "Release claim?",
-        paperLabel: paper ? formatPaper(paper) : "Are you sure?",
+        paperLabel: paper ? formatCompactPaper(paper) : "Are you sure?",
         message: "This paper will become available for another coordinator to claim.",
         submitLabel: "Release",
         run: button => releaseClaim(releaseButton.dataset.claimId, button)
-      });
-      return;
-    }
-
-    const clearInitialButton = event.target.closest(".clear-initial-score");
-    if (clearInitialButton) {
-      const paper = paperById(clearInitialButton.dataset.paperId);
-      openConfirmAction({
-        title: "Move back to Claimed?",
-        paperLabel: paper ? formatPaper(paper) : "Are you sure?",
-        message: "This will remove the current initial score and send the paper back to Claimed.",
-        submitLabel: "Move back",
-        run: button => clearInitialScore(clearInitialButton.dataset.paperId, button)
-      });
-      return;
-    }
-
-    const clearAgreedButton = event.target.closest(".clear-agreed-score");
-    if (clearAgreedButton) {
-      const paper = paperById(clearAgreedButton.dataset.paperId);
-      openConfirmAction({
-        title: "Move back to Graded?",
-        paperLabel: paper ? formatPaper(paper) : "Are you sure?",
-        message: "This will remove the current agreed score and send the paper back to Graded.",
-        submitLabel: "Move back",
-        run: button => clearAgreedScore(clearAgreedButton.dataset.paperId, button)
       });
       return;
     }

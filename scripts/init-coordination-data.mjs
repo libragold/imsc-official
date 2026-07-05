@@ -9,9 +9,15 @@ const REMOVED_COORDINATORS = new Set(["Alex Song", "Sari Ghanem"]);
 const EXTRA_TEAMS = [
   "China",
   "China Inner Mongolia",
-  "China Inner Mongolia 1",
   "China Beijing"
 ];
+const REMOVED_TEAMS = [
+  "China Inner Mongolia 1",
+  "China Hubei Wuhan"
+];
+const RENAMED_TEAMS = new Map([
+  ["China Hubei Wuhan", "China Hubei"]
+]);
 const TEAM_CODES = new Map([
   ["Albania", "ALB"],
   ["Bangladesh", "BGD"],
@@ -21,9 +27,8 @@ const TEAM_CODES = new Map([
   ["Cameroon", "CMR"],
   ["China", "CHN"],
   ["China Beijing", "BJ"],
-  ["China Hubei Wuhan", "HUB"],
+  ["China Hubei", "CHB"],
   ["China Inner Mongolia", "NMG"],
-  ["China Inner Mongolia 1", "NM1"],
   ["Costa Rica", "CRC"],
   ["Croatia", "CRO"],
   ["Cuba", "CUB"],
@@ -67,14 +72,16 @@ const TEAM_CODES = new Map([
 const TEAM_STUDENT_COUNTS = new Map([
   ["China", 6],
   ["China Beijing", 6],
-  ["China Inner Mongolia", 8],
-  ["China Inner Mongolia 1", 6],
+  ["China Inner Mongolia", 6],
   ["Hong Kong China", 4],
   ["International Union I", 5],
   ["International Union II", 5],
   ["Montenegro", 5],
   ["North Macedonia", 5],
   ["Uganda", 2]
+]);
+const TEAM_STUDENT_INDEXES = new Map([
+  ["China Inner Mongolia", [1, 2, 3, 5, 6, 7]]
 ]);
 const DEFAULT_STUDENT_COUNT = 6;
 
@@ -231,12 +238,42 @@ async function deleteRows(table, query = "") {
   });
 }
 
-function studentCountForTeam(teamName) {
-  return TEAM_STUDENT_COUNTS.get(teamName) || DEFAULT_STUDENT_COUNT;
+async function updateRows(table, query = "", row) {
+  return supabaseFetch(`/rest/v1/${table}${query}`, {
+    method: "PATCH",
+    headers: {
+      Prefer: "return=minimal"
+    },
+    body: JSON.stringify(row)
+  });
+}
+
+function studentIndexesForTeam(teamName) {
+  const customIndexes = TEAM_STUDENT_INDEXES.get(teamName);
+  if (customIndexes) return customIndexes;
+  const count = TEAM_STUDENT_COUNTS.get(teamName) || DEFAULT_STUDENT_COUNT;
+  return Array.from({ length: count }, (_, index) => index + 1);
 }
 
 function teamCodeForName(teamName) {
   return TEAM_CODES.get(teamName) || null;
+}
+
+async function deleteRemovedTeams() {
+  for (const teamName of REMOVED_TEAMS) {
+    await deleteRows("teams", `?name=eq.${encodeURIComponent(teamName)}`);
+  }
+}
+
+async function renameTeams() {
+  for (const [oldName, newName] of RENAMED_TEAMS) {
+    const existingNew = await selectRows("teams", `?select=id&name=eq.${encodeURIComponent(newName)}`);
+    if (existingNew.length) continue;
+    await updateRows("teams", `?name=eq.${encodeURIComponent(oldName)}`, {
+      name: newName,
+      code: teamCodeForName(newName)
+    });
+  }
 }
 
 function csvEscape(value) {
@@ -268,21 +305,23 @@ async function main() {
   }
 
   await upsertRows("coordinators", coordinatorRows, "name");
+  await renameTeams();
   await upsertRows("teams", teams.map(name => ({ name, code: teamCodeForName(name) })), "name");
+  await deleteRemovedTeams();
 
   const teamRows = await selectRows("teams", "?select=id,name");
   const students = teamRows.flatMap(team =>
-    Array.from({ length: studentCountForTeam(team.name) }, (_, index) => ({
+    studentIndexesForTeam(team.name).map(teamIndex => ({
       team_id: team.id,
-      team_index: index + 1,
-      name: `Student ${index + 1}`
+      team_index: teamIndex,
+      name: `Student ${teamIndex}`
     }))
   );
   await upsertRows("students", students, "team_id,team_index");
 
   for (const team of teamRows) {
-    const maxIndex = studentCountForTeam(team.name);
-    await deleteRows("students", `?team_id=eq.${team.id}&team_index=gt.${maxIndex}`);
+    const indexes = studentIndexesForTeam(team.name);
+    await deleteRows("students", `?team_id=eq.${team.id}&team_index=not.in.(${indexes.join(",")})`);
   }
 
   const studentRows = await selectRows("students", "?select=id");

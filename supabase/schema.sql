@@ -52,8 +52,11 @@ create table if not exists initial_score_history (
   paper_id uuid not null references papers(id) on delete cascade,
   score smallint not null check (score between 0 and 7),
   coordinator_id uuid not null references coordinators(id),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  superseded_at timestamptz
 );
+
+alter table initial_score_history add column if not exists superseded_at timestamptz;
 
 create table if not exists agreed_score_history (
   id uuid primary key default gen_random_uuid(),
@@ -72,13 +75,58 @@ create table if not exists paper_claims (
   released_at timestamptz
 );
 
-create unique index if not exists one_active_claim_per_paper
-  on paper_claims (paper_id)
+drop index if exists one_active_claim_per_paper;
+
+create unique index if not exists one_active_claim_per_coordinator_paper
+  on paper_claims (paper_id, coordinator_id)
   where released_at is null;
 
 create index if not exists paper_claims_coordinator_active_idx
   on paper_claims (coordinator_id)
   where released_at is null;
+
+update initial_score_history h
+set superseded_at = h.created_at
+where h.superseded_at is null
+  and exists (
+    select 1
+    from initial_score_history newer
+    where newer.paper_id = h.paper_id
+      and newer.coordinator_id = h.coordinator_id
+      and newer.superseded_at is null
+      and (
+        newer.created_at > h.created_at
+        or (newer.created_at = h.created_at and newer.id::text > h.id::text)
+      )
+  );
+
+update papers p
+set initial_score = latest.score,
+    initial_score_coordinator_id = latest.coordinator_id
+from (
+  select distinct on (paper_id)
+    paper_id,
+    score,
+    coordinator_id
+  from initial_score_history
+  where superseded_at is null
+  order by paper_id, created_at desc
+) latest
+where p.id = latest.paper_id;
+
+update papers p
+set initial_score = null,
+    initial_score_coordinator_id = null
+where not exists (
+  select 1
+  from initial_score_history h
+  where h.paper_id = p.id
+    and h.superseded_at is null
+);
+
+create unique index if not exists one_initial_score_per_coordinator_paper
+  on initial_score_history (paper_id, coordinator_id)
+  where superseded_at is null;
 
 create index if not exists students_team_idx on students (team_id, team_index);
 create index if not exists papers_problem_idx on papers (problem_id);
@@ -167,22 +215,72 @@ select
   p.initial_score,
   p.initial_score_coordinator_id,
   isc.name as initial_score_coordinator_name,
+  my_ish.score as my_initial_score,
+  my_ish.id as my_initial_score_id,
   p.agreed_score,
   p.agreed_score_coordinator_id,
   asc_coordinator.name as agreed_score_coordinator_name,
+  asc_coordinator.avatar_seed as agreed_score_coordinator_avatar_seed,
   p.agreed_score_team_leader_signature,
-  pc.id as active_claim_id,
-  pc.coordinator_id as active_claim_coordinator_id,
-  cc.name as active_claim_coordinator_name,
-  pc.created_at as active_claim_created_at,
+  my_pc.id as active_claim_id,
+  my_pc.coordinator_id as active_claim_coordinator_id,
+  me.name as active_claim_coordinator_name,
+  my_pc.created_at as active_claim_created_at,
+  claim_summary.active_claim_count,
+  claim_summary.active_claim_coordinator_names,
+  claim_summary.active_claims,
+  initial_summary.current_initial_scores,
+  initial_summary.initial_score_conflict,
   p.updated_at
 from papers p
 join students s on s.id = p.student_id
 join teams t on t.id = s.team_id
+left join coordinators me on me.auth_user_id = auth.uid() and me.active = true
 left join coordinators isc on isc.id = p.initial_score_coordinator_id
 left join coordinators asc_coordinator on asc_coordinator.id = p.agreed_score_coordinator_id
-left join paper_claims pc on pc.paper_id = p.id and pc.released_at is null
-left join coordinators cc on cc.id = pc.coordinator_id;
+left join paper_claims my_pc on my_pc.paper_id = p.id and my_pc.coordinator_id = me.id and my_pc.released_at is null
+left join initial_score_history my_ish on my_ish.paper_id = p.id and my_ish.coordinator_id = me.id and my_ish.superseded_at is null
+left join lateral (
+  select
+    count(*)::integer as active_claim_count,
+    string_agg(c.name, ', ' order by c.name) as active_claim_coordinator_names,
+    coalesce(
+      jsonb_agg(
+        jsonb_build_object(
+          'claim_id', pc.id,
+          'coordinator_id', c.id,
+          'name', c.name,
+          'avatar_seed', c.avatar_seed
+        )
+        order by c.name
+      ),
+      '[]'::jsonb
+    ) as active_claims
+  from paper_claims pc
+  join coordinators c on c.id = pc.coordinator_id
+  where pc.paper_id = p.id
+    and pc.released_at is null
+) claim_summary on true
+left join lateral (
+  select
+    coalesce(
+      jsonb_agg(
+        jsonb_build_object(
+          'coordinator_id', c.id,
+          'name', c.name,
+          'avatar_seed', c.avatar_seed,
+          'score', ish.score
+        )
+        order by c.name
+      ),
+      '[]'::jsonb
+    ) as current_initial_scores,
+    count(distinct ish.score) > 1 as initial_score_conflict
+  from initial_score_history ish
+  join coordinators c on c.id = ish.coordinator_id
+  where ish.paper_id = p.id
+    and ish.superseded_at is null
+) initial_summary on true;
 
 create or replace view initial_score_history_view
 with (security_invoker = true)
@@ -251,7 +349,6 @@ set search_path = public
 as $$
 declare
   v_coordinator_id uuid;
-  v_existing_claim paper_claims%rowtype;
   v_claim_id uuid;
 begin
   v_coordinator_id := require_current_coordinator_id();
@@ -260,18 +357,16 @@ begin
     raise exception 'Paper does not exist';
   end if;
 
-  select *
-  into v_existing_claim
+  select id
+  into v_claim_id
   from paper_claims
   where paper_id = p_paper_id
+    and coordinator_id = v_coordinator_id
     and released_at is null
   limit 1;
 
   if found then
-    if v_existing_claim.coordinator_id = v_coordinator_id then
-      return v_existing_claim.id;
-    end if;
-    raise exception 'Paper is already claimed';
+    return v_claim_id;
   end if;
 
   insert into paper_claims (paper_id, coordinator_id)
@@ -281,7 +376,14 @@ begin
   return v_claim_id;
 exception
   when unique_violation then
-    raise exception 'Paper is already claimed';
+    select id
+    into v_claim_id
+    from paper_claims
+    where paper_id = p_paper_id
+      and coordinator_id = v_coordinator_id
+      and released_at is null
+    limit 1;
+    return v_claim_id;
 end;
 $$;
 
@@ -346,6 +448,12 @@ begin
 
   v_coordinator_id := require_current_coordinator_id();
   perform assert_active_claim(p_paper_id, v_coordinator_id);
+
+  update initial_score_history
+  set superseded_at = now()
+  where paper_id = p_paper_id
+    and coordinator_id = v_coordinator_id
+    and superseded_at is null;
 
   insert into initial_score_history (paper_id, score, coordinator_id)
   values (p_paper_id, p_score::smallint, v_coordinator_id);
@@ -416,10 +524,35 @@ begin
     raise exception 'Clear the agreed score before clearing the initial score';
   end if;
 
+  update initial_score_history
+  set superseded_at = now()
+  where paper_id = p_paper_id
+    and coordinator_id = v_coordinator_id
+    and superseded_at is null;
+
+  update papers p
+  set initial_score = latest.score,
+      initial_score_coordinator_id = latest.coordinator_id
+  from (
+    select score, coordinator_id
+    from initial_score_history
+    where paper_id = p_paper_id
+      and superseded_at is null
+    order by created_at desc
+    limit 1
+  ) latest
+  where p.id = p_paper_id;
+
   update papers
   set initial_score = null,
       initial_score_coordinator_id = null
-  where id = p_paper_id;
+  where id = p_paper_id
+    and not exists (
+      select 1
+      from initial_score_history
+      where paper_id = p_paper_id
+        and superseded_at is null
+    );
 end;
 $$;
 

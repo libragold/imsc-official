@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IMSC 2026 Coordination</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=20260705-claim-grid">
   <script src="./config.js"></script>
   <script type="module" src="./app.js"></script>
 </head>
@@ -68,7 +68,7 @@
         <div class="column-header">
           <div>
             <h2>Graded</h2>
-            <p>Initial score entered, ready to coordinate</p>
+            <p>Initial score entered</p>
           </div>
           <span id="gradedCount" class="pill"></span>
         </div>
@@ -113,7 +113,7 @@
       <div class="dialog-header">
         <div>
           <h2>Claim a Paper</h2>
-          <p>Select an available paper to work on.</p>
+          <p>Showing uncoordinated papers with 0 or 1 initial scores that you have not claimed.</p>
         </div>
         <button class="icon-button" value="cancel" type="submit" aria-label="Close"></button>
       </div>
@@ -134,11 +134,8 @@
           </select>
         </label>
         <label>
-          <span>Status</span>
-          <select id="claimStatusFilter">
-            <option value="unclaimed">Unclaimed</option>
-            <option value="">All</option>
-          </select>
+          <span>Help</span>
+          <select id="claimHelpFilter"></select>
         </label>
       </div>
       <div id="claimPaperList" class="paper-picker"></div>
@@ -211,7 +208,7 @@
     </form>
   </dialog>
 
-  <dialog id="avatarDialog" class="dialog">
+  <dialog id="avatarDialog" class="dialog narrow-dialog">
     <form id="avatarForm" class="dialog-shell">
       <div class="dialog-header">
         <div>
@@ -222,13 +219,14 @@
       </div>
       <div class="avatar-preview-row">
         <img id="avatarPreview" class="avatar-preview" alt="">
+      </div>
+      <div class="seed-row">
+        <label>
+          <span>Seed</span>
+          <input name="avatarSeed" id="avatarSeedInput" type="text" inputmode="latin" pattern="[a-z0-9]{1,32}" maxlength="32" required>
+        </label>
         <button class="ghost" id="randomAvatarSeedButton" type="button">Random seed</button>
       </div>
-      <label>
-        <span>Seed</span>
-        <input name="avatarSeed" id="avatarSeedInput" type="text" inputmode="latin" pattern="[a-z0-9]{1,32}" maxlength="32" required>
-      </label>
-      <a href="https://www.dicebear.com/playground/?style=micah" target="_blank" rel="noreferrer">Open DiceBear Micah playground</a>
       <p id="avatarMessage" class="message"></p>
       <button type="submit">Save avatar</button>
     </form>

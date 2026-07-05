@@ -440,7 +440,7 @@
       G8: { teams: "Kyrgyzstan, South Africa", homeroom: "Dusan Djukic", location: "201" },
       G9: { teams: "Czechia, Ireland", homeroom: "Qiang Shen", location: "312" },
       G10: { teams: "Estonia, Indonesia", homeroom: "Andrei Jorza", location: "203" },
-      G11: { teams: "North Macedonia, Turkmenistan, China Hubei Wuhan", homeroom: "Dorian Croitoru", location: "309" },
+      G11: { teams: "North Macedonia, Turkmenistan, China Hubei", homeroom: "Dorian Croitoru", location: "309" },
       G12: { teams: "Bangladesh, Croatia", homeroom: "Alex Song / Sari Ghanem", location: "206" },
       G13: { teams: "Cuba, Tajikistan", homeroom: "Andrei Bud", location: "307" },
       G14: { teams: "Macau China, Moldova, International Union II", homeroom: "Zilin Jiang", location: "207" },
@@ -458,7 +458,7 @@
       "Botswana",
       "Brazil",
       "Cameroon",
-      "China Hubei Wuhan",
+      "China Hubei",
       "Costa Rica",
       "Croatia",
       "Cuba",
@@ -511,7 +511,7 @@
       G8: ["Kyrgyzstan", "South Africa"],
       G9: ["Czechia", "Ireland"],
       G10: ["Estonia", "Indonesia"],
-      G11: ["North Macedonia", "Turkmenistan", "China Hubei Wuhan"],
+      G11: ["North Macedonia", "Turkmenistan", "China Hubei"],
       G12: ["Bangladesh", "Croatia"],
       G13: ["Cuba", "Tajikistan"],
       G14: ["Macau China", "Moldova", "International Union II"],
@@ -536,7 +536,7 @@
       { session: "H7", teams: ["Czechia", "Myanmar", "North Macedonia", "Costa Rica"], instructors: ["Tudor Paisanu", "Nikola Petrovic"], location: "Room 303" },
       { session: "H8", teams: ["Montenegro", "Nepal", "Ireland", "Hong Kong China"], instructors: ["Cezar Lupu", "Alex Song"], location: "Room 306" },
       { session: "H9", teams: ["Lithuania", "Serbia", "Macau China", "Indonesia"], instructors: ["Anca Sfia", "Sari Ghanem"], location: "Room 319" },
-      { session: "H10", teams: ["Bosnia & Herzegovina", "China Hubei Wuhan", "International Union I", "Uzbekistan"], instructors: ["Dorian Croitoru", "Ivan Chan Kai Chin"], location: "Room 307" }
+      { session: "H10", teams: ["Bosnia & Herzegovina", "China Hubei", "International Union I", "Uzbekistan"], instructors: ["Dorian Croitoru", "Ivan Chan Kai Chin"], location: "Room 307" }
     ];
 
     const TEAM_TO_PHILOSOPHY_GROUP = Object.fromEntries(
@@ -1079,7 +1079,7 @@
       const aliases = {
         "Hong Kong-China": "Hong Kong China",
         "Macau-China": "Macau China",
-        "China-Hubei (Wuhan)": "China Hubei Wuhan"
+        "China-Hubei (Wuhan)": "China Hubei"
       };
       if (aliases[value]) return aliases[value];
       if (TEAM_ORDER.includes(value)) return value;
