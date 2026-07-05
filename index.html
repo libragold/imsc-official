@@ -385,6 +385,16 @@
       line-height: 1.45;
     }
 
+    .coordination-status-note {
+      margin: 0;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.35;
+      background: #fff;
+    }
+
     .coordination-status-scroll {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -395,7 +405,7 @@
       min-width: 560px;
       border-collapse: separate;
       border-spacing: 0;
-      table-layout: fixed;
+      table-layout: auto;
     }
 
     .coordination-status-table th,
@@ -427,10 +437,8 @@
     }
 
     .coordination-status-table tbody th {
-      position: sticky;
-      left: 0;
-      z-index: 1;
-      width: 54px;
+      width: 1%;
+      white-space: nowrap;
       background: #fff;
       color: var(--accent);
       font-size: 0.8rem;
@@ -445,6 +453,11 @@
       justify-content: center;
       gap: 6px;
       flex-wrap: wrap;
+    }
+
+    .coordination-status-cell.has-people {
+      justify-content: flex-start;
+      text-align: left;
     }
 
     .coordination-check {
@@ -470,18 +483,31 @@
       align-items: center;
       justify-content: center;
       min-width: 0;
-      padding-left: 4px;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
     }
 
     .coordination-avatar {
-      width: 23px;
-      height: 23px;
+      width: 22px;
+      height: 22px;
       border-radius: 999px;
-      border: 2px solid #fff;
-      background: #f0f2f4;
-      box-shadow: 0 0 0 1px var(--line);
-      margin-left: -4px;
+      display: block;
       flex: 0 0 auto;
+    }
+
+    .coordination-person {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .coordination-person-name {
+      color: var(--ink);
+      font-size: 0.72rem;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
     }
 
     .coordination-empty-cell {
@@ -1489,11 +1515,12 @@
       return `
         <article class="coordination-status-card">
           ${renderCoordinationStatusTitle()}
+          <p class="coordination-status-note">If a cell shows coordinators' names, that paper is ready for coordination.</p>
           <div class="coordination-status-scroll">
             <table class="coordination-status-table">
               <thead>
                 <tr>
-                  <th scope="col">Student</th>
+                  <th scope="col" aria-label="Student"></th>
                   ${students.map(student => `<th scope="col">${escapeHtml(student.team_index)}</th>`).join("")}
                 </tr>
               </thead>
@@ -1528,22 +1555,23 @@
       const people = row.has_two_initial_scores
         ? parseJsonArray(row.current_initial_score_people).filter(person => person?.name)
         : [];
-      const names = people.map(person => person.name).join(", ");
       const avatars = people.length ? `
-        <span class="coordination-avatar-stack" title="${escapeHtml(names)}" aria-label="${escapeHtml(names)}">
+        <span class="coordination-avatar-stack">
           ${people.map(person => `
-            <img
-              class="coordination-avatar"
-              src="${avatarUrl(avatarSeedForPerson(person))}"
-              alt="${escapeHtml(person.name)}"
-              title="${escapeHtml(person.name)}"
-            >
+            <span class="coordination-person">
+              <img
+                class="coordination-avatar"
+                src="${avatarUrl(avatarSeedForPerson(person))}"
+                alt=""
+              >
+              <span class="coordination-person-name">${escapeHtml(person.name)}</span>
+            </span>
           `).join("")}
         </span>
       ` : "";
       return `
         <td>
-          <div class="coordination-status-cell">
+          <div class="coordination-status-cell${people.length ? " has-people" : ""}">
             ${row.coordination_finished ? renderCoordinationCheck() : ""}
             ${avatars}
             ${!row.coordination_finished && !avatars ? `<span class="coordination-empty-cell">-</span>` : ""}
