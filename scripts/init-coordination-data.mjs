@@ -71,12 +71,14 @@ const TEAM_CODES = new Map([
 ]);
 const TEAM_STUDENT_COUNTS = new Map([
   ["China", 6],
-  ["China Beijing", 6],
+  ["China Beijing", 4],
   ["China Inner Mongolia", 6],
+  ["Cameroon", 4],
   ["Hong Kong China", 4],
-  ["International Union I", 5],
+  ["Iceland", 5],
+  ["International Union I", 4],
   ["International Union II", 5],
-  ["Montenegro", 5],
+  ["Montenegro", 4],
   ["North Macedonia", 5],
   ["Uganda", 2]
 ]);
