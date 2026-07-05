@@ -249,7 +249,7 @@ code {
 }
 
 .compact-card {
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
   align-items: center;
   gap: 6px;
   padding: 7px;
@@ -258,6 +258,11 @@ code {
 .compact-card.score-conflict {
   background: var(--danger-soft);
   border-color: #efc5c5;
+}
+
+.compact-card.score-waiting {
+  background: #fff8db;
+  border-color: #ead889;
 }
 
 .compact-card:hover {
@@ -368,6 +373,30 @@ code {
   border-radius: 999px;
   box-shadow: inset 0 0 0 2px var(--accent);
   pointer-events: none;
+}
+
+.signature-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--accent);
+}
+
+.signature-mark::before {
+  content: "";
+  width: 17px;
+  height: 17px;
+  background: currentColor;
+  -webkit-mask: url("./signature.svg") center / contain no-repeat;
+  mask: url("./signature.svg") center / contain no-repeat;
+}
+
+.viewport-tooltip.signature-tooltip {
+  font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .card-actions-inline {
@@ -636,8 +665,6 @@ code {
 }
 
 .paper-picker {
-  max-height: min(62vh, 620px);
-  overflow: auto;
   padding-right: 2px;
 }
 

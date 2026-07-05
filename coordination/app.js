@@ -92,6 +92,9 @@ let tooltipTarget = null;
 let claimDialogPage = 1;
 let claimDialogPapers = [];
 let claimDialogTotal = 0;
+let myPapersChannel = null;
+let myPapersRefreshTimer = null;
+let isRefreshingMyPapers = false;
 
 function loadFilterState() {
   try {
@@ -216,6 +219,10 @@ function canCoordinatePaper(paper) {
   return currentInitialScores(paper).length >= 2 && !hasInitialScoreConflict(paper);
 }
 
+function hasOtherInitialScore(paper) {
+  return currentInitialScores(paper).some(entry => entry.coordinator_id !== currentCoordinator.id);
+}
+
 function setBusy(button, busy) {
   if (button) button.disabled = busy;
 }
@@ -277,6 +284,7 @@ async function refreshSession() {
   currentUser = data.session?.user || null;
 
   if (!currentUser) {
+    unsubscribeMyPapersRealtime();
     currentCoordinator = null;
     teams = [];
     coordinators = [];
@@ -290,6 +298,7 @@ async function refreshSession() {
   await loadCoordinator();
   await loadMyPapers();
   renderApp();
+  subscribeMyPapersRealtime();
 }
 
 async function loadCoordinator() {
@@ -342,6 +351,50 @@ async function loadMyPapers() {
 
   if (error) throw error;
   papers = data || [];
+}
+
+function subscribeMyPapersRealtime() {
+  unsubscribeMyPapersRealtime();
+  myPapersChannel = supabase.channel("coordination-my-papers");
+  ["paper_claims", "initial_score_history", "agreed_score_history", "papers"].forEach(table => {
+    myPapersChannel.on("postgres_changes", {
+      event: "*",
+      schema: "public",
+      table
+    }, scheduleMyPapersRefresh);
+  });
+  myPapersChannel.subscribe();
+}
+
+function unsubscribeMyPapersRealtime() {
+  if (myPapersRefreshTimer) {
+    clearTimeout(myPapersRefreshTimer);
+    myPapersRefreshTimer = null;
+  }
+  if (myPapersChannel) {
+    supabase.removeChannel(myPapersChannel);
+    myPapersChannel = null;
+  }
+}
+
+function scheduleMyPapersRefresh() {
+  if (!currentUser) return;
+  if (myPapersRefreshTimer) clearTimeout(myPapersRefreshTimer);
+  myPapersRefreshTimer = setTimeout(refreshMyPapersFromRealtime, 350);
+}
+
+async function refreshMyPapersFromRealtime() {
+  myPapersRefreshTimer = null;
+  if (!currentUser || isRefreshingMyPapers) return;
+  isRefreshingMyPapers = true;
+  try {
+    await loadMyPapers();
+    renderBoard();
+  } catch (error) {
+    console.error("Failed to refresh coordination board", error);
+  } finally {
+    isRefreshingMyPapers = false;
+  }
 }
 
 function renderLogin() {
@@ -402,16 +455,29 @@ function renderCard(paper, pile) {
   const claim = claimState(paper);
   const sideAction = renderCardSideAction(paper, pile, claim);
   const avatars = renderCardAvatars(paper);
+  const signature = pile === "coordinated" ? renderSignatureMark(paper) : "";
   const conflictClass = pile === "graded" && hasInitialScoreConflict(paper) ? " score-conflict" : "";
+  const helpReadyClass = pile === "claimed" && paper.my_initial_score == null && hasOtherInitialScore(paper)
+    ? " score-waiting"
+    : "";
 
   return `
-    <article class="paper-card compact-card${conflictClass}">
+    <article class="paper-card compact-card${conflictClass}${helpReadyClass}">
       <div class="paper-card-main">
         <span>${escapeHtml(formatCompactPaper(paper))}</span>
       </div>
       ${avatars}
+      ${signature}
       ${sideAction}
     </article>
+  `;
+}
+
+function renderSignatureMark(paper) {
+  const signature = paper.agreed_score_team_leader_signature?.trim();
+  if (!signature) return "";
+  return `
+    <span class="signature-mark has-tooltip" data-tooltip="${escapeHtml(signature)}" aria-label="Team leader signature: ${escapeHtml(signature)}" tabindex="0"></span>
   `;
 }
 
@@ -491,6 +557,7 @@ function showBoundaryTooltip(target) {
   tooltipTarget = target;
   const tooltip = ensureTooltipElement();
   tooltip.textContent = text;
+  tooltip.classList.toggle("signature-tooltip", target.classList.contains("signature-mark"));
   tooltip.hidden = false;
   positionBoundaryTooltip();
 }
@@ -656,7 +723,7 @@ async function loadClaimDialogPapers() {
 
   if (team) query = query.eq("team_name", team);
   if (problem) query = query.eq("problem_id", Number(problem));
-  if (helperId) query = query.contains("active_claims", [{ coordinator_id: helperId }]);
+  if (helperId) query = query.filter("active_claims", "cs", JSON.stringify([{ coordinator_id: helperId }]));
 
   const { data, error, count } = await query;
   if (error) throw error;
@@ -739,7 +806,7 @@ function openAgreedScoreDialog(paperId) {
   dom.agreedScorePaper.textContent = formatCompactPaper(paper);
   dom.agreedScoreForm.reset();
   dom.agreedScoreForm.elements.score.value = paper.agreed_score ?? "";
-  dom.agreedScoreForm.elements.signature.value = paper.agreed_score_team_leader_signature || "";
+  dom.agreedScoreForm.elements.signature.value = "";
   setMessage(dom.agreedScoreMessage, "");
   dom.agreedScoreDialog.showModal();
   dom.agreedScoreForm.elements.score.focus();
@@ -957,6 +1024,7 @@ function bindEvents() {
   dom.signOutButton.addEventListener("click", async () => {
     dom.avatarMenu.hidden = true;
     await supabase.auth.signOut();
+    unsubscribeMyPapersRealtime();
     currentUser = null;
     currentCoordinator = null;
     activePaperId = null;
