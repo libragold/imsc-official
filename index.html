@@ -683,7 +683,10 @@
       "Botswana",
       "Brazil",
       "Cameroon",
+      "China",
+      "China Beijing",
       "China Hubei",
+      "China Inner Mongolia",
       "Costa Rica",
       "Croatia",
       "Cuba",
@@ -724,6 +727,12 @@
       "Uzbekistan",
       "Vietnam"
     ];
+
+    const LIMITED_ATTENDANCE_TEAMS = new Set([
+      "China",
+      "China Beijing",
+      "China Inner Mongolia"
+    ]);
 
     const LECTURE_GROUP_TEAMS = {
       G1: ["Iran", "Poland", "Vietnam"],
@@ -1623,11 +1632,20 @@
       if (state.perspective === "overall") return true;
       if (state.perspective === "instructor") return eventInvolvesInstructor(event);
       if (state.perspective === "group") {
+        if (LIMITED_ATTENDANCE_TEAMS.has(state.group)) return eventInvolvesLimitedAttendanceTeam(event);
         if (event.kind === "classroom" || event.kind === "test" || event.kind === "problem") return event.groups.includes(selectedLectureGroup());
         if (event.kind === "philosophy") return event.teams.includes(state.group);
         return eventInvolvesTeam(event);
       }
       return false;
+    }
+
+    function eventInvolvesLimitedAttendanceTeam(event) {
+      if (event.kind === "competition") return true;
+      if (event.kind === "staff") {
+        return event.type === "Coordination" || event.session === "Final Jury Meeting";
+      }
+      return event.kind === "ceremony" && event.session === "Award Ceremony and Banquet";
     }
 
     function eventInvolvesInstructor(event) {
