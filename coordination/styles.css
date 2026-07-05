@@ -402,10 +402,14 @@ code {
 }
 
 .compact-card {
-  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 6px;
   padding: 7px;
+}
+
+.compact-card.has-signature {
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
 }
 
 .compact-card.score-conflict {

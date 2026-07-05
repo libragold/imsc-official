@@ -456,13 +456,14 @@ function renderCard(paper, pile) {
   const sideAction = renderCardSideAction(paper, pile, claim);
   const avatars = renderCardAvatars(paper);
   const signature = pile === "coordinated" ? renderSignatureMark(paper) : "";
+  const signatureClass = signature ? " has-signature" : "";
   const conflictClass = pile === "graded" && hasInitialScoreConflict(paper) ? " score-conflict" : "";
   const helpReadyClass = pile === "claimed" && paper.my_initial_score == null && hasOtherInitialScore(paper)
     ? " score-waiting"
     : "";
 
   return `
-    <article class="paper-card compact-card${conflictClass}${helpReadyClass}">
+    <article class="paper-card compact-card${signatureClass}${conflictClass}${helpReadyClass}">
       <div class="paper-card-main">
         <span>${escapeHtml(formatCompactPaper(paper))}</span>
       </div>
@@ -531,6 +532,15 @@ function renderCardAvatars(paper) {
   return `<div class="avatar-stack">${avatars.join("")}</div>`;
 }
 
+function renderClaimDialogAvatars(paper) {
+  const people = new Map();
+  activeClaims(paper).forEach(claim => people.set(claim.coordinator_id, claim));
+  currentInitialScores(paper).forEach(score => people.set(score.coordinator_id, score));
+  const avatars = [...people.values()].map(person => renderAvatar(person, person.name || ""));
+  if (!avatars.length) return `<div class="avatar-stack"></div>`;
+  return `<div class="avatar-stack">${avatars.join("")}</div>`;
+}
+
 function hasPdf(paper) {
   return Boolean(paper?.pdf_path);
 }
@@ -542,12 +552,12 @@ function renderPdfButton(paper) {
   `;
 }
 
-function ensureTooltipElement() {
+function ensureTooltipElement(parent = document.body) {
   if (tooltipElement) return tooltipElement;
   tooltipElement = document.createElement("div");
   tooltipElement.className = "viewport-tooltip";
   tooltipElement.hidden = true;
-  document.body.append(tooltipElement);
+  parent.append(tooltipElement);
   return tooltipElement;
 }
 
@@ -555,7 +565,9 @@ function showBoundaryTooltip(target) {
   const text = target.dataset.tooltip?.trim();
   if (!text) return;
   tooltipTarget = target;
-  const tooltip = ensureTooltipElement();
+  const tooltipParent = target.closest("dialog[open]") || document.body;
+  const tooltip = ensureTooltipElement(tooltipParent);
+  if (tooltip.parentElement !== tooltipParent) tooltipParent.append(tooltip);
   tooltip.textContent = text;
   tooltip.classList.toggle("signature-tooltip", target.classList.contains("signature-mark"));
   tooltip.hidden = false;
@@ -762,7 +774,7 @@ async function renderClaimDialog() {
         <div>
           <strong>${escapeHtml(formatCompactPaper(paper))}</strong>
         </div>
-        ${renderCardAvatars(paper)}
+        ${renderClaimDialogAvatars(paper)}
         <div class="card-actions-inline">
           ${renderPdfButton(paper)}
           <button class="claim-paper" type="button" data-paper-id="${paper.paper_id}" ${disabled ? "disabled" : ""}>${escapeHtml(label)}</button>
