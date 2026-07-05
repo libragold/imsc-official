@@ -481,11 +481,16 @@
     .coordination-avatar-stack {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       min-width: 0;
       gap: 6px;
       flex-wrap: wrap;
       justify-content: flex-start;
+    }
+
+    .coordination-avatar-stack.has-multiple {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .coordination-avatar {
@@ -1566,7 +1571,7 @@
         ? parseJsonArray(row.current_initial_score_people).filter(person => person?.name)
         : [];
       const avatars = people.length ? `
-        <span class="coordination-avatar-stack">
+        <span class="coordination-avatar-stack${people.length > 1 ? " has-multiple" : ""}">
           ${people.map(person => `
             <span class="coordination-person">
               <img
