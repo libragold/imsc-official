@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const COORDINATORS = [
+const FALLBACK_COORDINATORS = [
   "Anca Sfia",
   "Andrei Bud",
   "Andrei Jorza",
@@ -81,12 +81,17 @@ let supabase = null;
 let currentUser = null;
 let currentCoordinator = null;
 let papers = [];
+let teams = [];
+let coordinators = [];
+let problemIds = [1, 2, 3, 4, 5, 6];
 let activePaperId = null;
 let pendingConfirmAction = null;
 let filterState = loadFilterState();
 let tooltipElement = null;
 let tooltipTarget = null;
 let claimDialogPage = 1;
+let claimDialogPapers = [];
+let claimDialogTotal = 0;
 
 function loadFilterState() {
   try {
@@ -232,7 +237,9 @@ function myActiveClaim(paper) {
 }
 
 function paperById(paperId) {
-  return papers.find(paper => paper.paper_id === paperId) || null;
+  return papers.find(paper => paper.paper_id === paperId)
+    || claimDialogPapers.find(paper => paper.paper_id === paperId)
+    || null;
 }
 
 function isIntegerScore(value) {
@@ -240,7 +247,8 @@ function isIntegerScore(value) {
 }
 
 function initLoginOptions() {
-  const coordinatorOptions = COORDINATORS.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`);
+  const names = coordinators.length ? coordinators.map(coordinator => coordinator.name) : FALLBACK_COORDINATORS;
+  const coordinatorOptions = names.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`);
   dom.coordinatorSelect.innerHTML = [
     `<option value="" selected disabled></option>`,
     ...coordinatorOptions
@@ -270,12 +278,17 @@ async function refreshSession() {
 
   if (!currentUser) {
     currentCoordinator = null;
+    teams = [];
+    coordinators = [];
+    initLoginOptions();
     renderLogin();
     return;
   }
 
+  await loadMetadata();
+  initLoginOptions();
   await loadCoordinator();
-  await loadPapers();
+  await loadMyPapers();
   renderApp();
 }
 
@@ -290,10 +303,39 @@ async function loadCoordinator() {
   currentCoordinator = data;
 }
 
-async function loadPapers() {
+async function loadMetadata() {
+  await Promise.all([
+    loadTeams(),
+    loadCoordinators()
+  ]);
+}
+
+async function loadTeams() {
+  const { data, error } = await supabase
+    .from("teams")
+    .select("id,name,code")
+    .order("name", { ascending: true });
+
+  if (error) throw error;
+  teams = data || [];
+}
+
+async function loadCoordinators() {
+  const { data, error } = await supabase
+    .from("coordinators")
+    .select("id,name,avatar_seed,active")
+    .eq("active", true)
+    .order("name", { ascending: true });
+
+  if (error) throw error;
+  coordinators = data || [];
+}
+
+async function loadMyPapers() {
   const { data, error } = await supabase
     .from("paper_status")
     .select("*")
+    .not("active_claim_id", "is", null)
     .order("team_name", { ascending: true })
     .order("team_index", { ascending: true })
     .order("problem_id", { ascending: true });
@@ -423,6 +465,17 @@ function renderCardAvatars(paper) {
   return `<div class="avatar-stack">${avatars.join("")}</div>`;
 }
 
+function hasPdf(paper) {
+  return Boolean(paper?.pdf_path);
+}
+
+function renderPdfButton(paper) {
+  if (!hasPdf(paper)) return "";
+  return `
+    <button class="secondary-action pdf-action open-paper-pdf" type="button" data-paper-id="${paper.paper_id}" aria-label="Open PDF for ${escapeHtml(formatPaper(paper))}">PDF</button>
+  `;
+}
+
 function ensureTooltipElement() {
   if (tooltipElement) return tooltipElement;
   tooltipElement = document.createElement("div");
@@ -480,10 +533,12 @@ function positionBoundaryTooltip() {
 
 function renderCardSideAction(paper, pile, claim) {
   if (claim !== "mine") return "";
+  const pdfButton = renderPdfButton(paper);
   if (pile === "claimed") {
     const myClaim = myActiveClaim(paper);
     return `
       <div class="card-actions-inline">
+        ${pdfButton}
         <button class="primary-action open-initial-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Grade ${escapeHtml(formatPaper(paper))}">Grade</button>
         <button class="secondary-action release-claim" type="button" data-paper-id="${paper.paper_id}" data-claim-id="${myClaim?.claim_id || paper.active_claim_id || ""}" aria-label="Remove ${escapeHtml(formatPaper(paper))}">Remove</button>
       </div>
@@ -492,19 +547,25 @@ function renderCardSideAction(paper, pile, claim) {
   if (pile === "graded") {
     return `
       <div class="card-actions-inline">
+        ${pdfButton}
         <button class="secondary-action open-initial-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Edit initial score for ${escapeHtml(formatPaper(paper))}">Edit</button>
         ${canCoordinatePaper(paper) ? `<button class="primary-action open-agreed-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Coordinate ${escapeHtml(formatPaper(paper))}">Coordinate</button>` : ""}
       </div>
     `;
   }
   if (pile === "coordinated") {
-    return `<button class="secondary-action open-agreed-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Edit agreed score for ${escapeHtml(formatPaper(paper))}">Edit</button>`;
+    return `
+      <div class="card-actions-inline">
+        ${pdfButton}
+        <button class="secondary-action open-agreed-score" type="button" data-paper-id="${paper.paper_id}" aria-label="Edit agreed score for ${escapeHtml(formatPaper(paper))}">Edit</button>
+      </div>
+    `;
   }
   return "";
 }
 
 function renderPileFilters() {
-  const teams = [...new Set(papers.map(paper => paper.team_name))].sort((a, b) => a.localeCompare(b));
+  const teamOptions = teams.map(team => team.name);
   [
     ["claimed", dom.claimedTeamFilter, dom.claimedProblemFilter],
     ["graded", dom.gradedTeamFilter, dom.gradedProblemFilter],
@@ -514,14 +575,14 @@ function renderPileFilters() {
     const currentProblem = filterState[`${key}Problem`] ?? problemFilter.value;
     teamFilter.innerHTML = [
       `<option value="">All</option>`,
-      ...teams.map(team => `<option value="${escapeHtml(team)}">${escapeHtml(team)}</option>`)
+      ...teamOptions.map(team => `<option value="${escapeHtml(team)}">${escapeHtml(team)}</option>`)
     ].join("");
     problemFilter.innerHTML = [
       `<option value="">All</option>`,
-      ...[1, 2, 3, 4, 5, 6].map(id => `<option value="${id}">P${id}</option>`)
+      ...problemIds.map(id => `<option value="${id}">P${id}</option>`)
     ].join("");
-    teamFilter.value = teams.includes(currentTeam) ? currentTeam : "";
-    problemFilter.value = ["1", "2", "3", "4", "5", "6"].includes(currentProblem) ? currentProblem : "";
+    teamFilter.value = teamOptions.includes(currentTeam) ? currentTeam : "";
+    problemFilter.value = problemIds.map(String).includes(currentProblem) ? currentProblem : "";
     filterState[`${key}Team`] = teamFilter.value;
     filterState[`${key}Problem`] = problemFilter.value;
   });
@@ -543,22 +604,25 @@ function applyPileFilters(items, pile) {
 }
 
 function renderClaimFilters() {
-  const teams = [...new Set(papers.map(paper => paper.team_name))].sort((a, b) => a.localeCompare(b));
+  const teamOptions = teams.map(team => team.name);
   const current = filterState.claimDialogTeam ?? dom.claimTeamFilter.value;
   const helpers = claimHelpOptions();
   const currentHelper = filterState.claimDialogHelp ?? dom.claimHelpFilter.value;
   dom.claimTeamFilter.innerHTML = [
     `<option value="">All</option>`,
-    ...teams.map(team => `<option value="${escapeHtml(team)}">${escapeHtml(team)}</option>`)
+    ...teamOptions.map(team => `<option value="${escapeHtml(team)}">${escapeHtml(team)}</option>`)
   ].join("");
+  dom.claimProblemFilter.innerHTML = problemIds
+    .map(id => `<option value="${id}">P${id}</option>`)
+    .join("");
   dom.claimHelpFilter.innerHTML = [
     `<option value="">All</option>`,
     ...helpers.map(helper => `<option value="${escapeHtml(helper.id)}">${escapeHtml(helper.name)}</option>`)
   ].join("");
-  dom.claimTeamFilter.value = teams.includes(current) ? current : "";
-  dom.claimProblemFilter.value = ["1", "2", "3", "4", "5", "6"].includes(filterState.claimDialogProblem)
+  dom.claimTeamFilter.value = teamOptions.includes(current) ? current : "";
+  dom.claimProblemFilter.value = problemIds.map(String).includes(filterState.claimDialogProblem)
     ? filterState.claimDialogProblem
-    : "1";
+    : String(problemIds[0] || 1);
   dom.claimHelpFilter.value = helpers.some(helper => helper.id === currentHelper) ? currentHelper : "";
   filterState.claimDialogTeam = dom.claimTeamFilter.value;
   filterState.claimDialogProblem = dom.claimProblemFilter.value;
@@ -567,52 +631,62 @@ function renderClaimFilters() {
 }
 
 function claimHelpOptions() {
-  const helpers = new Map();
-  for (const paper of papers) {
-    if (!isClaimHelpCandidate(paper)) continue;
-    if (claimState(paper) === "mine") continue;
-    for (const claim of activeClaims(paper)) {
-      if (claim.coordinator_id === currentCoordinator.id) continue;
-      helpers.set(claim.coordinator_id, claim.name);
-    }
-  }
-  return [...helpers.entries()]
-    .map(([id, name]) => ({ id, name }))
-    .sort((a, b) => a.name.localeCompare(b.name));
+  return coordinators
+    .filter(coordinator => coordinator.id !== currentCoordinator.id)
+    .map(coordinator => ({ id: coordinator.id, name: coordinator.name }));
 }
 
-function isClaimHelpCandidate(paper) {
-  return paper.agreed_score === null && currentInitialScores(paper).length <= 1;
-}
-
-function filteredClaimPapers() {
+async function loadClaimDialogPapers() {
   const team = dom.claimTeamFilter.value;
   const problem = dom.claimProblemFilter.value;
   const helperId = dom.claimHelpFilter.value;
+  const from = (claimDialogPage - 1) * CLAIM_PAGE_SIZE;
+  const to = from + CLAIM_PAGE_SIZE - 1;
 
-  return papers.filter(paper => {
-    if (!isClaimHelpCandidate(paper)) return false;
-    if (claimState(paper) === "mine") return false;
-    if (team && paper.team_name !== team) return false;
-    if (problem && String(paper.problem_id) !== problem) return false;
-    if (helperId && !activeClaims(paper).some(claim => claim.coordinator_id === helperId)) return false;
-    return true;
-  });
+  let query = supabase
+    .from("paper_status")
+    .select("*", { count: "exact" })
+    .is("agreed_score", null)
+    .is("active_claim_id", null)
+    .lte("current_initial_score_count", 1)
+    .order("team_name", { ascending: true })
+    .order("team_index", { ascending: true })
+    .order("problem_id", { ascending: true })
+    .range(from, to);
+
+  if (team) query = query.eq("team_name", team);
+  if (problem) query = query.eq("problem_id", Number(problem));
+  if (helperId) query = query.contains("active_claims", [{ coordinator_id: helperId }]);
+
+  const { data, error, count } = await query;
+  if (error) throw error;
+  claimDialogPapers = data || [];
+  claimDialogTotal = count || 0;
 }
 
-function renderClaimDialog() {
-  const visible = filteredClaimPapers();
-  if (!visible.length) {
+async function renderClaimDialog() {
+  dom.claimPaperList.innerHTML = `<div class="empty-state">Loading papers...</div>`;
+  try {
+    await loadClaimDialogPapers();
+  } catch (error) {
+    dom.claimPaperList.innerHTML = `<div class="empty-state">${escapeHtml(error.message)}</div>`;
+    return;
+  }
+
+  let pageCount = Math.max(1, Math.ceil(claimDialogTotal / CLAIM_PAGE_SIZE));
+  if (!claimDialogPapers.length && claimDialogTotal > 0 && claimDialogPage > pageCount) {
+    claimDialogPage = pageCount;
+    await loadClaimDialogPapers();
+    pageCount = Math.max(1, Math.ceil(claimDialogTotal / CLAIM_PAGE_SIZE));
+  }
+
+  if (!claimDialogPapers.length) {
     dom.claimPaperList.innerHTML = `<div class="empty-state">No papers match these filters.</div>`;
     return;
   }
 
-  const pageCount = Math.ceil(visible.length / CLAIM_PAGE_SIZE);
   claimDialogPage = Math.max(1, Math.min(claimDialogPage, pageCount));
-  const start = (claimDialogPage - 1) * CLAIM_PAGE_SIZE;
-  const pageItems = visible.slice(start, start + CLAIM_PAGE_SIZE);
-
-  const rows = pageItems.map(paper => {
+  const rows = claimDialogPapers.map(paper => {
     const claim = claimState(paper);
     const disabled = claim === "mine";
     const label = claim === "mine" ? "Claimed" : "Claim";
@@ -622,7 +696,10 @@ function renderClaimDialog() {
           <strong>${escapeHtml(formatCompactPaper(paper))}</strong>
         </div>
         ${renderCardAvatars(paper)}
-        <button class="claim-paper" type="button" data-paper-id="${paper.paper_id}" ${disabled ? "disabled" : ""}>${escapeHtml(label)}</button>
+        <div class="card-actions-inline">
+          ${renderPdfButton(paper)}
+          <button class="claim-paper" type="button" data-paper-id="${paper.paper_id}" ${disabled ? "disabled" : ""}>${escapeHtml(label)}</button>
+        </div>
       </article>
     `;
   }).join("");
@@ -631,7 +708,7 @@ function renderClaimDialog() {
     <div class="paper-picker-grid">${rows}</div>
     <div class="claim-pagination">
       <button class="ghost claim-page" type="button" data-page-delta="-1" ${claimDialogPage === 1 ? "disabled" : ""}>Previous</button>
-      <span>Page ${claimDialogPage} of ${pageCount} · ${visible.length} papers</span>
+      <span>Page ${claimDialogPage} of ${pageCount} · ${claimDialogTotal} papers</span>
       <button class="ghost claim-page" type="button" data-page-delta="1" ${claimDialogPage === pageCount ? "disabled" : ""}>Next</button>
     </div>
   `;
@@ -639,7 +716,7 @@ function renderClaimDialog() {
 
 function openClaimDialog() {
   claimDialogPage = 1;
-  renderClaimDialog();
+  void renderClaimDialog();
   dom.claimDialog.showModal();
 }
 
@@ -678,9 +755,9 @@ function openAvatarDialog() {
 
 async function refreshAll() {
   await loadCoordinator();
-  await loadPapers();
+  await loadMyPapers();
   renderApp();
-  if (dom.claimDialog.open) renderClaimDialog();
+  if (dom.claimDialog.open) await renderClaimDialog();
 }
 
 async function claimPaper(paperId, button) {
@@ -706,6 +783,30 @@ async function releaseClaim(claimId, button) {
   } catch (error) {
     alert(error.message);
     return false;
+  } finally {
+    setBusy(button, false);
+  }
+}
+
+async function openPaperPdf(paperId, button) {
+  const paper = paperById(paperId);
+  if (!hasPdf(paper)) return;
+
+  setBusy(button, true);
+  try {
+    const { data, error } = await supabase.storage
+      .from(paper.pdf_bucket || "paper-pdfs")
+      .createSignedUrl(paper.pdf_path, 60 * 60);
+    if (error) throw error;
+
+    const opened = window.open(data.signedUrl, "_blank");
+    if (opened) {
+      opened.opener = null;
+    } else {
+      window.location.href = data.signedUrl;
+    }
+  } catch (error) {
+    alert(error.message);
   } finally {
     setBusy(button, false);
   }
@@ -872,7 +973,7 @@ function bindEvents() {
     control.addEventListener("change", () => {
       setFilterState(key, control.value);
       claimDialogPage = 1;
-      renderClaimDialog();
+      void renderClaimDialog();
     });
   });
 
@@ -938,6 +1039,12 @@ function bindEvents() {
       return;
     }
 
+    const pdfButton = event.target.closest(".open-paper-pdf");
+    if (pdfButton && !pdfButton.disabled) {
+      await openPaperPdf(pdfButton.dataset.paperId, pdfButton);
+      return;
+    }
+
     const claimButton = event.target.closest(".claim-paper");
     if (claimButton && !claimButton.disabled) {
       await claimPaper(claimButton.dataset.paperId, claimButton);
@@ -947,7 +1054,7 @@ function bindEvents() {
     const claimPageButton = event.target.closest(".claim-page");
     if (claimPageButton && !claimPageButton.disabled) {
       claimDialogPage += Number(claimPageButton.dataset.pageDelta);
-      renderClaimDialog();
+      void renderClaimDialog();
       return;
     }
 

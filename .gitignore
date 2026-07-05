@@ -7,3 +7,4 @@ generated-passwords*
 password-slips*
 
 .DS_Store
+tmp/

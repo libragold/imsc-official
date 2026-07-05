@@ -372,6 +372,7 @@ code {
 
 .card-actions-inline {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   gap: 6px;
 }
@@ -402,6 +403,10 @@ code {
 .secondary-action:hover {
   border-color: var(--line-strong);
   background: #f5f7f8;
+}
+
+.pdf-action {
+  min-width: 42px;
 }
 
 .picker-row {

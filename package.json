@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "python3 -m http.server 8765 --bind 127.0.0.1",
-    "coordination:init": "node scripts/init-coordination-data.mjs"
+    "coordination:init": "node scripts/init-coordination-data.mjs",
+    "coordination:upload-day1-pdfs": "node scripts/upload-day1-pdfs.mjs"
   }
 }

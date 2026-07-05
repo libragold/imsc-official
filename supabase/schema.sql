@@ -42,10 +42,37 @@ create table if not exists papers (
   agreed_score smallint check (agreed_score between 0 and 7),
   agreed_score_coordinator_id uuid references coordinators(id),
   agreed_score_team_leader_signature text,
+  pdf_bucket text not null default 'paper-pdfs',
+  pdf_path text,
+  pdf_original_name text,
+  pdf_size_bytes bigint check (pdf_size_bytes is null or pdf_size_bytes >= 0),
+  pdf_uploaded_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (student_id, problem_id)
 );
+
+alter table papers add column if not exists pdf_bucket text not null default 'paper-pdfs';
+alter table papers add column if not exists pdf_path text;
+alter table papers add column if not exists pdf_original_name text;
+alter table papers add column if not exists pdf_size_bytes bigint;
+alter table papers add column if not exists pdf_uploaded_at timestamptz;
+alter table papers drop constraint if exists papers_pdf_size_bytes_check;
+alter table papers add constraint papers_pdf_size_bytes_check check (pdf_size_bytes is null or pdf_size_bytes >= 0);
+create unique index if not exists papers_pdf_object_unique_idx on papers (pdf_bucket, pdf_path) where pdf_path is not null;
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('paper-pdfs', 'paper-pdfs', false, 52428800, array['application/pdf'])
+on conflict (id) do update
+set public = excluded.public,
+    file_size_limit = excluded.file_size_limit,
+    allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "authenticated read paper pdf objects" on storage.objects;
+create policy "authenticated read paper pdf objects"
+  on storage.objects for select
+  to authenticated
+  using (bucket_id = 'paper-pdfs');
 
 create table if not exists initial_score_history (
   id uuid primary key default gen_random_uuid(),
@@ -229,8 +256,14 @@ select
   claim_summary.active_claim_count,
   claim_summary.active_claim_coordinator_names,
   claim_summary.active_claims,
+  initial_summary.current_initial_score_count,
   initial_summary.current_initial_scores,
   initial_summary.initial_score_conflict,
+  p.pdf_bucket,
+  p.pdf_path,
+  p.pdf_original_name,
+  p.pdf_size_bytes,
+  p.pdf_uploaded_at,
   p.updated_at
 from papers p
 join students s on s.id = p.student_id
@@ -275,6 +308,7 @@ left join lateral (
       ),
       '[]'::jsonb
     ) as current_initial_scores,
+    count(*)::integer as current_initial_score_count,
     count(distinct ish.score) > 1 as initial_score_conflict
   from initial_score_history ish
   join coordinators c on c.id = ish.coordinator_id
