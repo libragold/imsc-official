@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IMSC 2026 Coordination Stats</title>
+  <link rel="stylesheet" href="../styles.css?v=20260706-stats">
+  <script src="../config.js"></script>
+  <script type="module" src="./stats.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <h1>Stats</h1>
+      </div>
+      <div class="user-menu" id="userMenu" hidden>
+        <a class="topbar-link" href="/coordination/">Board</a>
+        <button class="avatar-button" id="avatarButton" type="button" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="menu-popover" id="avatarMenu" hidden>
+          <button class="menu-item" id="signOutButton" type="button">Sign out</button>
+        </div>
+      </div>
+    </header>
+
+    <section id="configWarning" class="notice danger" hidden>
+      Missing or incomplete <code>coordination/config.js</code>. Copy <code>coordination/config.example.js</code>, fill in your real Supabase URL and publishable key, and keep the real file out of Git.
+    </section>
+
+    <section id="loadingView" class="panel stats-loading">Loading stats...</section>
+    <section id="statsView" class="stats-board" hidden>
+      <section class="column stats-column">
+        <div class="column-header">
+          <div>
+            <h2>Coordinators</h2>
+            <p>Current initial scores on papers that have a PDF.</p>
+          </div>
+        </div>
+        <div id="coordinatorLeaderboard" class="leaderboard-list"></div>
+      </section>
+
+      <section class="column stats-column">
+        <div class="column-header">
+          <div>
+            <h2>Countries</h2>
+            <p>Stacked progress across all papers: coordinated first, then papers with at least two initial grades.</p>
+          </div>
+        </div>
+        <div id="countryLeaderboard" class="leaderboard-list"></div>
+      </section>
+
+      <section class="column stats-column">
+        <div class="column-header">
+          <div>
+            <h2>Problems</h2>
+            <p>Stacked progress across all papers: coordinated first, then papers with at least two initial grades.</p>
+          </div>
+        </div>
+        <div id="problemLeaderboard" class="leaderboard-list"></div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
