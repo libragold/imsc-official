@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IMSC 2026 Coordination</title>
-  <link rel="stylesheet" href="./styles.css?v=20260706-stats">
+  <link rel="stylesheet" href="./styles.css?v=20260706-no-signature">
   <script src="./config.js"></script>
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./app.js?v=20260706-no-signature"></script>
 </head>
 <body>
   <main class="shell" id="shell">
@@ -90,7 +90,7 @@
         <div class="column-header">
           <div>
             <h2>Coordinated</h2>
-            <p>Agreed score signed by a team leader</p>
+            <p>Agreed score finalized</p>
           </div>
           <span id="coordinatedCount" class="pill"></span>
         </div>
@@ -196,10 +196,6 @@
           <option value="6">6</option>
           <option value="7">7</option>
         </select>
-      </label>
-      <label>
-        <span>Team leader signature (type your name or just initials)</span>
-        <input name="signature" type="text" autocomplete="off" required>
       </label>
       <p id="agreedScoreMessage" class="message"></p>
       <div class="confirm-actions">

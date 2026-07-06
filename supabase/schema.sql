@@ -625,16 +625,13 @@ begin
     raise exception 'Agreed score must be between 0 and 7';
   end if;
 
-  v_signature := nullif(trim(p_team_leader_signature), '');
-  if v_signature is null then
-    raise exception 'Team leader signature is required';
-  end if;
+  v_signature := nullif(trim(coalesce(p_team_leader_signature, '')), '');
 
   v_coordinator_id := require_current_coordinator_id();
   perform assert_active_claim(p_paper_id, v_coordinator_id);
 
   insert into agreed_score_history (paper_id, score, coordinator_id, team_leader_signature)
-  values (p_paper_id, p_score::smallint, v_coordinator_id, v_signature);
+  values (p_paper_id, p_score::smallint, v_coordinator_id, coalesce(v_signature, ''));
 
   update papers
   set agreed_score = p_score::smallint,

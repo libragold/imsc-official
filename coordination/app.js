@@ -215,6 +215,12 @@ function hasInitialScoreConflict(paper) {
   return scores.size > 1;
 }
 
+function unanimousInitialScore(paper) {
+  const scores = currentInitialScores(paper).map(entry => Number(entry.score));
+  if (scores.length < 2) return null;
+  return new Set(scores).size === 1 ? scores[0] : null;
+}
+
 function canCoordinatePaper(paper) {
   return currentInitialScores(paper).length >= 2;
 }
@@ -455,30 +461,19 @@ function renderCard(paper, pile) {
   const claim = claimState(paper);
   const sideAction = renderCardSideAction(paper, pile, claim);
   const avatars = renderCardAvatars(paper);
-  const signature = pile === "coordinated" ? renderSignatureMark(paper) : "";
-  const signatureClass = signature ? " has-signature" : "";
   const conflictClass = pile === "graded" && hasInitialScoreConflict(paper) ? " score-conflict" : "";
   const helpReadyClass = pile === "claimed" && paper.my_initial_score == null && hasOtherInitialScore(paper)
     ? " score-waiting"
     : "";
 
   return `
-    <article class="paper-card compact-card${signatureClass}${conflictClass}${helpReadyClass}">
+    <article class="paper-card compact-card${conflictClass}${helpReadyClass}">
       <div class="paper-card-main">
         <span>${escapeHtml(formatCompactPaper(paper))}</span>
       </div>
       ${avatars}
-      ${signature}
       ${sideAction}
     </article>
-  `;
-}
-
-function renderSignatureMark(paper) {
-  const signature = paper.agreed_score_team_leader_signature?.trim();
-  if (!signature) return "";
-  return `
-    <span class="signature-mark has-tooltip" data-tooltip="${escapeHtml(signature)}" aria-label="Team leader signature: ${escapeHtml(signature)}" tabindex="0"></span>
   `;
 }
 
@@ -569,7 +564,6 @@ function showBoundaryTooltip(target) {
   const tooltip = ensureTooltipElement(tooltipParent);
   if (tooltip.parentElement !== tooltipParent) tooltipParent.append(tooltip);
   tooltip.textContent = text;
-  tooltip.classList.toggle("signature-tooltip", target.classList.contains("signature-mark"));
   tooltip.hidden = false;
   positionBoundaryTooltip();
 }
@@ -817,8 +811,7 @@ function openAgreedScoreDialog(paperId) {
   activePaperId = paperId;
   dom.agreedScorePaper.textContent = formatCompactPaper(paper);
   dom.agreedScoreForm.reset();
-  dom.agreedScoreForm.elements.score.value = paper.agreed_score ?? "";
-  dom.agreedScoreForm.elements.signature.value = "";
+  dom.agreedScoreForm.elements.score.value = paper.agreed_score ?? unanimousInitialScore(paper) ?? "";
   setMessage(dom.agreedScoreMessage, "");
   dom.agreedScoreDialog.showModal();
   dom.agreedScoreForm.elements.score.focus();
@@ -947,12 +940,7 @@ async function submitInitialScore(form) {
 
 async function submitAgreedScore(form) {
   const scoreValue = form.elements.score.value;
-  const signature = form.elements.signature.value.trim();
   const button = form.querySelector("button[type='submit']");
-  if (!signature) {
-    setMessage(dom.agreedScoreMessage, "Team leader signature is required.", true);
-    return;
-  }
   if (!isIntegerScore(scoreValue)) {
     setMessage(dom.agreedScoreMessage, "Enter an integer score from 0 to 7.", true);
     return;
@@ -963,7 +951,7 @@ async function submitAgreedScore(form) {
     const { error } = await supabase.rpc("submit_agreed_score", {
       p_paper_id: activePaperId,
       p_score: Number(scoreValue),
-      p_team_leader_signature: signature
+      p_team_leader_signature: ""
     });
     if (error) throw error;
     dom.agreedScoreDialog.close();
