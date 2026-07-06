@@ -56,6 +56,7 @@ const dom = {
   initialScoreForm: document.querySelector("#initialScoreForm"),
   initialScorePaper: document.querySelector("#initialScorePaper"),
   initialScoreMessage: document.querySelector("#initialScoreMessage"),
+  initialScoreBlankOption: document.querySelector("#initialScoreForm select[name='score'] option[value='']"),
   agreedScoreDialog: document.querySelector("#agreedScoreDialog"),
   agreedScoreForm: document.querySelector("#agreedScoreForm"),
   agreedScorePaper: document.querySelector("#agreedScorePaper"),
@@ -809,8 +810,11 @@ function openInitialScoreDialog(paperId) {
   const paper = paperById(paperId);
   if (!paper) return;
   activePaperId = paperId;
+  const canClear = paper.my_initial_score != null;
   dom.initialScorePaper.textContent = formatPaperTitle(paper);
   dom.initialScoreForm.reset();
+  dom.initialScoreBlankOption.textContent = canClear ? "Unset initial score" : "Select score";
+  dom.initialScoreBlankOption.disabled = !canClear;
   dom.initialScoreForm.elements.score.value = paper.my_initial_score ?? "";
   setMessage(dom.initialScoreMessage, "");
   dom.initialScoreDialog.showModal();
