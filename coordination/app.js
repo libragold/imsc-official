@@ -77,6 +77,7 @@ const dom = {
 const config = window.COORDINATION_SUPABASE_CONFIG;
 const FILTER_STORAGE_KEY = "imsc2026.coordination.filters.v1";
 const CLAIM_PAGE_SIZE = 15;
+const SIGNATURE_NOT_REQUIRED = "Not required";
 let supabase = null;
 let currentUser = null;
 let currentCoordinator = null;
@@ -951,7 +952,7 @@ async function submitAgreedScore(form) {
     const { error } = await supabase.rpc("submit_agreed_score", {
       p_paper_id: activePaperId,
       p_score: Number(scoreValue),
-      p_team_leader_signature: ""
+      p_team_leader_signature: SIGNATURE_NOT_REQUIRED
     });
     if (error) throw error;
     dom.agreedScoreDialog.close();

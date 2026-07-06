@@ -17,6 +17,9 @@ begin
   end if;
 
   v_signature := nullif(trim(coalesce(p_team_leader_signature, '')), '');
+  if lower(coalesce(v_signature, '')) = 'not required' then
+    v_signature := null;
+  end if;
 
   v_coordinator_id := require_current_coordinator_id();
   perform assert_active_claim(p_paper_id, v_coordinator_id);
