@@ -185,7 +185,7 @@
       </div>
       <label>
         <span>Score</span>
-        <select name="score" required>
+        <select name="score">
           <option value=""></option>
           <option value="0">0</option>
           <option value="1">1</option>
@@ -199,6 +199,7 @@
       </label>
       <p id="agreedScoreMessage" class="message"></p>
       <div class="confirm-actions">
+        <button id="agreedScoreClearButton" class="ghost" type="button" hidden>Unset</button>
         <button class="ghost close-dialog" type="button">Cancel</button>
         <button type="submit">Submit</button>
       </div>

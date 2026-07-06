@@ -60,6 +60,7 @@ const dom = {
   agreedScoreForm: document.querySelector("#agreedScoreForm"),
   agreedScorePaper: document.querySelector("#agreedScorePaper"),
   agreedScoreMessage: document.querySelector("#agreedScoreMessage"),
+  agreedScoreClearButton: document.querySelector("#agreedScoreClearButton"),
   avatarDialog: document.querySelector("#avatarDialog"),
   avatarForm: document.querySelector("#avatarForm"),
   avatarPreview: document.querySelector("#avatarPreview"),
@@ -439,6 +440,15 @@ function boardPiles() {
   return { claimed, graded, coordinated };
 }
 
+function canClearAgreedScore(paper) {
+  return Boolean(
+    paper
+    && currentCoordinator
+    && paper.agreed_score !== null
+    && paper.agreed_score_coordinator_id === currentCoordinator.id
+  );
+}
+
 function renderBoard() {
   hideBoundaryTooltip();
   const { claimed, graded, coordinated } = boardPiles();
@@ -813,6 +823,7 @@ function openAgreedScoreDialog(paperId) {
   dom.agreedScorePaper.textContent = formatCompactPaper(paper);
   dom.agreedScoreForm.reset();
   dom.agreedScoreForm.elements.score.value = paper.agreed_score ?? unanimousInitialScore(paper) ?? "";
+  dom.agreedScoreClearButton.hidden = !canClearAgreedScore(paper);
   setMessage(dom.agreedScoreMessage, "");
   dom.agreedScoreDialog.showModal();
   dom.agreedScoreForm.elements.score.focus();
@@ -900,6 +911,21 @@ async function clearInitialScore(paperId, button) {
   }
 }
 
+async function clearAgreedScore(paperId, button) {
+  setBusy(button, true);
+  try {
+    const { error } = await supabase.rpc("clear_agreed_score", { p_paper_id: paperId });
+    if (error) throw error;
+    await refreshAll();
+    return true;
+  } catch (error) {
+    setMessage(dom.agreedScoreMessage, error.message, true);
+    return false;
+  } finally {
+    setBusy(button, false);
+  }
+}
+
 function openConfirmAction(action) {
   pendingConfirmAction = action;
   dom.releaseConfirmTitle.textContent = action.title;
@@ -942,6 +968,16 @@ async function submitInitialScore(form) {
 async function submitAgreedScore(form) {
   const scoreValue = form.elements.score.value;
   const button = form.querySelector("button[type='submit']");
+  const paper = paperById(activePaperId);
+  if (scoreValue === "" && paper?.agreed_score != null) {
+    if (!canClearAgreedScore(paper)) {
+      setMessage(dom.agreedScoreMessage, "Only the coordinator who entered this agreed score can unset it.", true);
+      return;
+    }
+    const ok = await clearAgreedScore(activePaperId, button);
+    if (ok) dom.agreedScoreDialog.close();
+    return;
+  }
   if (!isIntegerScore(scoreValue)) {
     setMessage(dom.agreedScoreMessage, "Enter an integer score from 0 to 7.", true);
     return;
@@ -1161,6 +1197,16 @@ function bindEvents() {
   dom.agreedScoreForm.addEventListener("submit", async event => {
     event.preventDefault();
     await submitAgreedScore(event.target);
+  });
+
+  dom.agreedScoreClearButton.addEventListener("click", async event => {
+    const paper = paperById(activePaperId);
+    if (!canClearAgreedScore(paper)) {
+      setMessage(dom.agreedScoreMessage, "Only the coordinator who entered this agreed score can unset it.", true);
+      return;
+    }
+    const ok = await clearAgreedScore(activePaperId, event.currentTarget);
+    if (ok) dom.agreedScoreDialog.close();
   });
 
   dom.avatarForm.addEventListener("submit", async event => {

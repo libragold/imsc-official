@@ -9,6 +9,7 @@ Static website and coordination app for IMSC 2026.
 - `supabase/schema.sql` - main Supabase schema, views, RLS policies, storage bucket setup, and RPC functions.
 - `supabase/add-paper-pdfs.sql` - PDF-related schema additions.
 - `supabase/remove-agreed-score-signature-requirement.sql` - incremental patch for existing Supabase projects to stop requiring team leader signatures.
+- `supabase/allow-agreed-score-unset.sql` - incremental patch for existing Supabase projects to let the finalizing coordinator unset an agreed score.
 - `scripts/init-coordination-data.mjs` - seeds coordinators, teams, students, papers, and auth users.
 - `scripts/upload-day1-pdfs.mjs` - uploads scanned PDFs to Supabase Storage and links them to papers.
 
