@@ -136,6 +136,9 @@
       background: var(--panel);
       box-shadow: var(--shadow);
       overflow: hidden;
+      width: 762px;
+      max-width: 100%;
+      margin: 0 auto;
     }
 
     .leaderboard-scroll {
@@ -144,9 +147,15 @@
 
     table {
       width: 100%;
-      min-width: 720px;
+      min-width: 760px;
       border-collapse: collapse;
+      table-layout: fixed;
     }
+
+    .rank-col { width: 58px; }
+    .team-col { width: 185px; }
+    .students-col { width: 441px; }
+    .total-col { width: 76px; }
 
     th,
     td {
@@ -164,6 +173,10 @@
       text-align: left;
       text-transform: uppercase;
       white-space: nowrap;
+    }
+
+    thead th:last-child {
+      text-align: right;
     }
 
     tbody tr:last-child th,
@@ -202,7 +215,7 @@
     }
 
     .students-cell {
-      min-width: 385px;
+      min-width: 0;
     }
 
     .score-board {
@@ -275,7 +288,6 @@
     }
 
     .total-cell {
-      width: 1%;
       text-align: right;
       white-space: nowrap;
     }
@@ -327,6 +339,8 @@
         background: transparent;
         box-shadow: none;
         overflow: visible;
+        width: 100%;
+        margin: 0;
       }
 
       .leaderboard-scroll {
@@ -344,6 +358,7 @@
 
       table {
         min-width: 0;
+        table-layout: auto;
       }
 
       thead {
@@ -574,6 +589,12 @@
         <section class="leaderboard" aria-label="IMSC 2026 leaderboard">
           <div class="leaderboard-scroll">
             <table>
+              <colgroup>
+                <col class="rank-col">
+                <col class="team-col">
+                <col class="students-col">
+                <col class="total-col">
+              </colgroup>
               <thead>
                 <tr>
                   <th scope="col">Rank</th>
