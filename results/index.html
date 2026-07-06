@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IMSC 2026 Results</title>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="4841af47-7ff4-40fd-9556-4e59482d4bcd"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fafafa;
+      --panel: #ffffff;
+      --ink: #181c1f;
+      --muted: #687076;
+      --line: #e4e6e8;
+      --line-strong: #cfd4d8;
+      --accent: #1f5f8b;
+      --accent-soft: #eaf2fb;
+      --gold: #966217;
+      --gold-soft: #f8f0df;
+      --green: #476b3c;
+      --green-soft: #edf4e9;
+      --shadow: 0 12px 28px rgba(24, 28, 31, 0.06);
+      --radius: 8px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    main {
+      width: min(960px, 100%);
+      margin: 0 auto;
+      padding: 0 clamp(12px, 2.2vw, 24px) clamp(16px, 2.2vw, 24px);
+    }
+
+    .summary-strip {
+      display: block;
+      background: rgba(250, 250, 250, 0.94);
+      border-bottom: 1px solid var(--line);
+      padding: 9px 0;
+      margin-bottom: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .results-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .site-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .site-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 0.83rem;
+      font-weight: 760;
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .site-link[aria-current="page"] {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .results-heading {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.05rem, 2vw, 1.42rem);
+      line-height: 1.15;
+      font-weight: 820;
+      letter-spacing: 0;
+    }
+
+    .snapshot-meta {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 720;
+      white-space: normal;
+    }
+
+    .results-note {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 680;
+      line-height: 1.35;
+    }
+
+    code {
+      padding: 1px 5px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: #fff;
+      color: var(--ink);
+      font: 760 0.86em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .leaderboard {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .leaderboard-scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      vertical-align: top;
+    }
+
+    thead th {
+      background: #f5f6f7;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 820;
+      letter-spacing: 0;
+      text-align: left;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    tbody tr:last-child th,
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .rank-cell {
+      width: 1%;
+      color: var(--accent);
+      font-size: 1.05rem;
+      font-weight: 860;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .team-cell {
+      width: 190px;
+    }
+
+    .team-name-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      font-weight: 820;
+      line-height: 1.25;
+    }
+
+    .team-flag {
+      flex: 0 0 auto;
+      width: 26px;
+      font-size: 1.15rem;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .students-cell {
+      min-width: 385px;
+    }
+
+    .score-board {
+      display: grid;
+      gap: 5px;
+    }
+
+    .score-header,
+    .student-score-row {
+      display: grid;
+      grid-template-columns: minmax(88px, max-content) repeat(6, 34px) 44px;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .score-header {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 820;
+      text-align: center;
+    }
+
+    .score-header span:first-child,
+    .student-label {
+      text-align: left;
+    }
+
+    .student-label {
+      min-width: 0;
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 780;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .score-pill,
+    .student-total {
+      min-height: 28px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 820;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .score-pill {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .score-pill.is-hidden {
+      border-color: #d7dce0;
+      background: #eef1f3;
+      color: #7a8289;
+    }
+
+    .score-pill.is-pending {
+      background: #fafafa;
+      color: #9aa1a7;
+    }
+
+    .student-total {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .total-cell {
+      width: 1%;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .team-total {
+      color: var(--ink);
+      font-size: 1.45rem;
+      font-weight: 880;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .empty-state {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 16px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 640px) {
+      html,
+      body {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      main {
+        padding: 0 10px 12px;
+      }
+
+      .summary-strip {
+        padding: 8px 0;
+      }
+
+      .results-title-row {
+        display: block;
+      }
+
+      .results-heading {
+        align-items: center;
+        gap: 8px;
+      }
+
+      .leaderboard {
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        overflow: visible;
+      }
+
+      .leaderboard-scroll {
+        overflow: visible;
+      }
+
+      table,
+      thead,
+      tbody,
+      tr,
+      th,
+      td {
+        display: block;
+      }
+
+      table {
+        min-width: 0;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody {
+        display: grid;
+        gap: 10px;
+      }
+
+      tbody tr {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #fff;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      th,
+      td {
+        border-bottom: 0;
+        padding: 0;
+      }
+
+      .rank-cell {
+        float: left;
+        width: auto;
+        min-width: 44px;
+        padding: 12px 8px 0 12px;
+        text-align: left;
+      }
+
+      .team-cell {
+        width: auto;
+        padding: 12px 12px 8px 54px;
+      }
+
+      .students-cell {
+        clear: both;
+        min-width: 0;
+        padding: 8px 10px 10px;
+      }
+
+      .score-header,
+      .student-score-row {
+        grid-template-columns: minmax(74px, 1fr) repeat(6, minmax(24px, 1fr)) 34px;
+        gap: 3px;
+      }
+
+      .score-pill,
+      .student-total {
+        min-height: 26px;
+        font-size: 0.78rem;
+      }
+
+      .student-label {
+        font-size: 0.78rem;
+      }
+
+      .total-cell {
+        width: auto;
+        border-top: 1px solid var(--line);
+        padding: 10px 12px;
+        text-align: left;
+      }
+
+      .team-total {
+        display: inline-block;
+        margin-right: 6px;
+        font-size: 1.22rem;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="summary-strip">
+      <div class="results-title-row">
+        <div class="results-heading">
+          <h1>IMSC 2026</h1>
+          <nav class="site-links" aria-label="Main navigation">
+            <a class="site-link" href="/">Schedule</a>
+            <a class="site-link" href="/results/" aria-current="page">Results</a>
+          </nav>
+        </div>
+      </div>
+      <p class="results-note">
+        <code>?</code> marks a suspense score hidden from the public snapshot. <code>-</code> marks a score that has not been coordinated yet.
+      </p>
+      <div class="snapshot-meta" id="snapshotMeta">Last updated: not generated</div>
+    </section>
+
+    <section id="resultsContent" aria-live="polite"></section>
+  </main>
+
+  <script src="results-data.js"></script>
+  <script>
+    const FALLBACK_PROBLEMS = [1, 2, 3, 4, 5, 6];
+    const FALLBACK_HIDDEN_BY_STUDENT_ORDINAL = { 1: 1, 2: 4, 3: 2, 4: 5, 5: 3, 6: 6 };
+    const data = window.IMSC_RESULTS_DATA || {};
+    const problems = Array.isArray(data.problems) && data.problems.length ? data.problems : FALLBACK_PROBLEMS;
+    const hiddenByStudentOrdinal = data.hiddenByStudentOrdinal || data.hiddenByStudentIndex || FALLBACK_HIDDEN_BY_STUDENT_ORDINAL;
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function formatSnapshotTime(value) {
+      if (!value) return "Last updated: not generated";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "Last updated";
+      return `Last updated ${date.toLocaleString([], {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      })}`;
+    }
+
+    function scoreClass(score) {
+      if (score?.hidden) return " is-hidden";
+      if (score?.value == null) return " is-pending";
+      return "";
+    }
+
+    function scoreLabel(score) {
+      if (score?.hidden) return "?";
+      if (score?.value == null) return "-";
+      return score.value;
+    }
+
+    function scoreTitle(student, problem, score) {
+      if (score?.hidden) return `${student.label} P${problem} is hidden`;
+      if (score?.value == null) return `${student.label} P${problem} is pending`;
+      return `${student.label} P${problem}: ${score.value}`;
+    }
+
+    function normalizedStudentScores(student) {
+      const scoreMap = student.scores || {};
+      return problems.map(problem => {
+        const key = String(problem);
+        const rawScore = scoreMap[key] ?? scoreMap[problem] ?? null;
+        const explicitHidden = rawScore && typeof rawScore === "object" && "hidden" in rawScore;
+        const hiddenProblem = hiddenByStudentOrdinal[String(student.ordinal)] || hiddenByStudentOrdinal[student.ordinal];
+        const hidden = explicitHidden ? Boolean(rawScore.hidden) : Number(hiddenProblem) === Number(problem);
+        const rawValue = rawScore && typeof rawScore === "object" && "value" in rawScore ? rawScore.value : rawScore;
+        return {
+          problem,
+          hidden,
+          value: hidden ? null : rawValue
+        };
+      });
+    }
+
+    function renderStudentRow(student) {
+      const scores = normalizedStudentScores(student);
+      const total = student.revealedTotal ?? scores.reduce((sum, score) => sum + (score.hidden || score.value == null ? 0 : Number(score.value)), 0);
+      return `
+        <div class="student-score-row">
+          <span class="student-label" title="${escapeHtml(student.label)}">${escapeHtml(student.label)}</span>
+          ${scores.map(score => `
+            <span
+              class="score-pill${scoreClass(score)}"
+              title="${escapeHtml(scoreTitle(student, score.problem, score))}"
+              aria-label="${escapeHtml(scoreTitle(student, score.problem, score))}"
+            >${escapeHtml(scoreLabel(score))}</span>
+          `).join("")}
+          <span class="student-total" title="${escapeHtml(`${student.label} total`)}">${escapeHtml(total)}</span>
+        </div>
+      `;
+    }
+
+    function renderTeamRow(team, index) {
+      const rank = team.rank ?? index + 1;
+      const students = Array.isArray(team.students) ? team.students : [];
+      return `
+        <tr>
+          <th scope="row" class="rank-cell">${escapeHtml(rank)}</th>
+          <td class="team-cell">
+            <div class="team-name-line">
+              <span class="team-flag" aria-hidden="true">${escapeHtml(team.flag || "🏳️")}</span>
+              <span>${escapeHtml(team.teamName || team.name || team.teamCode || "Team")}</span>
+            </div>
+          </td>
+          <td class="students-cell">
+            <div class="score-board">
+              <div class="score-header" aria-hidden="true">
+                <span>Student</span>
+                ${problems.map(problem => `<span>P${escapeHtml(problem)}</span>`).join("")}
+                <span>Total</span>
+              </div>
+              ${students.map(renderStudentRow).join("")}
+            </div>
+          </td>
+          <td class="total-cell">
+            <div class="team-total">${escapeHtml(team.revealedTotal ?? 0)}</div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function renderResults() {
+      document.getElementById("snapshotMeta").textContent = formatSnapshotTime(data.generatedAt);
+      const teams = Array.isArray(data.teams) ? [...data.teams] : [];
+      if (!teams.length) {
+        document.getElementById("resultsContent").innerHTML = `
+          <div class="empty-state">
+            No results snapshot has been generated yet. Run the local results generation script, then commit and push the generated snapshot.
+          </div>
+        `;
+        return;
+      }
+
+      teams.sort((a, b) =>
+        Number(b.revealedTotal || 0) - Number(a.revealedTotal || 0) ||
+        String(a.teamName || a.teamCode || "").localeCompare(String(b.teamName || b.teamCode || ""))
+      );
+
+      document.getElementById("resultsContent").innerHTML = `
+        <section class="leaderboard" aria-label="IMSC 2026 leaderboard">
+          <div class="leaderboard-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Student Scores</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${teams.map(renderTeamRow).join("")}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    renderResults();
+  </script>
+</body>
+</html>

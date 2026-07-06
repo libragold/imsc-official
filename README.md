@@ -5,6 +5,7 @@ Static website and coordination app for IMSC 2026.
 ## Structure
 
 - `index.html` - public schedule/site.
+- `results/` - public static scoreboard generated from Supabase data.
 - `coordination/` - coordinator login, paper claiming, scoring, coordination, and PDF access.
 - `supabase/schema.sql` - main Supabase schema, views, RLS policies, storage bucket setup, and RPC functions.
 - `supabase/add-paper-pdfs.sql` - PDF-related schema additions.
@@ -12,6 +13,7 @@ Static website and coordination app for IMSC 2026.
 - `supabase/allow-agreed-score-unset.sql` - incremental patch for existing Supabase projects to let the finalizing coordinator unset an agreed score.
 - `scripts/init-coordination-data.mjs` - seeds coordinators, teams, students, papers, and auth users.
 - `scripts/upload-day1-pdfs.mjs` - uploads scanned PDFs to Supabase Storage and links them to papers.
+- `scripts/generate-results.mjs` - writes the static results snapshot used by `/results/`.
 
 ## Local Development
 
@@ -25,6 +27,7 @@ Open:
 
 ```text
 http://127.0.0.1:8765/
+http://127.0.0.1:8765/results/
 http://127.0.0.1:8765/coordination/
 ```
 
@@ -109,6 +112,27 @@ COORDINATION_RESET_PASSWORDS=true npm run coordination:init
 ```
 
 The generated `coordination-passwords.csv` is ignored by Git.
+
+## Static Results
+
+The public results page does not pull live Supabase data. To refresh it, run:
+
+```bash
+npm run results:generate
+```
+
+This reads `paper_status` with the service-role key and writes `results/results-data.js`.
+
+The generated snapshot hides one score per student ordinal:
+
+- student 1 hides P1
+- student 2 hides P4
+- student 3 hides P2
+- student 4 hides P5
+- student 5 hides P3
+- student 6 hides P6
+
+Hidden raw scores are not written to the public snapshot and are shown as `?`. Scores that have not been coordinated yet are shown as `-`. Team totals and ranks use only revealed, coordinated scores. Students are displayed as `TEAMCODE-student_index`.
 
 ## Resetting Coordination State
 

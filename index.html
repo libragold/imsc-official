@@ -90,6 +90,36 @@
       font-weight: 760;
     }
 
+    .site-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .site-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 0.83rem;
+      font-weight: 760;
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .site-link[aria-current="page"] {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
     .schedule-title-row {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
@@ -98,6 +128,10 @@
     }
 
     .schedule-heading {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
       white-space: nowrap;
     }
 
@@ -458,11 +492,12 @@
     .coordination-status-cell.has-people {
       justify-content: flex-start;
       text-align: left;
+      flex-wrap: nowrap;
     }
 
     .coordination-check {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -473,14 +508,24 @@
     }
 
     .coordination-check svg {
-      width: 15px;
-      height: 15px;
+      width: 14px;
+      height: 14px;
       display: block;
     }
 
-    .coordination-status-break {
-      flex-basis: 100%;
-      height: 0;
+    .coordination-alert {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 900;
+      line-height: 1;
+      flex: 0 0 auto;
     }
 
     .coordination-avatar-stack {
@@ -568,12 +613,20 @@
       }
 
       .schedule-title-row {
-        grid-template-columns: max-content minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1fr) minmax(96px, 128px);
         gap: 7px;
       }
 
       .schedule-view-select {
         grid-column: 2;
+        max-width: 128px;
+        padding: 0 7px;
+        font-size: 0.82rem;
+      }
+
+      .schedule-heading {
+        align-items: center;
+        gap: 8px;
       }
 
       .event-topline {
@@ -633,6 +686,25 @@
     }
 
     @media (max-width: 420px) {
+      .site-link {
+        padding: 0 7px;
+      }
+
+      .schedule-title-row {
+        grid-template-columns: minmax(0, 1fr) minmax(88px, 108px);
+        gap: 5px;
+      }
+
+      .schedule-heading {
+        gap: 6px;
+        font-size: 0.94rem;
+      }
+
+      .schedule-view-select {
+        max-width: 108px;
+        padding: 0 6px;
+        font-size: 0.78rem;
+      }
     }
   </style>
 </head>
@@ -642,7 +714,13 @@
       <section class="summary-strip" aria-live="polite">
         <div>
           <div class="summary-title schedule-title-row" aria-label="Schedule controls">
-            <span class="schedule-heading">IMSC 2026 Schedule</span>
+            <span class="schedule-heading">
+              IMSC 2026
+              <span class="site-links" aria-label="Main navigation">
+                <a class="site-link" href="/" aria-current="page">Schedule</a>
+                <a class="site-link" href="/results/">Results</a>
+              </span>
+            </span>
             <select class="schedule-view-select" id="scheduleViewSelect" aria-label="Schedule view"></select>
           </div>
         </div>
@@ -1535,7 +1613,7 @@
       return `
         <article class="coordination-status-card">
           ${renderCoordinationStatusTitle()}
-          <p class="coordination-status-note">If a cell shows coordinators' names, that paper is ready for coordination.</p>
+          <p class="coordination-status-note">Red ! means ready for coordination. Green check means coordination finished.</p>
           <div class="coordination-status-scroll">
             <table class="coordination-status-table">
               <thead>
@@ -1593,7 +1671,7 @@
         <td>
           <div class="coordination-status-cell${people.length ? " has-people" : ""}">
             ${row.coordination_finished ? renderCoordinationCheck() : ""}
-            ${row.coordination_finished && avatars ? `<span class="coordination-status-break" aria-hidden="true"></span>` : ""}
+            ${!row.coordination_finished && avatars ? renderCoordinationAlert() : ""}
             ${avatars}
             ${!row.coordination_finished && !avatars ? `<span class="coordination-empty-cell">-</span>` : ""}
           </div>
@@ -1609,6 +1687,10 @@
           </svg>
         </span>
       `;
+    }
+
+    function renderCoordinationAlert() {
+      return `<span class="coordination-alert" title="Ready for coordination" aria-label="Ready for coordination">!</span>`;
     }
 
     function formatTime(start, end) {
