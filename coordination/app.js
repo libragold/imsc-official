@@ -60,6 +60,7 @@ const dom = {
   agreedScoreForm: document.querySelector("#agreedScoreForm"),
   agreedScorePaper: document.querySelector("#agreedScorePaper"),
   agreedScoreMessage: document.querySelector("#agreedScoreMessage"),
+  agreedScoreBlankOption: document.querySelector("#agreedScoreForm select[name='score'] option[value='']"),
   agreedScoreClearButton: document.querySelector("#agreedScoreClearButton"),
   avatarDialog: document.querySelector("#avatarDialog"),
   avatarForm: document.querySelector("#avatarForm"),
@@ -820,10 +821,13 @@ function openAgreedScoreDialog(paperId) {
   const paper = paperById(paperId);
   if (!paper) return;
   activePaperId = paperId;
+  const canClear = canClearAgreedScore(paper);
   dom.agreedScorePaper.textContent = formatCompactPaper(paper);
   dom.agreedScoreForm.reset();
+  dom.agreedScoreBlankOption.textContent = canClear ? "Unset agreed score" : "Select score";
+  dom.agreedScoreBlankOption.disabled = !canClear;
   dom.agreedScoreForm.elements.score.value = paper.agreed_score ?? unanimousInitialScore(paper) ?? "";
-  dom.agreedScoreClearButton.hidden = !canClearAgreedScore(paper);
+  dom.agreedScoreClearButton.hidden = !canClear;
   setMessage(dom.agreedScoreMessage, "");
   dom.agreedScoreDialog.showModal();
   dom.agreedScoreForm.elements.score.focus();
