@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IMSC 2026 Coordination Stats</title>
+  <title>IMSC 2026 Coordination Leaderboard</title>
   <link rel="stylesheet" href="../styles.css?v=20260706-stats">
   <script src="../config.js"></script>
   <script type="module" src="./stats.js"></script>
@@ -12,10 +12,10 @@
   <main class="shell">
     <header class="topbar">
       <div>
-        <h1>Stats</h1>
+        <h1>IMSC 2026 Coordination Leaderboard</h1>
       </div>
       <div class="user-menu" id="userMenu" hidden>
-        <a class="topbar-link" href="/coordination/">Board</a>
+        <a class="topbar-link" href="/coordination/">Dashboard</a>
         <button class="avatar-button" id="avatarButton" type="button" aria-haspopup="true" aria-expanded="false"></button>
         <div class="menu-popover" id="avatarMenu" hidden>
           <button class="menu-item" id="signOutButton" type="button">Sign out</button>
@@ -27,7 +27,7 @@
       Missing or incomplete <code>coordination/config.js</code>. Copy <code>coordination/config.example.js</code>, fill in your real Supabase URL and publishable key, and keep the real file out of Git.
     </section>
 
-    <section id="loadingView" class="panel stats-loading">Loading stats...</section>
+    <section id="loadingView" class="panel stats-loading">Loading leaderboard...</section>
     <section id="statsView" class="stats-board" hidden>
       <section class="column stats-column">
         <div class="column-header">

@@ -401,7 +401,7 @@ async function refreshMyPapersFromRealtime() {
     await loadMyPapers();
     renderBoard();
   } catch (error) {
-    console.error("Failed to refresh coordination board", error);
+    console.error("Failed to refresh coordination dashboard", error);
   } finally {
     isRefreshingMyPapers = false;
   }

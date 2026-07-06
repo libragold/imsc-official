@@ -64,7 +64,7 @@ The schema creates:
 - RPC functions for claiming, scoring, releasing, avatar updates, and PDF access
 - private `paper-pdfs` storage bucket
 
-For live board updates, enable Realtime for:
+For live dashboard updates, enable Realtime for:
 
 ```sql
 alter publication supabase_realtime add table paper_claims;
