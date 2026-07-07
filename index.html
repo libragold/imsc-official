@@ -436,7 +436,6 @@
 
     .coordination-status-table {
       width: 100%;
-      min-width: 560px;
       border-collapse: separate;
       border-spacing: 0;
       table-layout: auto;
@@ -489,12 +488,6 @@
       flex-wrap: wrap;
     }
 
-    .coordination-status-cell.has-people {
-      justify-content: flex-start;
-      text-align: left;
-      flex-wrap: nowrap;
-    }
-
     .coordination-check {
       width: 20px;
       height: 20px;
@@ -526,44 +519,6 @@
       font-weight: 900;
       line-height: 1;
       flex: 0 0 auto;
-    }
-
-    .coordination-avatar-stack {
-      display: inline-flex;
-      align-items: center;
-      min-width: 0;
-      gap: 6px;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-    }
-
-    .coordination-avatar-stack.has-multiple {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .coordination-avatar {
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      display: block;
-      flex: 0 0 auto;
-    }
-
-    .coordination-person {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      min-width: 0;
-    }
-
-    .coordination-person-name {
-      color: var(--ink);
-      font-size: 0.72rem;
-      line-height: 1.2;
-      overflow-wrap: anywhere;
     }
 
     .coordination-empty-cell {
@@ -669,10 +624,6 @@
 
       .coordination-status-card h2 {
         padding: 10px;
-      }
-
-      .coordination-status-table {
-        min-width: 500px;
       }
 
       .coordination-status-table th,
@@ -1467,51 +1418,12 @@
       return Boolean(COORDINATION_STATUS_CONFIG?.url && COORDINATION_STATUS_CONFIG?.publishableKey && !hasPlaceholder);
     }
 
-    function firstNameSeed(name) {
-      return slugName(String(name || "").split(/\s+/)[0]).replace(/[^a-z0-9]/g, "") || "coordinator";
-    }
-
-    function avatarUrl(seed) {
-      return `https://api.dicebear.com/9.x/micah/svg?seed=${encodeURIComponent(seed || "coordinator")}`;
-    }
-
-    function avatarSeedForPerson(person) {
-      return person?.avatar_seed || firstNameSeed(person?.name || "coordinator");
-    }
-
-    function slugName(name) {
-      return String(name || "")
-        .normalize("NFKD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, ".")
-        .replace(/^\.+|\.+$/g, "");
-    }
-
-    function parseJsonArray(value) {
-      if (Array.isArray(value)) return value;
-      if (!value) return [];
-      if (typeof value === "object") return Object.values(value);
-      if (typeof value === "string") {
-        try {
-          const parsed = JSON.parse(value);
-          return Array.isArray(parsed) ? parsed : [];
-        } catch {
-          return [];
-        }
-      }
-      return [];
-    }
-
     function normalizeStatusRow(row) {
       return {
-        team_name: row.team_name,
         team_index: Number(row.team_index),
-        student_name: row.student_name || `Student ${row.team_index}`,
         problem_id: Number(row.problem_id),
         coordination_finished: Boolean(row.coordination_finished),
-        has_two_initial_scores: Boolean(row.has_two_initial_scores),
-        current_initial_score_people: parseJsonArray(row.current_initial_score_people)
+        has_two_initial_scores: Boolean(row.has_two_initial_scores)
       };
     }
 
@@ -1539,13 +1451,10 @@
 
     async function loadCoordinationStatus(team) {
       const fields = [
-        "team_name",
         "team_index",
-        "student_name",
         "problem_id",
         "coordination_finished",
-        "has_two_initial_scores",
-        "current_initial_score_people"
+        "has_two_initial_scores"
       ].join(",");
       const baseUrl = COORDINATION_STATUS_CONFIG.url.replace(/\/+$/, "");
       const url = `${baseUrl}/rest/v1/public_coordination_status?select=${fields}&team_name=eq.${encodeURIComponent(team)}&order=team_index.asc,problem_id.asc`;
@@ -1650,31 +1559,14 @@
 
     function renderCoordinationStatusCell(row) {
       if (!row) return `<td><span class="coordination-empty-cell">-</span></td>`;
-      const people = row.has_two_initial_scores
-        ? parseJsonArray(row.current_initial_score_people).filter(person => person?.name)
-        : [];
-      const avatars = people.length ? `
-        <span class="coordination-avatar-stack${people.length > 1 ? " has-multiple" : ""}">
-          ${people.map(person => `
-            <span class="coordination-person">
-              <img
-                class="coordination-avatar"
-                src="${avatarUrl(avatarSeedForPerson(person))}"
-                alt=""
-              >
-              <span class="coordination-person-name">${escapeHtml(person.name)}</span>
-            </span>
-          `).join("")}
-        </span>
-      ` : "";
+      const status = row.coordination_finished
+        ? renderCoordinationCheck()
+        : row.has_two_initial_scores
+          ? renderCoordinationAlert()
+          : `<span class="coordination-empty-cell">-</span>`;
       return `
         <td>
-          <div class="coordination-status-cell${people.length ? " has-people" : ""}">
-            ${row.coordination_finished ? renderCoordinationCheck() : ""}
-            ${!row.coordination_finished && avatars ? renderCoordinationAlert() : ""}
-            ${avatars}
-            ${!row.coordination_finished && !avatars ? `<span class="coordination-empty-cell">-</span>` : ""}
-          </div>
+          <div class="coordination-status-cell">${status}</div>
         </td>
       `;
     }

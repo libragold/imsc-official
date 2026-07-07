@@ -352,29 +352,14 @@ select
   s.name as student_name,
   p.problem_id,
   (p.agreed_score is not null) as coordination_finished,
-  initial_summary.current_initial_score_count >= 2 as has_two_initial_scores,
-  case
-    when initial_summary.current_initial_score_count >= 2 then initial_summary.current_initial_score_people
-    else '[]'::jsonb
-  end as current_initial_score_people
+  initial_summary.current_initial_score_count >= 2 as has_two_initial_scores
 from papers p
 join students s on s.id = p.student_id
 join teams t on t.id = s.team_id
 left join lateral (
   select
-    count(*)::integer as current_initial_score_count,
-    coalesce(
-      jsonb_agg(
-        jsonb_build_object(
-          'name', c.name,
-          'avatar_seed', c.avatar_seed
-        )
-        order by c.name
-      ),
-      '[]'::jsonb
-    ) as current_initial_score_people
+    count(*)::integer as current_initial_score_count
   from initial_score_history ish
-  join coordinators c on c.id = ish.coordinator_id
   where ish.paper_id = p.id
     and ish.superseded_at is null
 ) initial_summary on true;
