@@ -1,5 +1,5 @@
 window.IMSC_RESULTS_DATA = {
-  "generatedAt": "2026-07-07T03:19:42.028Z",
+  "generatedAt": "2026-07-07T06:13:41.623Z",
   "problems": [
     1,
     2,
@@ -7939,6 +7939,207 @@ window.IMSC_RESULTS_DATA = {
       "rank": 37
     },
     {
+      "teamName": "China Hubei",
+      "teamCode": "CHB",
+      "flag": "🇨🇳",
+      "revealedTotal": 3,
+      "students": [
+        {
+          "label": "CHB-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 0,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "CHB-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 1,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "CHB-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 1,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": null
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "CHB-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 1,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 1
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "CHB-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 0,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "CHB-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 0,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": null
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 42
+    },
+    {
       "teamName": "China Inner Mongolia",
       "teamCode": "NMG",
       "flag": "🇨🇳",
@@ -7956,7 +8157,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "3": {
               "hidden": false,
@@ -7988,7 +8189,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "3": {
               "hidden": false,
@@ -8052,7 +8253,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "3": {
               "hidden": false,
@@ -8084,7 +8285,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "3": {
               "hidden": true,
@@ -8116,7 +8317,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "3": {
               "hidden": false,
@@ -8211,207 +8412,6 @@ window.IMSC_RESULTS_DATA = {
         }
       ],
       "rank": 42
-    },
-    {
-      "teamName": "China Hubei",
-      "teamCode": "CHB",
-      "flag": "🇨🇳",
-      "revealedTotal": 2,
-      "students": [
-        {
-          "label": "CHB-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "CHB-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 1
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "CHB-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": null
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 1
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "CHB-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "CHB-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "CHB-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
-      "rank": 44
     },
     {
       "teamName": "International Union II",
