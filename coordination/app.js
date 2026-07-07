@@ -544,7 +544,10 @@ function renderClaimDialogAvatars(paper) {
   const people = new Map();
   activeClaims(paper).forEach(claim => people.set(claim.coordinator_id, claim));
   currentInitialScores(paper).forEach(score => people.set(score.coordinator_id, score));
-  const avatars = [...people.values()].map(person => renderAvatar(person, person.name || ""));
+  const avatars = [...people.values()].map(person => {
+    const className = paper.agreed_score_coordinator_id === person.coordinator_id ? "finalized-avatar" : "";
+    return renderAvatar(person, claimAvatarTooltip(person, paper), className);
+  });
   if (!avatars.length) return `<div class="avatar-stack"></div>`;
   return `<div class="avatar-stack">${avatars.join("")}</div>`;
 }
@@ -734,7 +737,6 @@ async function loadClaimDialogPapers() {
     .select("*", { count: "exact" })
     .is("agreed_score", null)
     .is("active_claim_id", null)
-    .lte("current_initial_score_count", 1)
     .order("team_name", { ascending: true })
     .order("team_index", { ascending: true })
     .order("problem_id", { ascending: true })
