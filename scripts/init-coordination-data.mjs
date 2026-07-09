@@ -72,7 +72,6 @@ const TEAM_CODES = new Map([
 const TEAM_STUDENT_COUNTS = new Map([
   ["China", 6],
   ["China Beijing", 4],
-  ["China Inner Mongolia", 6],
   ["Cameroon", 4],
   ["Hong Kong China", 4],
   ["Iceland", 5],
@@ -83,7 +82,7 @@ const TEAM_STUDENT_COUNTS = new Map([
   ["Uganda", 2]
 ]);
 const TEAM_STUDENT_INDEXES = new Map([
-  ["China Inner Mongolia", [1, 2, 3, 5, 6, 7]]
+  ["China Inner Mongolia", [1, 2, 3, 5, 6, 7, 8]]
 ]);
 const DEFAULT_STUDENT_COUNT = 6;
 

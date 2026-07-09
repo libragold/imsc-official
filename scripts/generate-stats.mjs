@@ -6,15 +6,6 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CSV_PATH = path.join(ROOT, "scores.csv");
 const OUTPUT_PATH = path.join(ROOT, "results", "stats-data.js");
 const PROBLEMS = [1, 2, 3, 4, 5, 6];
-const EXTRA_REAL_ROWS = [
-  {
-    code: "NMG008",
-    teamCode: "NMG",
-    teamName: "China Inner Mongolia",
-    teamIndex: 8,
-    scores: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }
-  }
-];
 
 const TEAM_NAMES = {
   ALB: "Albania",
@@ -161,10 +152,6 @@ function readRows() {
       teamIndex,
       scores
     });
-  }
-
-  for (const extraRow of EXTRA_REAL_ROWS) {
-    if (!rows.some(row => row.code === extraRow.code)) rows.push(extraRow);
   }
 
   return rows;

@@ -6,14 +6,6 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT_PATH = path.join(ROOT, "results", "results-data.js");
 const PAGE_SIZE = 1000;
 const PROBLEMS = [1, 2, 3, 4, 5, 6];
-const EXTRA_REAL_ROWS = [
-  {
-    team_name: "China Inner Mongolia",
-    team_code: "NMG",
-    team_index: 8,
-    scores: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }
-  }
-];
 
 const TEAM_FLAG_REGION_BY_CODE = {
   ALB: "AL",
@@ -175,14 +167,6 @@ function buildResults(rows) {
 
   for (const row of rows) {
     addScore(row, row.problem_id, row.agreed_score);
-  }
-
-  for (const row of EXTRA_REAL_ROWS) {
-    const existingTeam = teamsByCode.get(row.team_code || row.team_name || "TEAM");
-    if (existingTeam?.studentsByIndex.has(Number(row.team_index))) continue;
-    for (const problem of PROBLEMS) {
-      addScore(row, problem, row.scores[problem]);
-    }
   }
 
   const teams = [...teamsByCode.values()].map(team => {
