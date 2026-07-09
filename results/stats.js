@@ -15,19 +15,6 @@ function formatNumber(value) {
   return Number(value).toLocaleString([], { maximumFractionDigits: 2 });
 }
 
-function formatSnapshotTime(value) {
-  if (!value) return "Last updated: not generated";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Last updated";
-  return `Last updated ${date.toLocaleString([], {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  })}`;
-}
-
 function renderSummaryStats(stats) {
   const items = [
     ["N", stats?.count],
@@ -108,7 +95,7 @@ function renderIndividualHistogram(distributionRows) {
         ${individualCutoffs.map(cutoff => `
           <div
             class="individual-cutoff-marker"
-            style="--cutoff-left: ${(cutoff / bucketCount) * 100}"
+            style="--cutoff-left: ${cutoffMarkerLeft(cutoff, bucketCount)}"
             aria-hidden="true"
           >
             <span>${escapeHtml(cutoff)}+</span>
@@ -117,6 +104,13 @@ function renderIndividualHistogram(distributionRows) {
       </div>
     </div>
   `;
+}
+
+function cutoffMarkerLeft(cutoff, bucketCount) {
+  const gapPx = 4;
+  const percent = (cutoff / bucketCount) * 100;
+  const gapOffset = ((cutoff / bucketCount) - 0.5) * gapPx;
+  return `calc(${percent}% + ${gapOffset}px)`;
 }
 
 function renderProblemDistribution(problem, details) {
@@ -145,7 +139,6 @@ function renderProblemDistribution(problem, details) {
 }
 
 function renderStats() {
-  document.getElementById("snapshotMeta").textContent = formatSnapshotTime(data.generatedAt);
   if (!data.individualTotals) {
     document.getElementById("statsContent").innerHTML = `<div class="empty-state">No stats snapshot has been generated yet.</div>`;
     return;

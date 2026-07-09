@@ -233,7 +233,8 @@ h3 { font-size: 0.95rem; }
   display: grid;
   position: relative;
   grid-template-columns: repeat(var(--bucket-count), minmax(18px, 1fr));
-  gap: 4px;
+  --bucket-gap: 4px;
+  gap: var(--bucket-gap);
   min-width: 920px;
 }
 
@@ -338,7 +339,7 @@ h3 { font-size: 0.95rem; }
   position: absolute;
   top: 36px;
   bottom: 22px;
-  left: calc(var(--cutoff-left) * 1%);
+  left: var(--cutoff-left);
   z-index: 3;
   width: 26px;
   min-height: 0;

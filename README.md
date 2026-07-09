@@ -5,7 +5,7 @@ Static website and coordination app for IMSC 2026.
 ## Structure
 
 - `index.html` - public schedule/site.
-- `results/` - public static scoreboard generated from Supabase data.
+- `results/` - public static score statistics generated from Supabase data.
 - `coordination/` - coordinator login, paper claiming, scoring, coordination, and PDF access.
 - `supabase/schema.sql` - main Supabase schema, views, RLS policies, storage bucket setup, and RPC functions.
 - `supabase/add-paper-pdfs.sql` - PDF-related schema additions.
@@ -13,7 +13,8 @@ Static website and coordination app for IMSC 2026.
 - `supabase/allow-agreed-score-unset.sql` - incremental patch for existing Supabase projects to let the finalizing coordinator unset an agreed score.
 - `scripts/init-coordination-data.mjs` - seeds coordinators, teams, students, papers, and auth users.
 - `scripts/upload-day1-pdfs.mjs` - uploads scanned PDFs to Supabase Storage and links them to papers.
-- `scripts/generate-results.mjs` - writes the static results snapshot used by `/results/`.
+- `scripts/generate-results.mjs` - writes the static team-ranking snapshot shown below the schedule.
+- `scripts/generate-stats.mjs` - writes the static score-statistics snapshot used by `/results/`.
 
 ## Local Development
 
@@ -115,7 +116,7 @@ The generated `coordination-passwords.csv` is ignored by Git.
 
 ## Static Results
 
-The public results page does not pull live Supabase data. To refresh it, run:
+The public team ranking shown below the schedule does not pull live Supabase data. To refresh it, run:
 
 ```bash
 npm run results:generate
@@ -131,6 +132,14 @@ The generated snapshot hides one score per student ordinal:
 - student 4 hides P5
 - student 5 hides P3
 - student 6 hides P6
+
+To refresh the public `/results/` statistics page, run:
+
+```bash
+npm run stats:generate
+```
+
+This writes `results/stats-data.js`.
 
 Hidden raw scores are not written to the public snapshot and are shown as `?`. Scores that have not been coordinated yet are shown as `-`. Team totals and ranks use only revealed, coordinated scores. Students are displayed as `TEAMCODE-student_index`.
 

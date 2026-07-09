@@ -1,0 +1,293 @@
+.team-ranking-section {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.team-ranking-header {
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.team-ranking-header h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.22rem, 2.4vw, 1.7rem);
+  line-height: 1.12;
+  font-weight: 880;
+  letter-spacing: 0;
+}
+
+.team-ranking-board {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  width: 762px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.team-ranking-scroll {
+  overflow-x: auto;
+}
+
+.team-ranking-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.team-ranking-rank-col { width: 58px; }
+.team-ranking-team-col { width: 185px; }
+.team-ranking-students-col { width: 441px; }
+.team-ranking-total-col { width: 76px; }
+
+.team-ranking-table th,
+.team-ranking-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 10px;
+  vertical-align: top;
+}
+
+.team-ranking-table thead th {
+  background: #f5f6f7;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 820;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.team-ranking-table thead th:last-child {
+  text-align: right;
+}
+
+.team-ranking-table tbody tr:last-child th,
+.team-ranking-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.team-ranking-rank-cell {
+  width: 1%;
+  color: var(--accent);
+  font-size: 1.05rem;
+  font-weight: 860;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.team-ranking-team-cell {
+  width: 190px;
+}
+
+.team-ranking-team-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  font-weight: 820;
+  line-height: 1.25;
+}
+
+.team-ranking-flag {
+  flex: 0 0 auto;
+  width: 26px;
+  font-size: 1.15rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.team-ranking-students-cell {
+  min-width: 0;
+}
+
+.team-ranking-score-board {
+  display: grid;
+  gap: 5px;
+}
+
+.team-ranking-score-header,
+.team-ranking-student-row {
+  display: grid;
+  grid-template-columns: minmax(88px, max-content) repeat(6, 34px) 44px;
+  align-items: center;
+  gap: 5px;
+}
+
+.team-ranking-score-header {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 820;
+  text-align: center;
+}
+
+.team-ranking-score-header span:first-child,
+.team-ranking-student-label {
+  text-align: left;
+}
+
+.team-ranking-student-label {
+  min-width: 0;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 780;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-ranking-score-pill,
+.team-ranking-student-total {
+  min-height: 28px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+}
+
+.team-ranking-score-pill {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+}
+
+.team-ranking-score-pill.is-pending {
+  background: #fafafa;
+  color: #9aa1a7;
+}
+
+.team-ranking-student-total {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.team-ranking-total-cell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.team-ranking-total {
+  color: var(--ink);
+  font-size: 1.45rem;
+  font-weight: 880;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.team-ranking-empty {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  padding: 16px;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 640px) {
+  .team-ranking-board {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    width: 100%;
+    margin: 0;
+  }
+
+  .team-ranking-scroll {
+    overflow: visible;
+  }
+
+  .team-ranking-table,
+  .team-ranking-table thead,
+  .team-ranking-table tbody,
+  .team-ranking-table tr,
+  .team-ranking-table th,
+  .team-ranking-table td {
+    display: block;
+  }
+
+  .team-ranking-table {
+    min-width: 0;
+    table-layout: auto;
+  }
+
+  .team-ranking-table thead {
+    display: none;
+  }
+
+  .team-ranking-table tbody {
+    display: grid;
+    gap: 10px;
+  }
+
+  .team-ranking-table tbody tr {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .team-ranking-table th,
+  .team-ranking-table td {
+    border-bottom: 0;
+    padding: 0;
+  }
+
+  .team-ranking-rank-cell {
+    float: left;
+    width: auto;
+    min-width: 44px;
+    padding: 12px 8px 0 12px;
+    text-align: left;
+  }
+
+  .team-ranking-team-cell {
+    width: auto;
+    padding: 12px 12px 8px 54px;
+  }
+
+  .team-ranking-students-cell {
+    clear: both;
+    min-width: 0;
+    padding: 8px 10px 10px;
+  }
+
+  .team-ranking-score-header,
+  .team-ranking-student-row {
+    grid-template-columns: minmax(74px, 1fr) repeat(6, minmax(24px, 1fr)) 34px;
+    gap: 3px;
+  }
+
+  .team-ranking-score-pill,
+  .team-ranking-student-total {
+    min-height: 26px;
+    font-size: 0.78rem;
+  }
+
+  .team-ranking-student-label {
+    font-size: 0.78rem;
+  }
+
+  .team-ranking-total-cell {
+    width: auto;
+    border-top: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+  }
+
+  .team-ranking-total {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 1.22rem;
+  }
+}
