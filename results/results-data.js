@@ -1,5 +1,5 @@
 window.IMSC_RESULTS_DATA = {
-  "generatedAt": "2026-07-08T14:34:49.857Z",
+  "generatedAt": "2026-07-09T06:53:28.499Z",
   "problems": [
     1,
     2,
@@ -21,13 +21,13 @@ window.IMSC_RESULTS_DATA = {
       "teamName": "China",
       "teamCode": "CHN",
       "flag": "🇨🇳",
-      "revealedTotal": 160,
+      "revealedTotal": 174,
       "students": [
         {
           "label": "CHN-1",
           "teamIndex": 1,
           "ordinal": 1,
-          "revealedTotal": 22,
+          "revealedTotal": 29,
           "scores": {
             "1": {
               "hidden": true,
@@ -43,7 +43,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 7
             },
             "5": {
               "hidden": false,
@@ -123,7 +123,7 @@ window.IMSC_RESULTS_DATA = {
           "label": "CHN-4",
           "teamIndex": 4,
           "ordinal": 4,
-          "revealedTotal": 22,
+          "revealedTotal": 29,
           "scores": {
             "1": {
               "hidden": false,
@@ -139,7 +139,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 7
             },
             "5": {
               "hidden": true,
@@ -217,6 +217,207 @@ window.IMSC_RESULTS_DATA = {
         }
       ],
       "rank": 1
+    },
+    {
+      "teamName": "Iran",
+      "teamCode": "IRN",
+      "flag": "🇮🇷",
+      "revealedTotal": 129,
+      "students": [
+        {
+          "label": "IRN-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 22,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 7
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 1
+            }
+          }
+        },
+        {
+          "label": "IRN-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 16,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 6
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "IRN-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 18,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "IRN-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 21,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 6
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 4
+            }
+          }
+        },
+        {
+          "label": "IRN-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 28,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 7
+            },
+            "2": {
+              "hidden": false,
+              "value": 7
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "IRN-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 24,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 7
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 2
     },
     {
       "teamName": "Brazil",
@@ -417,13 +618,13 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 2
+      "rank": 3
     },
     {
       "teamName": "Poland",
       "teamCode": "POL",
       "flag": "🇵🇱",
-      "revealedTotal": 107,
+      "revealedTotal": 120,
       "students": [
         {
           "label": "POL-1",
@@ -557,7 +758,7 @@ window.IMSC_RESULTS_DATA = {
           "label": "POL-5",
           "teamIndex": 5,
           "ordinal": 5,
-          "revealedTotal": 24,
+          "revealedTotal": 31,
           "scores": {
             "1": {
               "hidden": false,
@@ -565,7 +766,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": null
+              "value": 7
             },
             "3": {
               "hidden": true,
@@ -589,7 +790,7 @@ window.IMSC_RESULTS_DATA = {
           "label": "POL-6",
           "teamIndex": 6,
           "ordinal": 6,
-          "revealedTotal": 21,
+          "revealedTotal": 27,
           "scores": {
             "1": {
               "hidden": false,
@@ -597,7 +798,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": null
+              "value": 6
             },
             "3": {
               "hidden": false,
@@ -618,7 +819,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 3
+      "rank": 4
     },
     {
       "teamName": "Vietnam",
@@ -819,7 +1020,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 4
+      "rank": 5
     },
     {
       "teamName": "Mongolia",
@@ -1012,207 +1213,6 @@ window.IMSC_RESULTS_DATA = {
             "5": {
               "hidden": false,
               "value": 3
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
-      "rank": 5
-    },
-    {
-      "teamName": "Iran",
-      "teamCode": "IRN",
-      "flag": "🇮🇷",
-      "revealedTotal": 96,
-      "students": [
-        {
-          "label": "IRN-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 15,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": 7
-            },
-            "6": {
-              "hidden": false,
-              "value": 1
-            }
-          }
-        },
-        {
-          "label": "IRN-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 10,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 7
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "IRN-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 18,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": 7
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "IRN-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 15,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 4
-            }
-          }
-        },
-        {
-          "label": "IRN-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 21,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 7
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": 7
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "IRN-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 17,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": 7
             },
             "6": {
               "hidden": true,
@@ -1425,6 +1425,207 @@ window.IMSC_RESULTS_DATA = {
       "rank": 7
     },
     {
+      "teamName": "Uzbekistan",
+      "teamCode": "UZB",
+      "flag": "🇺🇿",
+      "revealedTotal": 85,
+      "students": [
+        {
+          "label": "UZB-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 12,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 3
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 2
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "UZB-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 10,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 4
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 6
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "UZB-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 10,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "UZB-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 10,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 7
+            },
+            "2": {
+              "hidden": false,
+              "value": 2
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 1
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "UZB-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 19,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 3
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 6
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "UZB-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 24,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 7
+            },
+            "2": {
+              "hidden": false,
+              "value": 7
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 3
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 8
+    },
+    {
       "teamName": "Tajikistan",
       "teamCode": "TJK",
       "flag": "🇹🇯",
@@ -1623,7 +1824,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 8
+      "rank": 9
     },
     {
       "teamName": "Peru",
@@ -1824,7 +2025,409 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 9
+      "rank": 10
+    },
+    {
+      "teamName": "Indonesia",
+      "teamCode": "IDN",
+      "flag": "🇮🇩",
+      "revealedTotal": 79,
+      "students": [
+        {
+          "label": "IDN-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 13,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 1
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": false,
+              "value": 4
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "IDN-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 16,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 7
+            },
+            "2": {
+              "hidden": false,
+              "value": 1
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "IDN-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 12,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 2
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "IDN-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 9,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 3
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 2
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "IDN-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 11,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 1
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "IDN-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 18,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 2
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 4
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 11
+    },
+    {
+      "teamName": "Malaysia",
+      "teamCode": "MAS",
+      "flag": "🇲🇾",
+      "revealedTotal": 79,
+      "students": [
+        {
+          "label": "MAS-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 1,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 0
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MAS-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 13,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 7
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 2
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MAS-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 21,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 7
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MAS-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 14,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 7
+            },
+            "2": {
+              "hidden": false,
+              "value": 5
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 2
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MAS-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 19,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 2
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MAS-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 11,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 2
+            },
+            "2": {
+              "hidden": false,
+              "value": 2
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 11
     },
     {
       "teamName": "Serbia",
@@ -2025,7 +2628,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 10
+      "rank": 13
     },
     {
       "teamName": "Croatia",
@@ -2226,7 +2829,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 11
+      "rank": 14
     },
     {
       "teamName": "Czechia",
@@ -2427,7 +3030,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 12
+      "rank": 15
     },
     {
       "teamName": "Mexico",
@@ -2628,7 +3231,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 12
+      "rank": 15
     },
     {
       "teamName": "Kyrgyzstan",
@@ -2829,7 +3432,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 14
+      "rank": 17
     },
     {
       "teamName": "Moldova",
@@ -3030,208 +3633,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 15
-    },
-    {
-      "teamName": "Uzbekistan",
-      "teamCode": "UZB",
-      "flag": "🇺🇿",
-      "revealedTotal": 68,
-      "students": [
-        {
-          "label": "UZB-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 10,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": 3
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "UZB-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 4,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 4
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "UZB-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 10,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "UZB-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 10,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 7
-            },
-            "2": {
-              "hidden": false,
-              "value": 2
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 1
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "UZB-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 13,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": 3
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "UZB-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 21,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 7
-            },
-            "2": {
-              "hidden": false,
-              "value": 7
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
-      "rank": 15
+      "rank": 18
     },
     {
       "teamName": "Ireland",
@@ -3432,7 +3834,208 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 17
+      "rank": 19
+    },
+    {
+      "teamName": "Turkmenistan",
+      "teamCode": "TKM",
+      "flag": "🇹🇲",
+      "revealedTotal": 63,
+      "students": [
+        {
+          "label": "TKM-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 10,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 7
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 3
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "TKM-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 14,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 7
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "TKM-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 18,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 7
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "TKM-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 4,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "TKM-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 9,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 4
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 5
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "TKM-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 8,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 1
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 3
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 19
     },
     {
       "teamName": "Cuba",
@@ -3633,7 +4236,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 18
+      "rank": 21
     },
     {
       "teamName": "Bangladesh",
@@ -3834,7 +4437,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 19
+      "rank": 22
     },
     {
       "teamName": "China Hubei",
@@ -3870,7 +4473,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -3902,7 +4505,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -3934,7 +4537,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -3966,7 +4569,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -3998,7 +4601,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -4035,208 +4638,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 20
-    },
-    {
-      "teamName": "Malaysia",
-      "teamCode": "MAS",
-      "flag": "🇲🇾",
-      "revealedTotal": 56,
-      "students": [
-        {
-          "label": "MAS-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 1
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "MAS-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 13,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": 7
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 2
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "MAS-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 14,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 7
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 7
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "MAS-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 12,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 7
-            },
-            "2": {
-              "hidden": false,
-              "value": 5
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "MAS-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 12,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": 2
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 7
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "MAS-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 4,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 2
-            },
-            "2": {
-              "hidden": false,
-              "value": 2
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 0
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
-      "rank": 20
+      "rank": 23
     },
     {
       "teamName": "South Africa",
@@ -4437,19 +4839,19 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 20
+      "rank": 23
     },
     {
-      "teamName": "Indonesia",
-      "teamCode": "IDN",
-      "flag": "🇮🇩",
-      "revealedTotal": 54,
+      "teamName": "Bosnia & Herzegovina",
+      "teamCode": "BIH",
+      "flag": "🇧🇦",
+      "revealedTotal": 52,
       "students": [
         {
-          "label": "IDN-1",
+          "label": "BIH-1",
           "teamIndex": 1,
           "ordinal": 1,
-          "revealedTotal": 6,
+          "revealedTotal": 1,
           "scores": {
             "1": {
               "hidden": true,
@@ -4461,47 +4863,216 @@ window.IMSC_RESULTS_DATA = {
             },
             "3": {
               "hidden": false,
-              "value": 1
+              "value": 0
             },
             "4": {
               "hidden": false,
-              "value": 4
+              "value": null
             },
             "5": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "6": {
               "hidden": false,
-              "value": 0
+              "value": null
             }
           }
         },
         {
-          "label": "IDN-2",
+          "label": "BIH-2",
           "teamIndex": 2,
           "ordinal": 2,
+          "revealedTotal": 18,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 7
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "BIH-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 11,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "BIH-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 4,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": null
+            }
+          }
+        },
+        {
+          "label": "BIH-5",
+          "teamIndex": 5,
+          "ordinal": 5,
           "revealedTotal": 9,
           "scores": {
             "1": {
               "hidden": false,
-              "value": 7
+              "value": 4
             },
             "2": {
               "hidden": false,
               "value": 1
             },
             "3": {
-              "hidden": false,
-              "value": 1
+              "hidden": true,
+              "value": null
             },
             "4": {
-              "hidden": true,
+              "hidden": false,
               "value": null
             },
             "5": {
               "hidden": false,
+              "value": 4
+            },
+            "6": {
+              "hidden": false,
               "value": null
+            }
+          }
+        },
+        {
+          "label": "BIH-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 9,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 6
+            },
+            "2": {
+              "hidden": false,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 2
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 25
+    },
+    {
+      "teamName": "Pakistan",
+      "teamCode": "PAK",
+      "flag": "🇵🇰",
+      "revealedTotal": 44,
+      "students": [
+        {
+          "label": "PAK-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 12,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 2
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": false,
+              "value": 3
             },
             "6": {
               "hidden": false,
@@ -4510,7 +5081,39 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "IDN-3",
+          "label": "PAK-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 8,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 4
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "PAK-3",
           "teamIndex": 3,
           "ordinal": 3,
           "revealedTotal": 5,
@@ -4533,6 +5136,38 @@ window.IMSC_RESULTS_DATA = {
             },
             "5": {
               "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "PAK-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 5,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 2
+            },
+            "5": {
+              "hidden": true,
               "value": null
             },
             "6": {
@@ -4542,9 +5177,9 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "IDN-4",
-          "teamIndex": 4,
-          "ordinal": 4,
+          "label": "PAK-5",
+          "teamIndex": 5,
+          "ordinal": 5,
           "revealedTotal": 9,
           "scores": {
             "1": {
@@ -4553,52 +5188,20 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": 3
+              "value": 2
             },
             "3": {
-              "hidden": false,
-              "value": 0
+              "hidden": true,
+              "value": null
             },
             "4": {
               "hidden": false,
               "value": 2
             },
             "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "IDN-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 11,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
               "hidden": false,
               "value": 1
             },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
             "6": {
               "hidden": false,
               "value": 0
@@ -4606,30 +5209,30 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "IDN-6",
+          "label": "PAK-6",
           "teamIndex": 6,
           "ordinal": 6,
-          "revealedTotal": 14,
+          "revealedTotal": 5,
           "scores": {
             "1": {
               "hidden": false,
-              "value": 4
+              "value": 3
             },
             "2": {
               "hidden": false,
-              "value": 2
+              "value": 0
             },
             "3": {
               "hidden": false,
-              "value": 1
+              "value": 0
             },
             "4": {
               "hidden": false,
-              "value": 7
+              "value": 2
             },
             "5": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "6": {
               "hidden": true,
@@ -4638,7 +5241,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 23
+      "rank": 26
     },
     {
       "teamName": "Estonia",
@@ -4839,7 +5442,345 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 24
+      "rank": 27
+    },
+    {
+      "teamName": "International Union I",
+      "teamCode": "INT1",
+      "flag": "🌐",
+      "revealedTotal": 41,
+      "students": [
+        {
+          "label": "INT1-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 1,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 1
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 0
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "INT1-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 8,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 3
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "INT1-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 1,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 1
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 0
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "INT1-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 31,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 7
+            },
+            "3": {
+              "hidden": false,
+              "value": 7
+            },
+            "4": {
+              "hidden": false,
+              "value": 7
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 7
+            }
+          }
+        }
+      ],
+      "rank": 28
+    },
+    {
+      "teamName": "Lithuania",
+      "teamCode": "LTU",
+      "flag": "🇱🇹",
+      "revealedTotal": 41,
+      "students": [
+        {
+          "label": "LTU-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 5,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 4
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "LTU-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 8,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 7
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "LTU-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 6,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 3
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "LTU-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 6,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 3
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "LTU-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 9,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 7
+            },
+            "2": {
+              "hidden": false,
+              "value": 1
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "LTU-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 7,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 7
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 28
     },
     {
       "teamName": "Thailand",
@@ -5040,220 +5981,19 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 25
+      "rank": 28
     },
     {
-      "teamName": "Pakistan",
-      "teamCode": "PAK",
-      "flag": "🇵🇰",
-      "revealedTotal": 38,
-      "students": [
-        {
-          "label": "PAK-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 10,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 7
-            },
-            "5": {
-              "hidden": false,
-              "value": 3
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "PAK-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 4,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 1
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "PAK-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 5,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 2
-            },
-            "5": {
-              "hidden": false,
-              "value": 0
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "PAK-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 5,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 2
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "PAK-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 9,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": 2
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": 2
-            },
-            "5": {
-              "hidden": false,
-              "value": 1
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "PAK-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 5,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 2
-            },
-            "5": {
-              "hidden": false,
-              "value": 0
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
-      "rank": 26
-    },
-    {
-      "teamName": "Lithuania",
-      "teamCode": "LTU",
-      "flag": "🇱🇹",
+      "teamName": "Nepal",
+      "teamCode": "NPL",
+      "flag": "🇳🇵",
       "revealedTotal": 37,
       "students": [
         {
-          "label": "LTU-1",
+          "label": "NPL-1",
           "teamIndex": 1,
           "ordinal": 1,
-          "revealedTotal": 5,
+          "revealedTotal": 4,
           "scores": {
             "1": {
               "hidden": true,
@@ -5261,7 +6001,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": 4
+              "value": 1
             },
             "3": {
               "hidden": false,
@@ -5269,7 +6009,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 2
             },
             "5": {
               "hidden": false,
@@ -5282,81 +6022,49 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "LTU-2",
+          "label": "NPL-2",
           "teamIndex": 2,
           "ordinal": 2,
-          "revealedTotal": 8,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 1
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 7
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "LTU-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 6,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 3
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "LTU-4",
-          "teamIndex": 4,
-          "ordinal": 4,
           "revealedTotal": 3,
           "scores": {
             "1": {
               "hidden": false,
-              "value": 3
+              "value": 0
             },
             "2": {
               "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 2
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "NPL-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 12,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 7
+            },
+            "2": {
+              "hidden": true,
               "value": null
             },
             "3": {
@@ -5365,7 +6073,39 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
+            },
+            "5": {
+              "hidden": false,
+              "value": 5
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "NPL-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 2,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 1
+            },
+            "4": {
+              "hidden": false,
+              "value": 1
             },
             "5": {
               "hidden": true,
@@ -5378,10 +6118,10 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "LTU-5",
+          "label": "NPL-5",
           "teamIndex": 5,
           "ordinal": 5,
-          "revealedTotal": 8,
+          "revealedTotal": 13,
           "scores": {
             "1": {
               "hidden": false,
@@ -5389,7 +6129,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": null
+              "value": 2
             },
             "3": {
               "hidden": true,
@@ -5397,43 +6137,43 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 2
+            },
+            "5": {
+              "hidden": false,
+              "value": 2
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "NPL-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 3,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 2
             },
             "5": {
               "hidden": false,
               "value": 1
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "LTU-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 7,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 7
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 0
             },
             "6": {
               "hidden": true,
@@ -5442,7 +6182,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 27
+      "rank": 31
     },
     {
       "teamName": "Macau China",
@@ -5478,7 +6218,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -5510,7 +6250,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -5542,7 +6282,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -5574,7 +6314,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -5606,7 +6346,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "6": {
               "hidden": false,
-              "value": null
+              "value": 0
             }
           }
         },
@@ -5643,7 +6383,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 28
+      "rank": 32
     },
     {
       "teamName": "Albania",
@@ -5844,345 +6584,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 29
-    },
-    {
-      "teamName": "International Union I",
-      "teamCode": "INT1",
-      "flag": "🌐",
-      "revealedTotal": 33,
-      "students": [
-        {
-          "label": "INT1-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": 1
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "INT1-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 7,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": 3
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "INT1-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 1
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "INT1-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 24,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": 7
-            },
-            "3": {
-              "hidden": false,
-              "value": 7
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 7
-            }
-          }
-        }
-      ],
-      "rank": 29
-    },
-    {
-      "teamName": "Turkmenistan",
-      "teamCode": "TKM",
-      "flag": "🇹🇲",
-      "revealedTotal": 33,
-      "students": [
-        {
-          "label": "TKM-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 7,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": 7
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "TKM-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 7,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 7
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "TKM-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 11,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 7
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "TKM-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 4,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "TKM-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "TKM-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 4,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 1
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
-      "rank": 29
+      "rank": 33
     },
     {
       "teamName": "Uruguay",
@@ -6383,409 +6785,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 29
-    },
-    {
-      "teamName": "Bosnia & Herzegovina",
-      "teamCode": "BIH",
-      "flag": "🇧🇦",
-      "revealedTotal": 32,
-      "students": [
-        {
-          "label": "BIH-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": 1
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "BIH-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 11,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": 7
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "BIH-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 4,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 1
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "BIH-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 4,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "BIH-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 5,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": 1
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": null
-            }
-          }
-        },
-        {
-          "label": "BIH-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 7,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 6
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 1
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
       "rank": 33
-    },
-    {
-      "teamName": "Nepal",
-      "teamCode": "NPL",
-      "flag": "🇳🇵",
-      "revealedTotal": 30,
-      "students": [
-        {
-          "label": "NPL-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 2,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": 1
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 1
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "NPL-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 3,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 1
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 2
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "NPL-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 12,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 7
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 5
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "NPL-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 1
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "NPL-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 11,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 7
-            },
-            "2": {
-              "hidden": false,
-              "value": 2
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 2
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "NPL-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 1
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
-      "rank": 34
     },
     {
       "teamName": "Costa Rica",
@@ -6989,6 +6989,513 @@ window.IMSC_RESULTS_DATA = {
       "rank": 35
     },
     {
+      "teamName": "Hong Kong China",
+      "teamCode": "HKG",
+      "flag": "🇭🇰",
+      "revealedTotal": 23,
+      "students": [
+        {
+          "label": "HKG-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 7,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 5
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 2
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "HKG-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 4,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "HKG-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 9,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 4
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "HKG-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 3,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 1
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 2
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        }
+      ],
+      "rank": 35
+    },
+    {
+      "teamName": "North Macedonia",
+      "teamCode": "MKD",
+      "flag": "🇲🇰",
+      "revealedTotal": 22,
+      "students": [
+        {
+          "label": "MKD-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 2,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 2
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MKD-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 9,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 2
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 4
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MKD-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 2,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 1
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MKD-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 3,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MKD-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 6,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 4
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 2
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        }
+      ],
+      "rank": 37
+    },
+    {
+      "teamName": "Rwanda",
+      "teamCode": "RWA",
+      "flag": "🇷🇼",
+      "revealedTotal": 22,
+      "students": [
+        {
+          "label": "RWA-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 7,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 5
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 1
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "RWA-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 5,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 2
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "RWA-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 0,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 0
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "RWA-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 6,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 3
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "RWA-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 3,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 1
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": 2
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "RWA-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 1,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 0
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 37
+    },
+    {
       "teamName": "China Inner Mongolia",
       "teamCode": "NMG",
       "flag": "🇨🇳",
@@ -7187,7 +7694,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 36
+      "rank": 39
     },
     {
       "teamName": "Myanmar",
@@ -7388,176 +7895,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 36
-    },
-    {
-      "teamName": "North Macedonia",
-      "teamCode": "MKD",
-      "flag": "🇲🇰",
-      "revealedTotal": 20,
-      "students": [
-        {
-          "label": "MKD-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 2,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 2
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "MKD-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 7,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 4
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "MKD-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 2,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 1
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 1
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "MKD-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 3,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "MKD-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 6,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": null
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 2
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        }
-      ],
-      "rank": 38
+      "rank": 39
     },
     {
       "teamName": "Iceland",
@@ -7726,19 +8064,19 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 39
+      "rank": 41
     },
     {
-      "teamName": "Rwanda",
-      "teamCode": "RWA",
-      "flag": "🇷🇼",
-      "revealedTotal": 16,
+      "teamName": "Honduras",
+      "teamCode": "HND",
+      "flag": "🇭🇳",
+      "revealedTotal": 15,
       "students": [
         {
-          "label": "RWA-1",
+          "label": "HND-1",
           "teamIndex": 1,
           "ordinal": 1,
-          "revealedTotal": 6,
+          "revealedTotal": 2,
           "scores": {
             "1": {
               "hidden": true,
@@ -7746,7 +8084,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": 5
+              "value": 0
             },
             "3": {
               "hidden": false,
@@ -7754,11 +8092,11 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 2
             },
             "5": {
               "hidden": false,
-              "value": 1
+              "value": 0
             },
             "6": {
               "hidden": false,
@@ -7767,14 +8105,14 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "RWA-2",
+          "label": "HND-2",
           "teamIndex": 2,
           "ordinal": 2,
-          "revealedTotal": 5,
+          "revealedTotal": 2,
           "scores": {
             "1": {
               "hidden": false,
-              "value": 3
+              "value": 0
             },
             "2": {
               "hidden": false,
@@ -7799,7 +8137,208 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "RWA-3",
+          "label": "HND-3",
+          "teamIndex": 3,
+          "ordinal": 3,
+          "revealedTotal": 3,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 1
+            },
+            "2": {
+              "hidden": true,
+              "value": null
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 2
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "HND-4",
+          "teamIndex": 4,
+          "ordinal": 4,
+          "revealedTotal": 0,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 0
+            },
+            "5": {
+              "hidden": true,
+              "value": null
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "HND-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 0,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": 0
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "HND-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 8,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 3
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 4
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
+        }
+      ],
+      "rank": 42
+    },
+    {
+      "teamName": "Montenegro",
+      "teamCode": "MNE",
+      "flag": "🇲🇪",
+      "revealedTotal": 10,
+      "students": [
+        {
+          "label": "MNE-1",
+          "teamIndex": 1,
+          "ordinal": 1,
+          "revealedTotal": 5,
+          "scores": {
+            "1": {
+              "hidden": true,
+              "value": null
+            },
+            "2": {
+              "hidden": false,
+              "value": 2
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 1
+            },
+            "5": {
+              "hidden": false,
+              "value": 2
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MNE-2",
+          "teamIndex": 2,
+          "ordinal": 2,
+          "revealedTotal": 0,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": true,
+              "value": null
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "MNE-3",
           "teamIndex": 3,
           "ordinal": 3,
           "revealedTotal": 0,
@@ -7818,7 +8357,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": false,
@@ -7831,10 +8370,10 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "RWA-4",
+          "label": "MNE-4",
           "teamIndex": 4,
           "ordinal": 4,
-          "revealedTotal": 3,
+          "revealedTotal": 5,
           "scores": {
             "1": {
               "hidden": false,
@@ -7850,208 +8389,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "RWA-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 1
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 0
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "RWA-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 1
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
-      "rank": 40
-    },
-    {
-      "teamName": "Hong Kong China",
-      "teamCode": "HKG",
-      "flag": "🇭🇰",
-      "revealedTotal": 15,
-      "students": [
-        {
-          "label": "HKG-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 5,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": 5
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 0
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "HKG-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 4,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 0
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "HKG-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 5,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 4
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": 1
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "HKG-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 1
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
+              "value": 2
             },
             "5": {
               "hidden": true,
@@ -8064,7 +8402,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 41
+      "rank": 43
     },
     {
       "teamName": "Botswana",
@@ -8092,7 +8430,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": false,
@@ -8156,7 +8494,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": false,
@@ -8188,7 +8526,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": true,
@@ -8220,7 +8558,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": false,
@@ -8252,7 +8590,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": false,
@@ -8265,19 +8603,19 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 42
+      "rank": 44
     },
     {
-      "teamName": "Montenegro",
-      "teamCode": "MNE",
-      "flag": "🇲🇪",
+      "teamName": "Ghana",
+      "teamCode": "GHA",
+      "flag": "🇬🇭",
       "revealedTotal": 8,
       "students": [
         {
-          "label": "MNE-1",
+          "label": "GHA-1",
           "teamIndex": 1,
           "ordinal": 1,
-          "revealedTotal": 3,
+          "revealedTotal": 1,
           "scores": {
             "1": {
               "hidden": true,
@@ -8285,7 +8623,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "2": {
               "hidden": false,
-              "value": 2
+              "value": 0
             },
             "3": {
               "hidden": false,
@@ -8297,7 +8635,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "5": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "6": {
               "hidden": false,
@@ -8306,7 +8644,7 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "MNE-2",
+          "label": "GHA-2",
           "teamIndex": 2,
           "ordinal": 2,
           "revealedTotal": 0,
@@ -8329,7 +8667,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "5": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "6": {
               "hidden": false,
@@ -8338,10 +8676,10 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "MNE-3",
+          "label": "GHA-3",
           "teamIndex": 3,
           "ordinal": 3,
-          "revealedTotal": 0,
+          "revealedTotal": 1,
           "scores": {
             "1": {
               "hidden": false,
@@ -8361,7 +8699,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "5": {
               "hidden": false,
-              "value": null
+              "value": 1
             },
             "6": {
               "hidden": false,
@@ -8370,10 +8708,10 @@ window.IMSC_RESULTS_DATA = {
           }
         },
         {
-          "label": "MNE-4",
+          "label": "GHA-4",
           "teamIndex": 4,
           "ordinal": 4,
-          "revealedTotal": 5,
+          "revealedTotal": 3,
           "scores": {
             "1": {
               "hidden": false,
@@ -8389,7 +8727,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": 2
+              "value": 0
             },
             "5": {
               "hidden": true,
@@ -8400,9 +8738,73 @@ window.IMSC_RESULTS_DATA = {
               "value": 0
             }
           }
+        },
+        {
+          "label": "GHA-5",
+          "teamIndex": 5,
+          "ordinal": 5,
+          "revealedTotal": 3,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 2
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": true,
+              "value": null
+            },
+            "4": {
+              "hidden": false,
+              "value": 0
+            },
+            "5": {
+              "hidden": false,
+              "value": 1
+            },
+            "6": {
+              "hidden": false,
+              "value": 0
+            }
+          }
+        },
+        {
+          "label": "GHA-6",
+          "teamIndex": 6,
+          "ordinal": 6,
+          "revealedTotal": 0,
+          "scores": {
+            "1": {
+              "hidden": false,
+              "value": 0
+            },
+            "2": {
+              "hidden": false,
+              "value": 0
+            },
+            "3": {
+              "hidden": false,
+              "value": 0
+            },
+            "4": {
+              "hidden": false,
+              "value": 0
+            },
+            "5": {
+              "hidden": false,
+              "value": 0
+            },
+            "6": {
+              "hidden": true,
+              "value": null
+            }
+          }
         }
       ],
-      "rank": 43
+      "rank": 45
     },
     {
       "teamName": "China Beijing",
@@ -8539,208 +8941,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 44
-    },
-    {
-      "teamName": "Ghana",
-      "teamCode": "GHA",
-      "flag": "🇬🇭",
-      "revealedTotal": 6,
-      "students": [
-        {
-          "label": "GHA-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 1
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "GHA-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "GHA-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 0
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "GHA-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 3,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 0
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "GHA-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 2,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 2
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": 0
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "GHA-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": 0
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": true,
-              "value": null
-            }
-          }
-        }
-      ],
-      "rank": 44
+      "rank": 46
     },
     {
       "teamName": "Uganda",
@@ -8809,207 +9010,6 @@ window.IMSC_RESULTS_DATA = {
             "6": {
               "hidden": false,
               "value": 0
-            }
-          }
-        }
-      ],
-      "rank": 46
-    },
-    {
-      "teamName": "Honduras",
-      "teamCode": "HND",
-      "flag": "🇭🇳",
-      "revealedTotal": 4,
-      "students": [
-        {
-          "label": "HND-1",
-          "teamIndex": 1,
-          "ordinal": 1,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": true,
-              "value": null
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "HND-2",
-          "teamIndex": 2,
-          "ordinal": 2,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": true,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "HND-3",
-          "teamIndex": 3,
-          "ordinal": 3,
-          "revealedTotal": 1,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 1
-            },
-            "2": {
-              "hidden": true,
-              "value": null
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "HND-4",
-          "teamIndex": 4,
-          "ordinal": 4,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": true,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "HND-5",
-          "teamIndex": 5,
-          "ordinal": 5,
-          "revealedTotal": 0,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 0
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": true,
-              "value": null
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": false,
-              "value": 0
-            }
-          }
-        },
-        {
-          "label": "HND-6",
-          "teamIndex": 6,
-          "ordinal": 6,
-          "revealedTotal": 3,
-          "scores": {
-            "1": {
-              "hidden": false,
-              "value": 3
-            },
-            "2": {
-              "hidden": false,
-              "value": 0
-            },
-            "3": {
-              "hidden": false,
-              "value": 0
-            },
-            "4": {
-              "hidden": false,
-              "value": null
-            },
-            "5": {
-              "hidden": false,
-              "value": null
-            },
-            "6": {
-              "hidden": true,
-              "value": null
             }
           }
         }
@@ -9157,13 +9157,13 @@ window.IMSC_RESULTS_DATA = {
       "teamName": "International Union II",
       "teamCode": "INT2",
       "flag": "🌐",
-      "revealedTotal": 1,
+      "revealedTotal": 2,
       "students": [
         {
           "label": "INT2-1",
           "teamIndex": 1,
           "ordinal": 1,
-          "revealedTotal": 1,
+          "revealedTotal": 2,
           "scores": {
             "1": {
               "hidden": true,
@@ -9179,11 +9179,11 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": false,
-              "value": null
+              "value": 1
             },
             "6": {
               "hidden": false,
@@ -9215,7 +9215,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "5": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "6": {
               "hidden": false,
@@ -9243,11 +9243,11 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "6": {
               "hidden": false,
@@ -9275,7 +9275,7 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": true,
@@ -9307,11 +9307,11 @@ window.IMSC_RESULTS_DATA = {
             },
             "4": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "5": {
               "hidden": false,
-              "value": null
+              "value": 0
             },
             "6": {
               "hidden": false,
@@ -9320,7 +9320,7 @@ window.IMSC_RESULTS_DATA = {
           }
         }
       ],
-      "rank": 49
+      "rank": 48
     }
   ]
 };

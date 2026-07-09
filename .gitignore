@@ -5,6 +5,7 @@
 coordination-passwords.csv
 generated-passwords*
 password-slips*
+scores.csv
 
 .DS_Store
 tmp/
