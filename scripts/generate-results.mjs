@@ -6,14 +6,14 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT_PATH = path.join(ROOT, "results", "results-data.js");
 const PAGE_SIZE = 1000;
 const PROBLEMS = [1, 2, 3, 4, 5, 6];
-const HIDDEN_BY_STUDENT_ORDINAL = {
-  1: 1,
-  2: 4,
-  3: 2,
-  4: 5,
-  5: 3,
-  6: 6
-};
+const EXTRA_REAL_ROWS = [
+  {
+    team_name: "China Inner Mongolia",
+    team_code: "NMG",
+    team_index: 8,
+    scores: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }
+  }
+];
 
 const TEAM_FLAG_REGION_BY_CODE = {
   ALB: "AL",
@@ -143,7 +143,7 @@ async function fetchPaperStatusRows() {
 function buildResults(rows) {
   const teamsByCode = new Map();
 
-  for (const row of rows) {
+  function addScore(row, problemId, agreedScore) {
     const teamCode = row.team_code || row.team_name || "TEAM";
     if (!teamsByCode.has(teamCode)) {
       teamsByCode.set(teamCode, {
@@ -165,12 +165,24 @@ function buildResults(rows) {
     }
 
     const student = team.studentsByIndex.get(teamIndex);
-    const problem = Number(row.problem_id);
-    if (!PROBLEMS.includes(problem)) continue;
+    const problem = Number(problemId);
+    if (!PROBLEMS.includes(problem)) return;
     student.scores[String(problem)] = {
       hidden: false,
-      value: row.agreed_score == null ? null : Number(row.agreed_score)
+      value: agreedScore == null ? null : Number(agreedScore)
     };
+  }
+
+  for (const row of rows) {
+    addScore(row, row.problem_id, row.agreed_score);
+  }
+
+  for (const row of EXTRA_REAL_ROWS) {
+    const existingTeam = teamsByCode.get(row.team_code || row.team_name || "TEAM");
+    if (existingTeam?.studentsByIndex.has(Number(row.team_index))) continue;
+    for (const problem of PROBLEMS) {
+      addScore(row, problem, row.scores[problem]);
+    }
   }
 
   const teams = [...teamsByCode.values()].map(team => {
@@ -183,13 +195,12 @@ function buildResults(rows) {
 
         for (const problem of PROBLEMS) {
           const key = String(problem);
-          const hidden = HIDDEN_BY_STUDENT_ORDINAL[ordinal] === problem;
           const value = student.scores[key]?.value ?? null;
           scores[key] = {
-            hidden,
-            value: hidden ? null : value
+            hidden: false,
+            value
           };
-          if (!hidden && value != null) revealedTotal += Number(value);
+          if (value != null) revealedTotal += Number(value);
         }
 
         return {
@@ -228,7 +239,6 @@ function buildResults(rows) {
   return {
     generatedAt: new Date().toISOString(),
     problems: PROBLEMS,
-    hiddenByStudentOrdinal: HIDDEN_BY_STUDENT_ORDINAL,
     teams
   };
 }
