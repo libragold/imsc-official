@@ -5,7 +5,7 @@
 }
 
 .team-ranking-header {
-  margin-bottom: 14px;
+  margin-bottom: 24px;
   text-align: center;
 }
 
@@ -202,6 +202,10 @@
     margin: 0;
   }
 
+  .team-ranking-header {
+    margin-bottom: 20px;
+  }
+
   .team-ranking-scroll {
     overflow: visible;
   }
@@ -230,11 +234,16 @@
   }
 
   .team-ranking-table tbody tr {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    align-items: start;
+    row-gap: 10px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: #fff;
     box-shadow: var(--shadow);
     overflow: hidden;
+    padding: 12px;
   }
 
   .team-ranking-table th,
@@ -244,22 +253,28 @@
   }
 
   .team-ranking-rank-cell {
-    float: left;
+    grid-column: 1;
+    grid-row: 1;
+    float: none;
     width: auto;
     min-width: 44px;
-    padding: 12px 8px 0 12px;
+    padding: 0 8px 0 0;
     text-align: left;
   }
 
   .team-ranking-team-cell {
+    grid-column: 2;
+    grid-row: 1;
     width: auto;
-    padding: 12px 12px 8px 54px;
+    min-width: 0;
+    padding: 0 8px 10px 0;
   }
 
   .team-ranking-students-cell {
+    grid-column: 1 / -1;
     clear: both;
     min-width: 0;
-    padding: 8px 10px 10px;
+    padding: 12px 0 12px;
   }
 
   .team-ranking-score-header,
@@ -279,15 +294,17 @@
   }
 
   .team-ranking-total-cell {
+    grid-column: 3;
+    grid-row: 1;
     width: auto;
-    border-top: 1px solid var(--line);
-    padding: 10px 12px;
-    text-align: left;
+    border-top: 0;
+    padding: 0 0 10px 8px;
+    text-align: right;
   }
 
   .team-ranking-total {
-    display: inline-block;
-    margin-right: 6px;
+    display: block;
+    margin-right: 0;
     font-size: 1.22rem;
   }
 }
