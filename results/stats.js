@@ -82,8 +82,14 @@ function renderIndividualHistogram(distributionRows) {
         </div>
         ${distributionRows.map(row => {
           const height = Math.round((row.count / max) * 100);
+          const isCutoff = individualCutoffs.includes(row.value);
           return `
             <div class="individual-histogram-column ${sectionForScore(row.value)}">
+              ${isCutoff ? `
+                <div class="individual-cutoff-marker" aria-hidden="true">
+                  <span>${escapeHtml(row.value)}+</span>
+                </div>
+              ` : ""}
               <div class="individual-bar-slot" style="--height: ${height}">
                 <div class="individual-frequency">${escapeHtml(row.count)}</div>
                 <div class="score-histogram-bar${row.count ? "" : " is-empty"}" title="${escapeHtml(`Total ${row.value}: ${row.count}`)}"></div>
@@ -92,25 +98,9 @@ function renderIndividualHistogram(distributionRows) {
             </div>
           `;
         }).join("")}
-        ${individualCutoffs.map(cutoff => `
-          <div
-            class="individual-cutoff-marker"
-            style="--cutoff-left: ${cutoffMarkerLeft(cutoff, bucketCount)}"
-            aria-hidden="true"
-          >
-            <span>${escapeHtml(cutoff)}+</span>
-          </div>
-        `).join("")}
       </div>
     </div>
   `;
-}
-
-function cutoffMarkerLeft(cutoff, bucketCount) {
-  const gapPx = 4;
-  const percent = (cutoff / bucketCount) * 100;
-  const gapOffset = ((cutoff / bucketCount) - 0.5) * gapPx;
-  return `calc(${percent}% + ${gapOffset}px)`;
 }
 
 function renderProblemDistribution(problem, details) {

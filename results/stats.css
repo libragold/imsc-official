@@ -258,6 +258,7 @@ h3 { font-size: 0.95rem; }
 
 .individual-histogram-column {
   display: grid;
+  position: relative;
   grid-template-rows: 380px 22px;
   align-items: end;
   min-width: 0;
@@ -357,15 +358,14 @@ h3 { font-size: 0.95rem; }
   position: absolute;
   top: 36px;
   bottom: 22px;
-  left: var(--cutoff-left);
+  left: calc(var(--bucket-gap) / -2);
   z-index: 3;
-  width: 26px;
+  width: 0;
   min-height: 0;
   padding: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
-  transform: translateX(-50%);
   pointer-events: none;
 }
 
