@@ -121,6 +121,40 @@ h3 { font-size: 0.95rem; }
   font-weight: 720;
 }
 
+.semina-note {
+  margin-bottom: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.semina-note-label {
+  margin: 0 0 5px;
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 820;
+  text-transform: uppercase;
+}
+
+.semina-note p {
+  margin: 7px 0 0;
+  color: var(--ink);
+  font-size: 0.9rem;
+  line-height: 1.48;
+}
+
+.semina-note a {
+  color: var(--accent);
+  font-weight: 760;
+  text-decoration: none;
+}
+
+.semina-note a:hover {
+  text-decoration: underline;
+}
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -473,6 +507,7 @@ h3 { font-size: 0.95rem; }
 @media (max-width: 520px) {
   main { padding: 0 10px 14px; }
   .summary-strip { padding: 8px 0; }
+  .semina-note { padding: 13px 15px; }
   .results-heading {
     align-items: center;
     gap: 8px;
